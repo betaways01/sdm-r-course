@@ -1,0 +1,114 @@
+# Introduction
+
+[![World Distribution of Plants and Animals](images/World Distribution of Plants and Animals Blue Pastel  Nature Style .png)](https://betaways01.github.io/basim-sessions/index.html)
+
+## Course Overview
+
+This course focuses on **Species Distribution Modeling (SDM)**, a critical method for understanding the spatial distribution of species and their relationship with environmental variables. SDMs are widely applied in various fields, including biodiversity conservation, ecological research, and environmental management. Participants will explore key concepts in SDM, spatial data handling, and best practices for model evaluation and projection.
+
+The course content is divided into:
+
+-   **Lecture Topics:** Covering the theoretical framework, offering an in-depth understanding of the underlying principles of SDMs.
+-   **Practical Sessions:** Providing hands-on experience with spatial data and SDM algorithms using R, equipping participants with real-world skills.
+
+Lecture recordings, PDFs, and relevant papers are shared through a Google Drive folder and / or a Github repository, which is updated periodically throughout the course.
+
+> **Note:** This course emphasizes critical thinking when applying SDMs. Participants will learn to assess the strengths and limitations of different modeling approaches to make informed decisions.
+
+------------------------------------------------------------------------
+
+## Logistics and Structure
+
+The course spans **two weeks**. Each session includes:
+
+-   **Lectures**
+-   **Discussions**
+-   **Practical exercises**
+
+The structured schedule ensures that participants gain both theoretical knowledge and practical experience by balancing lecture content with applied activities.
+
+### Resource Hub
+
+All essential files, including:
+
+-   **Datasets**
+-   **R scripts**
+-   **Supplementary reading materials**
+
+These resources are organized in separate folders within the shared Google Drive. Students are encouraged to explore these materials and follow along during practical sessions.
+
+### Pre-Course Setup
+
+Participants are advised to install key R libraries before the course begins. A script (`installlibs.R`) is available in the code folder to facilitate this process. This script installs most of the necessary libraries, minimizing technical issues during sessions.
+
+> **Tip:** For participants who encounter difficulties, support will be provided to ensure a smooth installation process.
+
+------------------------------------------------------------------------
+
+## Instructor Background
+
+The instructor holds a background in **aerospace engineering** but transitioned into ecological modeling after developing a keen interest in understanding biodiversity patterns. This unique background brings a **multidisciplinary approach** to the course, combining analytical rigor from engineering with ecological insights. Their research spans from genomic variation to community-level biodiversity modeling, with a focus on climate adaptation and vulnerability assessment.
+
+Over the years, the instructor has contributed to several high-impact studies on:
+
+-   **Climate change**
+-   **Invasive species**
+-   **Habitat suitability modeling**
+
+These experiences provide participants with practical insights into the complexities of ecological modeling and real-world applications of SDMs.
+
+------------------------------------------------------------------------
+
+## Course Objectives
+
+By the end of this course, participants will be able to:
+
+-   **Understand** the fundamentals of spatial data and species distribution modeling.
+-   **Identify** and address challenges in working with spatial data, including issues related to resolution, data accuracy, and environmental predictors.
+-   **Apply** various SDM algorithms, with a focus on MaxEnt, a popular tool for presence-only data.
+    -   MaxEnt’s capabilities will be explored in depth, highlighting its strengths and common pitfalls.
+-   **Evaluate** and interpret SDM outputs, ensuring adherence to best practices by using appropriate metrics and validation techniques.
+-   **Explore** future climate scenarios and ensemble modeling to predict species distribution under changing environmental conditions.
+    -   Advanced topics, such as downscaling climate data and combining multiple models to improve prediction accuracy, will be introduced.
+
+------------------------------------------------------------------------
+
+## Practical Exercises
+
+Two key practicals have been developed for this course:
+
+1.  **Handling Spatial Data:**
+    -   Preparing spatial data for SDM, including loading, manipulating, and visualizing spatial datasets in R.
+    -   This exercise helps participants become familiar with common spatial data formats, such as shapefiles and raster files, and how to process them efficiently.
+2.  **Fitting and Evaluating SDMs:**
+    -   Applying SDM algorithms, evaluating model performance, and interpreting results.
+    -   This practical focuses on using MaxEnt and other algorithms, covering essential steps like variable selection, model fitting, and output interpretation.
+
+> **Solutions:** These exercises are designed to foster independent learning. Solutions will be provided after the course to enable participants to compare their approaches with the instructor’s solutions.
+
+------------------------------------------------------------------------
+
+## Communication and Support
+
+Participants are encouraged to actively engage during sessions by:
+
+-   **Asking questions**
+-   **Sharing insights**
+
+### Collaborative Learning
+
+Collaboration among participants is highly encouraged. Sharing experiences and discussing challenges can enhance the learning experience for everyone. Depending on participant interest, a dedicated discussion forum may be set up to facilitate ongoing conversations and support.
+
+> **Reminder:** Active participation is key to making the most out of this course.
+
+------------------------------------------------------------------------
+
+## Key References
+
+The course references several recent papers on **best practices in SDM**, published around 2019-2020. These papers are available in the Google Drive under the **"Best Practices"** folder. Participants are recommended to review these papers to enhance their understanding of effective workflows and methodologies.
+
+### Supplementary Readings
+
+In addition to the core materials, supplementary readings covering advanced topics, such as **ensemble modeling** and **climate change projections**, will be provided. These readings offer valuable insights for participants interested in pursuing further research or applications in SDM.
+
+------------------------------------------------------------------------

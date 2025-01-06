@@ -1,0 +1,146 @@
+# Chapter 2: Understanding Spatial Data
+
+## Introduction to Spatial Data
+
+Spatial data describes the location, shape, and characteristics of features on Earth. It is essential in fields like ecology and geography, where spatial relationships and patterns are analyzed. Spatial data can be classified into two main types:
+
+1. **Vector Data**: Represents discrete features such as points, lines, or polygons.
+2. **Raster Data**: Represents continuous surfaces divided into a grid of equally-sized cells or pixels.
+
+These data types are commonly used together in ecological studies to model species distributions and analyze environmental patterns.
+
+## Types of Spatial Data
+
+### Vector Data
+Vector data represents distinct objects with defined boundaries. Examples include:
+
+- **Points**: Locations, such as species sightings.
+- **Lines**: Linear features, like rivers or roads.
+- **Polygons**: Areas, such as forests or lakes.
+
+Each vector feature consists of:
+- **Geometry**: Specifies the shape and spatial position.
+- **Attributes**: Provides information about the feature, such as species name or elevation.
+
+#### Example: Reading and Plotting Vector Data in R
+```{r}
+# Load required packages
+library(sp)
+library(rgdal)
+
+# Reading a shapefile
+vector_data <- readOGR("path/to/shapefile.shp")
+
+# Plotting the vector data
+plot(vector_data, main = "Vector Data Example")
+```
+> **Tip**: Ensure all files (.shp, .shx, .dbf) associated with a shapefile are present when loading it in R.
+
+### Raster Data
+Raster data represents continuous phenomena such as temperature, elevation, or land cover. It comprises:
+
+- **Pixels**: Grid cells, each containing a single value representing the measured variable.
+- **Resolution**: The size of each pixel, determining the level of detail.
+
+#### Example: Reading and Plotting Raster Data in R
+```{r}
+# Load required package
+library(raster)
+
+# Reading a raster file
+raster_data <- raster("path/to/raster.tif")
+
+# Plotting the raster data
+plot(raster_data, main = "Raster Data Example")
+```
+> **Note**: Higher resolution means smaller pixels and more detail but larger file sizes and longer processing times.
+
+## Coordinate Reference Systems (CRS)
+
+A coordinate reference system (CRS) defines how spatial data relates to locations on Earth. It ensures that spatial layers align correctly when mapped or analyzed.
+
+### Types of CRS
+
+1. **Geographic CRS**: Uses latitude and longitude (e.g., WGS84).
+2. **Projected CRS**: Converts Earth's 3D surface into a flat 2D plane, often used for detailed regional analyses (e.g., UTM, Albers Equal Area).
+
+### Example: Reprojecting Data in R
+```{r}
+# Reprojecting vector data
+reprojected_vector <- spTransform(vector_data, CRS("+proj=utm +zone=33 +datum=WGS84"))
+
+# Reprojecting raster data
+reprojected_raster <- projectRaster(raster_data, crs = CRS("+proj=utm +zone=33 +datum=WGS84"))
+```
+> **Best Practice**: Always ensure all spatial layers use the same CRS before analysis.
+
+## Working with Spatial Data in R
+
+Several R packages facilitate spatial data handling:
+
+- **sp**: Widely used for vector data (older).
+- **sf**: Modern package with simpler syntax.
+- **raster**: For raster data operations.
+- **terra**: An updated package designed to replace raster, offering improved performance.
+
+### Example: Creating a Raster Stack
+A raster stack combines multiple raster layers into a single object for analysis.
+
+```{r}
+# Creating a raster stack
+raster_stack <- stack("path/to/raster1.tif", "path/to/raster2.tif")
+
+# Plotting the raster stack
+plot(raster_stack)
+```
+
+## Aligning Resolution and Extent
+
+When working with multiple rasters, it is crucial to ensure they have:
+
+1. **Consistent Resolution**: Same pixel size across layers.
+2. **Matching Extent**: Identical spatial coverage.
+
+### Example: Resampling Rasters in R
+```{r}
+# Aligning resolution and extent
+aligned_raster <- resample(raster_data, reference_raster, method = "bilinear")
+```
+> **Tip**: Use `resample` for resolution and `crop` or `extend` for extent.
+
+## Practical Exercise
+
+**Objective**: Load and process vector and raster datasets for species distribution modeling.
+
+### Steps:
+
+1. Load a vector dataset (species occurrences).
+2. Load raster datasets (environmental variables).
+3. Reproject the vector data to match the CRS of the rasters.
+4. Create a raster stack for analysis.
+
+### Example Code
+```{r}
+# Load libraries
+library(rgdal)
+library(raster)
+
+# Load vector data
+species_data <- readOGR("path/to/species.shp")
+
+# Load raster data
+climate_raster <- stack("path/to/climate1.tif", "path/to/climate2.tif")
+
+# Reproject vector data to match raster CRS
+species_data <- spTransform(species_data, CRS(proj4string(climate_raster)))
+
+# Plot results
+plot(climate_raster)
+plot(species_data, add = TRUE)
+```
+
+## Summary
+
+This chapter covered the key concepts of spatial data, including vector and raster formats, coordinate reference systems, and common operations in R. Understanding these foundations is critical for accurate spatial analysis and preparing data for species distribution modeling.
+
+In the next chapter, we will focus on building predictive models using spatial data, emphasizing species distribution modeling techniques.

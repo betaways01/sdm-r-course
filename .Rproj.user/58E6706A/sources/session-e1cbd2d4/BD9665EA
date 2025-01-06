@@ -1,24 +1,26 @@
 {
-    "id": "545705C1",
+    "id": "BD9665EA",
     "path": "~/Desktop/WORK/Basim Alsaedi/SDM-Course/index.Rmd",
     "project_path": "index.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "1673829349",
     "contents": "",
     "dirty": false,
-    "created": 1736176267676.0,
+    "created": 1736178902386.0,
     "source_on_save": false,
     "relative_order": 2,
     "properties": {
         "source_window_id": "",
-        "Source": "Source"
+        "Source": "Source",
+        "cursorPosition": "52,0",
+        "scrollLine": "20"
     },
     "folds": "",
-    "lastKnownWriteTime": 1736176264,
+    "lastKnownWriteTime": 1736179030,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1736176264,
+    "last_content_update": 1736179030520,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -1,0 +1,19 @@
+h1:chapter-2-understanding-spatial-data Chapter 2: Understanding Spatial Data
+h2:introduction-to-spatial-data Introduction to Spatial Data
+h2:types-of-spatial-data Types of Spatial Data
+h3:vector-data Vector Data
+h4:example-reading-and-plotting-vector-data-in-r Example: Reading and Plotting Vector Data in R
+h3:raster-data Raster Data
+h4:example-reading-and-plotting-raster-data-in-r Example: Reading and Plotting Raster Data in R
+h2:coordinate-reference-systems-crs Coordinate Reference Systems (CRS)
+h3:types-of-crs Types of CRS
+h3:example-reprojecting-data-in-r Example: Reprojecting Data in R
+h2:working-with-spatial-data-in-r Working with Spatial Data in R
+h3:example-creating-a-raster-stack Example: Creating a Raster Stack
+h2:aligning-resolution-and-extent Aligning Resolution and Extent
+h3:example-resampling-rasters-in-r Example: Resampling Rasters in R
+h2:practical-exercise Practical Exercise
+h3:steps Steps:
+h3:example-code Example Code
+h2:summary Summary
+
