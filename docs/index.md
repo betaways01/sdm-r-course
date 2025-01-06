@@ -15,43 +15,39 @@ biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
 
-# About
+# Welcome!
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$.
+Welcome to the **Species Distribution Modeling (SDM) Course**! 🎉 We are excited to have you here and hope this course will be a valuable and enjoyable learning experience.
 
-## Usage 
+> This course is designed to provide both **theoretical insights** and **hands-on practical skills** in SDM. Whether you're new to SDMs or looking to deepen your understanding, this course has something for you!
 
-Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading.
+---
 
-Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`.
+## What to Expect
 
-The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book.
+Throughout this course, you’ll engage with:
+- **Interactive lectures** explaining key SDM concepts.
+- **Hands-on practicals** where you’ll work with spatial data in R.
+- Opportunities to collaborate and learn from your peers.
 
-## Render book
+---
 
-You can render the HTML version of this example book without changing anything:
+### How to Get Started
 
-1. Find the **Build** pane in the RStudio IDE, and
+1. **Check the Resource Hub:**  
+   All essential files (datasets, scripts, and reading materials) are available in the shared folders.
+   
+2. **Set Up Your Environment:**  
+   Ensure that you have R and RStudio installed. Run the provided `installlibs.R` script to install necessary R packages.
 
-1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
+3. **Stay Curious and Ask Questions:**  
+   Active participation is key! Don’t hesitate to ask questions, share your thoughts, or seek help when needed.
 
-Or build the book from the R console:
+---
 
+> **Pro Tip:** Keep this document handy as your guide throughout the course.
 
-``` r
-bookdown::render_book()
-```
+---
 
-To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
-
-## Preview book
-
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
-
-
-``` r
-bookdown::serve_book()
-```
-
-
+Let's dive in and start learning about how we can use models to understand and predict species distributions! 🌍🐾
 

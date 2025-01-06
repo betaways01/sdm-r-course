@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Introduction | A Minimal Book Example</title>
+<meta name="author" content="John Doe">
+<meta name="description" content="2.1 Course Overview This course focuses on Species Distribution Modeling (SDM), a critical method for understanding the spatial distribution of species and their relationship with environmental...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Introduction | A Minimal Book Example">
+<meta property="og:type" content="book">
+<meta property="og:description" content="2.1 Course Overview This course focuses on Species Distribution Modeling (SDM), a critical method for understanding the spatial distribution of species and their relationship with environmental...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Introduction | A Minimal Book Example">
+<meta name="twitter:description" content="2.1 Course Overview This course focuses on Species Distribution Modeling (SDM), a critical method for understanding the spatial distribution of species and their relationship with environmental...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">A Minimal Book Example</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Welcome!</a></li>
+<li><a class="active" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="chapter-2-understanding-spatial-data.html"><span class="header-section-number">3</span> Chapter 2: Understanding Spatial Data</a></li>
+<li><a class="" href="parts.html"><span class="header-section-number">4</span> Parts</a></li>
+<li><a class="" href="footnotes-and-citations.html"><span class="header-section-number">5</span> Footnotes and citations</a></li>
+<li><a class="" href="blocks.html"><span class="header-section-number">6</span> Blocks</a></li>
+<li><a class="" href="sharing-your-book.html"><span class="header-section-number">7</span> Sharing your book</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduction" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction"><i class="fas fa-link"></i></a>
+</h1>
+<p><a href="https://betaways01.github.io/basim-sessions/index.html"><img src="images/World%20Distribution%20of%20Plants%20and%20Animals%20Blue%20Pastel%20Nature%20Style%20.png" alt="World Distribution of Plants and Animals"></a></p>
+<div id="course-overview" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Course Overview<a class="anchor" aria-label="anchor" href="#course-overview"><i class="fas fa-link"></i></a>
+</h2>
+<p>This course focuses on <strong>Species Distribution Modeling (SDM)</strong>, a critical method for understanding the spatial distribution of species and their relationship with environmental variables. SDMs are widely applied in various fields, including biodiversity conservation, ecological research, and environmental management. Participants will explore key concepts in SDM, spatial data handling, and best practices for model evaluation and projection.</p>
+<p>The course content is divided into:</p>
+<ul>
+<li>
+<strong>Lecture Topics:</strong> Covering the theoretical framework, offering an in-depth understanding of the underlying principles of SDMs.</li>
+<li>
+<strong>Practical Sessions:</strong> Providing hands-on experience with spatial data and SDM algorithms using R, equipping participants with real-world skills.</li>
+</ul>
+<p>Lecture recordings, PDFs, and relevant papers are shared through a Google Drive folder and / or a Github repository, which is updated periodically throughout the course.</p>
+<blockquote>
+<p><strong>Note:</strong> This course emphasizes critical thinking when applying SDMs. Participants will learn to assess the strengths and limitations of different modeling approaches to make informed decisions.</p>
+</blockquote>
+<hr>
+</div>
+<div id="logistics-and-structure" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Logistics and Structure<a class="anchor" aria-label="anchor" href="#logistics-and-structure"><i class="fas fa-link"></i></a>
+</h2>
+<p>The course spans <strong>two weeks</strong>. Each session includes:</p>
+<ul>
+<li><strong>Lectures</strong></li>
+<li><strong>Discussions</strong></li>
+<li><strong>Practical exercises</strong></li>
+</ul>
+<p>The structured schedule ensures that participants gain both theoretical knowledge and practical experience by balancing lecture content with applied activities.</p>
+<div id="resource-hub" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Resource Hub<a class="anchor" aria-label="anchor" href="#resource-hub"><i class="fas fa-link"></i></a>
+</h3>
+<p>All essential files, including:</p>
+<ul>
+<li><strong>Datasets</strong></li>
+<li><strong>R scripts</strong></li>
+<li><strong>Supplementary reading materials</strong></li>
+</ul>
+<p>These resources are organized in separate folders within the shared Google Drive. Students are encouraged to explore these materials and follow along during practical sessions.</p>
+</div>
+<div id="pre-course-setup" class="section level3" number="2.2.2">
+<h3>
+<span class="header-section-number">2.2.2</span> Pre-Course Setup<a class="anchor" aria-label="anchor" href="#pre-course-setup"><i class="fas fa-link"></i></a>
+</h3>
+<p>Participants are advised to install key R libraries before the course begins. A script (<code>installlibs.R</code>) is available in the code folder to facilitate this process. This script installs most of the necessary libraries, minimizing technical issues during sessions.</p>
+<blockquote>
+<p><strong>Tip:</strong> For participants who encounter difficulties, support will be provided to ensure a smooth installation process.</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="instructor-background" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Instructor Background<a class="anchor" aria-label="anchor" href="#instructor-background"><i class="fas fa-link"></i></a>
+</h2>
+<p>The instructor holds a background in <strong>aerospace engineering</strong> but transitioned into ecological modeling after developing a keen interest in understanding biodiversity patterns. This unique background brings a <strong>multidisciplinary approach</strong> to the course, combining analytical rigor from engineering with ecological insights. Their research spans from genomic variation to community-level biodiversity modeling, with a focus on climate adaptation and vulnerability assessment.</p>
+<p>Over the years, the instructor has contributed to several high-impact studies on:</p>
+<ul>
+<li><strong>Climate change</strong></li>
+<li><strong>Invasive species</strong></li>
+<li><strong>Habitat suitability modeling</strong></li>
+</ul>
+<p>These experiences provide participants with practical insights into the complexities of ecological modeling and real-world applications of SDMs.</p>
+<hr>
+</div>
+<div id="course-objectives" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Course Objectives<a class="anchor" aria-label="anchor" href="#course-objectives"><i class="fas fa-link"></i></a>
+</h2>
+<p>By the end of this course, participants will be able to:</p>
+<ul>
+<li>
+<strong>Understand</strong> the fundamentals of spatial data and species distribution modeling.</li>
+<li>
+<strong>Identify</strong> and address challenges in working with spatial data, including issues related to resolution, data accuracy, and environmental predictors.</li>
+<li>
+<strong>Apply</strong> various SDM algorithms, with a focus on MaxEnt, a popular tool for presence-only data.
+<ul>
+<li>MaxEnt’s capabilities will be explored in depth, highlighting its strengths and common pitfalls.</li>
+</ul>
+</li>
+<li>
+<strong>Evaluate</strong> and interpret SDM outputs, ensuring adherence to best practices by using appropriate metrics and validation techniques.</li>
+<li>
+<strong>Explore</strong> future climate scenarios and ensemble modeling to predict species distribution under changing environmental conditions.
+<ul>
+<li>Advanced topics, such as downscaling climate data and combining multiple models to improve prediction accuracy, will be introduced.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="practical-exercises" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Practical Exercises<a class="anchor" aria-label="anchor" href="#practical-exercises"><i class="fas fa-link"></i></a>
+</h2>
+<p>Two key practicals have been developed for this course:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Handling Spatial Data:</strong>
+<ul>
+<li>Preparing spatial data for SDM, including loading, manipulating, and visualizing spatial datasets in R.</li>
+<li>This exercise helps participants become familiar with common spatial data formats, such as shapefiles and raster files, and how to process them efficiently.</li>
+</ul>
+</li>
+<li>
+<strong>Fitting and Evaluating SDMs:</strong>
+<ul>
+<li>Applying SDM algorithms, evaluating model performance, and interpreting results.</li>
+<li>This practical focuses on using MaxEnt and other algorithms, covering essential steps like variable selection, model fitting, and output interpretation.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>Solutions:</strong> These exercises are designed to foster independent learning. Solutions will be provided after the course to enable participants to compare their approaches with the instructor’s solutions.</p>
+</blockquote>
+<hr>
+</div>
+<div id="communication-and-support" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Communication and Support<a class="anchor" aria-label="anchor" href="#communication-and-support"><i class="fas fa-link"></i></a>
+</h2>
+<p>Participants are encouraged to actively engage during sessions by:</p>
+<ul>
+<li><strong>Asking questions</strong></li>
+<li><strong>Sharing insights</strong></li>
+</ul>
+<div id="collaborative-learning" class="section level3" number="2.6.1">
+<h3>
+<span class="header-section-number">2.6.1</span> Collaborative Learning<a class="anchor" aria-label="anchor" href="#collaborative-learning"><i class="fas fa-link"></i></a>
+</h3>
+<p>Collaboration among participants is highly encouraged. Sharing experiences and discussing challenges can enhance the learning experience for everyone. Depending on participant interest, a dedicated discussion forum may be set up to facilitate ongoing conversations and support.</p>
+<blockquote>
+<p><strong>Reminder:</strong> Active participation is key to making the most out of this course.</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="key-references" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Key References<a class="anchor" aria-label="anchor" href="#key-references"><i class="fas fa-link"></i></a>
+</h2>
+<p>The course references several recent papers on <strong>best practices in SDM</strong>, published around 2019-2020. These papers are available in the Google Drive under the <strong>“Best Practices”</strong> folder. Participants are recommended to review these papers to enhance their understanding of effective workflows and methodologies.</p>
+<div id="supplementary-readings" class="section level3" number="2.7.1">
+<h3>
+<span class="header-section-number">2.7.1</span> Supplementary Readings<a class="anchor" aria-label="anchor" href="#supplementary-readings"><i class="fas fa-link"></i></a>
+</h3>
+<p>In addition to the core materials, supplementary readings covering advanced topics, such as <strong>ensemble modeling</strong> and <strong>climate change projections</strong>, will be provided. These readings offer valuable insights for participants interested in pursuing further research or applications in SDM.</p>
+<hr>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Welcome!</a></div>
+<div class="next"><a href="chapter-2-understanding-spatial-data.html"><span class="header-section-number">3</span> Chapter 2: Understanding Spatial Data</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="nav-link" href="#course-overview"><span class="header-section-number">2.1</span> Course Overview</a></li>
+<li>
+<a class="nav-link" href="#logistics-and-structure"><span class="header-section-number">2.2</span> Logistics and Structure</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#resource-hub"><span class="header-section-number">2.2.1</span> Resource Hub</a></li>
+<li><a class="nav-link" href="#pre-course-setup"><span class="header-section-number">2.2.2</span> Pre-Course Setup</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#instructor-background"><span class="header-section-number">2.3</span> Instructor Background</a></li>
+<li><a class="nav-link" href="#course-objectives"><span class="header-section-number">2.4</span> Course Objectives</a></li>
+<li><a class="nav-link" href="#practical-exercises"><span class="header-section-number">2.5</span> Practical Exercises</a></li>
+<li>
+<a class="nav-link" href="#communication-and-support"><span class="header-section-number">2.6</span> Communication and Support</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#collaborative-learning"><span class="header-section-number">2.6.1</span> Collaborative Learning</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#key-references"><span class="header-section-number">2.7</span> Key References</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#supplementary-readings"><span class="header-section-number">2.7.1</span> Supplementary Readings</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/01-course-intro.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/01-course-intro.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>A Minimal Book Example</strong>" was written by John Doe. It was last built on 2025-01-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
