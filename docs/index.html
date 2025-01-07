@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 1 Welcome! | A Minimal Book Example</title>
-<meta name="author" content="John Doe">
+<meta name="author" content="Basim Alsaedi">
 <meta name="description" content="&lt;p&gt;This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::bs4_book,
 set in the _output.yml file.&lt;/p&gt;">
@@ -91,40 +91,333 @@ set in the _output.yml file.&lt;/p&gt;">
 <h1>
 <span class="header-section-number">1</span> Welcome!<a class="anchor" aria-label="anchor" href="#welcome"><i class="fas fa-link"></i></a>
 </h1>
-<p>Welcome to the <strong>Species Distribution Modeling (SDM) Course</strong>! 🎉 We are excited to have you here and hope this course will be a valuable and enjoyable learning experience.</p>
+<p>Welcome to the <strong>Species Distribution Modeling (SDM) Course</strong>! 🎉 This course is designed to provide both <strong>theoretical insights</strong> and <strong>hands-on practical skills</strong> for understanding and predicting species distributions. Whether you’re new to SDMs or looking to deepen your expertise, you’re in the right place!</p>
 <blockquote>
-<p>This course is designed to provide both <strong>theoretical insights</strong> and <strong>hands-on practical skills</strong> in SDM. Whether you’re new to SDMs or looking to deepen your understanding, this course has something for you!</p>
+<p><strong>Goal:</strong> Equip participants with the knowledge and tools to build reliable species distribution models using R.</p>
 </blockquote>
 <hr>
 <div id="what-to-expect" class="section level2" number="1.1">
 <h2>
 <span class="header-section-number">1.1</span> What to Expect<a class="anchor" aria-label="anchor" href="#what-to-expect"><i class="fas fa-link"></i></a>
 </h2>
-<p>Throughout this course, you’ll engage with:
-- <strong>Interactive lectures</strong> explaining key SDM concepts.
-- <strong>Hands-on practicals</strong> where you’ll work with spatial data in R.
-- Opportunities to collaborate and learn from your peers.</p>
-<hr>
-<div id="how-to-get-started" class="section level3" number="1.1.1">
+<p>Throughout this course, you will engage in:</p>
+<ul>
+<li>
+<strong>Interactive lectures</strong> covering key SDM concepts.</li>
+<li>
+<strong>Hands-on practical sessions</strong> involving spatial data analysis in R.</li>
+<li>
+<strong>Collaborative learning</strong> through discussions and group activities.</li>
+</ul>
+<div id="learning-path" class="section level3" number="1.1.1">
 <h3>
-<span class="header-section-number">1.1.1</span> How to Get Started<a class="anchor" aria-label="anchor" href="#how-to-get-started"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.1.1</span> Learning Path<a class="anchor" aria-label="anchor" href="#learning-path"><i class="fas fa-link"></i></a>
 </h3>
-<ol style="list-style-type: decimal">
-<li><p><strong>Check the Resource Hub:</strong><br>
-All essential files (datasets, scripts, and reading materials) are available in the shared folders.</p></li>
-<li><p><strong>Set Up Your Environment:</strong><br>
-Ensure that you have R and RStudio installed. Run the provided <code>installlibs.R</code> script to install necessary R packages.</p></li>
-<li><p><strong>Stay Curious and Ask Questions:</strong><br>
-Active participation is key! Don’t hesitate to ask questions, share your thoughts, or seek help when needed.</p></li>
-</ol>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="25%">
+<col width="74%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Module</strong></th>
+<th><strong>Content</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Module 1</strong></td>
+<td>Introduction to Species Distribution Modeling</td>
+</tr>
+<tr class="even">
+<td><strong>Module 2</strong></td>
+<td>Preparing Spatial Data for Modeling</td>
+</tr>
+<tr class="odd">
+<td><strong>Module 3</strong></td>
+<td>Applying SDM Algorithms (MaxEnt, GLM, RF, etc.)</td>
+</tr>
+<tr class="even">
+<td><strong>Module 4</strong></td>
+<td>Model Evaluation &amp; Interpretation</td>
+</tr>
+<tr class="odd">
+<td><strong>Module 5</strong></td>
+<td>Advanced Topics: Ensemble Modeling &amp; Climate Projections</td>
+</tr>
+</tbody>
+</table></div>
 <hr>
+</div>
+</div>
+<div id="how-to-get-started" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> How to Get Started 🚀<a class="anchor" aria-label="anchor" href="#how-to-get-started"><i class="fas fa-link"></i></a>
+</h2>
+<p>Follow these steps to set up your environment and begin your SDM journey:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Check the Resource Hub:</strong>
+<ul>
+<li>Access essential files, including datasets, scripts, and reading materials, via the shared Google Drive.</li>
+</ul>
+</li>
+<li>
+<strong>Set Up Your Environment:</strong>
+<ul>
+<li>Ensure R and RStudio are installed.</li>
+<li>Run the <code>installlibs.R</code> script to install required packages.</li>
+</ul>
+</li>
+<li>
+<strong>Stay Engaged:</strong>
+<ul>
+<li>Participate actively in lectures and practicals.</li>
+<li>Ask questions and share your insights during sessions.</li>
+</ul>
+</li>
+</ol>
 <blockquote>
-<p><strong>Pro Tip:</strong> Keep this document handy as your guide throughout the course.</p>
+<p><strong>Tip:</strong> Bookmark this guide for easy reference throughout the course. 📖</p>
 </blockquote>
 <hr>
-<p>Let’s dive in and start learning about how we can use models to understand and predict species distributions! 🌍🐾</p>
-
 </div>
+<div id="course-overview" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> Course Overview 🌍<a class="anchor" aria-label="anchor" href="#course-overview"><i class="fas fa-link"></i></a>
+</h2>
+<p>Species Distribution Models (SDMs) are powerful tools for understanding where species are likely to occur based on environmental variables. They play a crucial role in:</p>
+<ul>
+<li><strong>Biodiversity conservation</strong></li>
+<li><strong>Ecological research</strong></li>
+<li><strong>Environmental management</strong></li>
+</ul>
+<div id="core-topics-covered" class="section level3" number="1.3.1">
+<h3>
+<span class="header-section-number">1.3.1</span> Core Topics Covered<a class="anchor" aria-label="anchor" href="#core-topics-covered"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Theoretical Framework:</strong>
+<ul>
+<li>Learn the fundamental principles of SDMs, including ecological niche theory and predictor variables.</li>
+</ul>
+</li>
+<li>
+<strong>Spatial Data Handling:</strong>
+<ul>
+<li>Gain hands-on experience with spatial datasets in R (e.g., shapefiles, raster data).</li>
+</ul>
+</li>
+<li>
+<strong>Modeling Algorithms:</strong>
+<ul>
+<li>Explore different SDM algorithms, such as:
+<ul>
+<li>
+<strong>MaxEnt:</strong> For presence-only data.</li>
+<li>
+<strong>Generalized Linear Models (GLM)</strong> and <strong>Random Forests (RF)</strong> for presence-absence data.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Model Evaluation:</strong>
+<ul>
+<li>Use metrics like AUC, TSS, and Kappa to assess model performance.</li>
+</ul>
+</li>
+<li>
+<strong>Projection &amp; Scenario Analysis:</strong>
+<ul>
+<li>Predict species distributions under future climate scenarios using ensemble modeling.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</div>
+</div>
+<div id="logistics-and-structure" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Logistics and Structure 🗓️<a class="anchor" aria-label="anchor" href="#logistics-and-structure"><i class="fas fa-link"></i></a>
+</h2>
+<p>The course spans <strong>two weeks</strong>, with each week comprising:</p>
+<ul>
+<li>
+<strong>Lectures</strong> (1-2 hours)</li>
+<li>
+<strong>Discussions</strong> (30 minutes)</li>
+<li>
+<strong>Practical Exercises</strong> (2-3 hours)</li>
+</ul>
+<div id="daily-schedule-example" class="section level3" number="1.4.1">
+<h3>
+<span class="header-section-number">1.4.1</span> Daily Schedule Example<a class="anchor" aria-label="anchor" href="#daily-schedule-example"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th><strong>Time</strong></th>
+<th><strong>Activity</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>9:00 AM - 10:30 AM</td>
+<td>Lecture: SDM Basics</td>
+</tr>
+<tr class="even">
+<td>10:30 AM - 11:00 AM</td>
+<td>Break</td>
+</tr>
+<tr class="odd">
+<td>11:00 AM - 1:00 PM</td>
+<td>Practical: Preparing Spatial Data</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+</div>
+<div id="instructor-background" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Instructor Background 👩‍🏫<a class="anchor" aria-label="anchor" href="#instructor-background"><i class="fas fa-link"></i></a>
+</h2>
+<p>The course instructor brings a unique blend of expertise in <strong>aerospace engineering</strong> and <strong>ecological modeling</strong>. Their research focuses on:</p>
+<ul>
+<li><strong>Climate change impacts</strong></li>
+<li><strong>Invasive species management</strong></li>
+<li><strong>Habitat suitability modeling</strong></li>
+</ul>
+<p>This interdisciplinary approach ensures a well-rounded learning experience, combining technical rigor with ecological insight.</p>
+<hr>
+</div>
+<div id="course-objectives" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> Course Objectives 🎯<a class="anchor" aria-label="anchor" href="#course-objectives"><i class="fas fa-link"></i></a>
+</h2>
+<p>By the end of this course, you will be able to:</p>
+<ul>
+<li>
+<strong>Understand</strong> the principles of SDMs and spatial data analysis.</li>
+<li>
+<strong>Prepare</strong> spatial datasets for modeling.</li>
+<li>
+<strong>Apply</strong> various SDM algorithms using R.</li>
+<li>
+<strong>Evaluate</strong> model performance using appropriate metrics.</li>
+<li>
+<strong>Interpret</strong> and <strong>project</strong> model results under different scenarios.</li>
+</ul>
+<blockquote>
+<p><strong>Advanced learners:</strong> Additional modules on ensemble modeling and climate downscaling will be available for those interested in more in-depth exploration.</p>
+</blockquote>
+<hr>
+</div>
+<div id="practical-exercises" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> Practical Exercises 💻<a class="anchor" aria-label="anchor" href="#practical-exercises"><i class="fas fa-link"></i></a>
+</h2>
+<p>This course emphasizes hands-on learning. Key practical exercises include:</p>
+<div id="handling-spatial-data" class="section level3" number="1.7.1">
+<h3>
+<span class="header-section-number">1.7.1</span> 1. Handling Spatial Data<a class="anchor" aria-label="anchor" href="#handling-spatial-data"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Objective:</strong> Prepare spatial data for SDM by loading, manipulating, and visualizing datasets in R.</li>
+<li>
+<strong>Skills Learned:</strong>
+<ul>
+<li>Loading shapefiles and raster data.</li>
+<li>Performing spatial operations.</li>
+<li>Visualizing spatial data using <code>ggplot2</code> and <code>leaflet</code>.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="fitting-and-evaluating-sdms" class="section level3" number="1.7.2">
+<h3>
+<span class="header-section-number">1.7.2</span> 2. Fitting and Evaluating SDMs<a class="anchor" aria-label="anchor" href="#fitting-and-evaluating-sdms"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Objective:</strong> Apply SDM algorithms and evaluate model performance.</li>
+<li>
+<strong>Skills Learned:</strong>
+<ul>
+<li>Running MaxEnt and GLM models.</li>
+<li>Evaluating models using AUC, TSS, and Kappa metrics.</li>
+<li>Interpreting model outputs.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Solutions will be shared after the course to allow self-assessment.</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="communication-and-support" class="section level2" number="1.8">
+<h2>
+<span class="header-section-number">1.8</span> Communication and Support 🤝<a class="anchor" aria-label="anchor" href="#communication-and-support"><i class="fas fa-link"></i></a>
+</h2>
+<p>Active participation is key to making the most of this course. Participants are encouraged to:</p>
+<ul>
+<li>
+<strong>Ask questions</strong> during sessions.</li>
+<li>
+<strong>Share insights</strong> and experiences.</li>
+<li>
+<strong>Collaborate</strong> with peers through group activities and discussions.</li>
+</ul>
+<div id="support-channels" class="section level3" number="1.8.1">
+<h3>
+<span class="header-section-number">1.8.1</span> Support Channels<a class="anchor" aria-label="anchor" href="#support-channels"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Email Support:</strong> Reach out to the instructor for any queries.</li>
+<li>
+<strong>Discussion Forum:</strong> A dedicated forum will be set up for ongoing discussions.</li>
+<li>
+<strong>Office Hours:</strong> Weekly office hours for one-on-one support.</li>
+</ul>
+<blockquote>
+<p><strong>Reminder:</strong> Collaboration fosters better learning, so don’t hesitate to engage with your peers! 🤗</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="references-and-readings" class="section level2" number="1.9">
+<h2>
+<span class="header-section-number">1.9</span> References and Readings 📚<a class="anchor" aria-label="anchor" href="#references-and-readings"><i class="fas fa-link"></i></a>
+</h2>
+<p>The course references several recent publications on best practices in SDM (2019-2023). Key references include:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Elith &amp; Leathwick (2019)</strong> - A comprehensive review of SDM methods.</li>
+<li>
+<strong>Phillips et al. (2020)</strong> - Guidelines for using MaxEnt in ecological modeling.</li>
+</ol>
+<p>All papers are available in the shared Google Drive under the <strong>“Best Practices”</strong> folder.</p>
+<div id="supplementary-readings" class="section level3" number="1.9.1">
+<h3>
+<span class="header-section-number">1.9.1</span> Supplementary Readings<a class="anchor" aria-label="anchor" href="#supplementary-readings"><i class="fas fa-link"></i></a>
+</h3>
+<p>Additional readings on advanced topics, such as:</p>
+<ul>
+<li><strong>Ensemble Modeling</strong></li>
+<li><strong>Climate Change Projections</strong></li>
+</ul>
+<p>These will be provided for participants interested in further exploration.</p>
+<hr>
+</div>
+</div>
+<div id="final-words" class="section level2" number="1.10">
+<h2>
+<span class="header-section-number">1.10</span> Final Words 🌟<a class="anchor" aria-label="anchor" href="#final-words"><i class="fas fa-link"></i></a>
+</h2>
+<p>We hope you find this course insightful and enjoyable. Let’s embark on this exciting journey into species distribution modeling together!</p>
+<p>Happy learning! 🚀</p>
+
 </div>
 </div>
   <div class="chapter-nav">
@@ -135,8 +428,30 @@ Active participation is key! Don’t hesitate to ask questions, share your thoug
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#welcome"><span class="header-section-number">1</span> Welcome!</a></li>
 <li>
-<a class="nav-link" href="#what-to-expect"><span class="header-section-number">1.1</span> What to Expect</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#how-to-get-started"><span class="header-section-number">1.1.1</span> How to Get Started</a></li></ul>
+<a class="nav-link" href="#what-to-expect"><span class="header-section-number">1.1</span> What to Expect</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#learning-path"><span class="header-section-number">1.1.1</span> Learning Path</a></li></ul>
 </li>
+<li><a class="nav-link" href="#how-to-get-started"><span class="header-section-number">1.2</span> How to Get Started 🚀</a></li>
+<li>
+<a class="nav-link" href="#course-overview"><span class="header-section-number">1.3</span> Course Overview 🌍</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#core-topics-covered"><span class="header-section-number">1.3.1</span> Core Topics Covered</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#logistics-and-structure"><span class="header-section-number">1.4</span> Logistics and Structure 🗓️</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#daily-schedule-example"><span class="header-section-number">1.4.1</span> Daily Schedule Example</a></li></ul>
+</li>
+<li><a class="nav-link" href="#instructor-background"><span class="header-section-number">1.5</span> Instructor Background 👩‍🏫</a></li>
+<li><a class="nav-link" href="#course-objectives"><span class="header-section-number">1.6</span> Course Objectives 🎯</a></li>
+<li>
+<a class="nav-link" href="#practical-exercises"><span class="header-section-number">1.7</span> Practical Exercises 💻</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#handling-spatial-data"><span class="header-section-number">1.7.1</span> 1. Handling Spatial Data</a></li>
+<li><a class="nav-link" href="#fitting-and-evaluating-sdms"><span class="header-section-number">1.7.2</span> 2. Fitting and Evaluating SDMs</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#communication-and-support"><span class="header-section-number">1.8</span> Communication and Support 🤝</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#support-channels"><span class="header-section-number">1.8.1</span> Support Channels</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#references-and-readings"><span class="header-section-number">1.9</span> References and Readings 📚</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#supplementary-readings"><span class="header-section-number">1.9.1</span> Supplementary Readings</a></li></ul>
+</li>
+<li><a class="nav-link" href="#final-words"><span class="header-section-number">1.10</span> Final Words 🌟</a></li>
 </ul>
 
       <div class="book-extra">
@@ -154,7 +469,7 @@ Active participation is key! Don’t hesitate to ask questions, share your thoug
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>A Minimal Book Example</strong>" was written by John Doe. It was last built on 2025-01-06.</p>
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-01-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
