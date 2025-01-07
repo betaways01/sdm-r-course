@@ -3,7 +3,7 @@
     "path": "~/Desktop/WORK/Basim Alsaedi/SDM-Course/01-course-intro.Rmd",
     "project_path": "01-course-intro.Rmd",
     "type": "r_markdown",
-    "hash": "192509071",
+    "hash": "0",
     "contents": "",
     "dirty": true,
     "created": 1736256097043.0,
@@ -12,15 +12,21 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "5,0",
-        "scrollLine": "0"
+        "cursorPosition": "443,136",
+        "scrollLine": "419",
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "1775:746",
+        "docOutlineSize": "145"
     },
     "folds": "",
-    "lastKnownWriteTime": 1736178860,
+    "lastKnownWriteTime": 1736258366,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1736256268964,
+    "last_content_update": 1736259760926,
     "read_only": false,
     "read_only_alternatives": []
 }

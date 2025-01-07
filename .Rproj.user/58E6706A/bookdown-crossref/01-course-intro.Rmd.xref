@@ -1,13 +1,32 @@
 h1:introduction Introduction
-h2:course-overview Course Overview
-h2:logistics-and-structure Logistics and Structure
-h3:resource-hub Resource Hub
-h3:pre-course-setup Pre-Course Setup
-h2:instructor-background Instructor Background
-h2:course-objectives Course Objectives
-h2:practical-exercises Practical Exercises
-h2:communication-and-support Communication and Support
-h3:collaborative-learning Collaborative Learning
-h2:key-references Key References
-h3:supplementary-readings Supplementary Readings
+h3:what-is-species-distribution-modeling-sdm 
+h3:why-sdms-are-important 
+h3:applications-of-sdms 
+h3:key-concepts-in-sdm 
+h4:species-data  🐾
+h4:environmental-covariates  🌍
+h4:correlative-vs.-mechanistic-models  🔍
+h3:the-sdm-workflow 
+h4:step-by-step-overview 
+h4:common-tools-and-techniques 
+h3:example-workflow-in-r Example Workflow in R
+h3:why-use-r-for-sdm 
+h4:benefits-of-r  🚀
+h4:key-r-packages-for-sdm  📦
+h3:setting-up-r-for-sdm 
+h4:installing-r-and-rstudio  🖥️
+h4:installing-required-packages  📦
+h4:loading-data-in-r  📂
+h4:explanation 
+h3:practical-example-building-a-simple-sdm-in-r  🛠️
+h4:dataset-tsuga-canadensis-eastern-hemlock  🌲
+h4:steps-to-build-the-sdm 
+h4:step-1-load-environmental-layers-and-occurrence-data 
+h4:step-2-fit-a-basic-maxent-model 
+h4:step-3-evaluate-the-model-using-auc 
+h4:step-4-generate-and-plot-predictions 
+h3:best-practices-in-sdm  ✅
+h4:ensuring-data-quality  🧐
+h4:model-validation  🏅
+h4:interpreting-results  🔍
 
