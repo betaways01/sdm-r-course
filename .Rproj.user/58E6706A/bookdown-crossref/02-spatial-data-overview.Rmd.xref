@@ -1,19 +1,44 @@
-h1:chapter-2-understanding-spatial-data Chapter 2: Understanding Spatial Data
-h2:introduction-to-spatial-data Introduction to Spatial Data
-h2:types-of-spatial-data Types of Spatial Data
-h3:vector-data Vector Data
-h4:example-reading-and-plotting-vector-data-in-r Example: Reading and Plotting Vector Data in R
-h3:raster-data Raster Data
-h4:example-reading-and-plotting-raster-data-in-r Example: Reading and Plotting Raster Data in R
-h2:coordinate-reference-systems-crs Coordinate Reference Systems (CRS)
-h3:types-of-crs Types of CRS
-h3:example-reprojecting-data-in-r Example: Reprojecting Data in R
-h2:working-with-spatial-data-in-r Working with Spatial Data in R
-h3:example-creating-a-raster-stack Example: Creating a Raster Stack
-h2:aligning-resolution-and-extent Aligning Resolution and Extent
-h3:example-resampling-rasters-in-r Example: Resampling Rasters in R
-h2:practical-exercise Practical Exercise
-h3:steps Steps:
-h3:example-code Example Code
-h2:summary Summary
+h1:understanding-spatial-data Understanding Spatial Data
+h3:introduction-to-spatial-data  🌍
+h4:what-is-spatial-data 
+h4:why-is-spatial-data-important 
+h4:real-world-example 
+h4:types-of-spatial-data 
+h3:types-of-spatial-data-1  🗺️
+h4:vector-data  ✏️
+h5:what-is-vector-data 
+h5:components-of-vector-data 
+h5:attributes-of-vector-data 
+h5:vector-data-in-r 
+h4:raster-data  🖼️
+h5:what-is-raster-data 
+h5:examples-of-raster-data 
+h5:properties-of-raster-data 
+h5:raster-data-in-r 
+h5:types-of-raster-objects 
+h5:trade-offs-of-raster-data 
+h3:key-takeaways 
+h3:coordinate-reference-systems-crs  🌍
+h4:what-is-a-crs 
+h4:why-crs-matters 
+h5:key-reasons-why-crs-is-important 
+h5:real-world-example-1 
+h4:crs-in-r 
+h5:checking-crs-in-r 
+h5:transforming-crs-in-r 
+h5:working-with-raster-data 
+h4:common-crs-notations 
+h4:key-takeaways-1 
+h3:spatial-data-tools-in-r  🛠️
+h4:vector-data-tools  ✏️
+h5:key-functions-for-vector-data 
+h5:common-file-formats-for-vector-data 
+h4:raster-data-tools  🌄
+h5:key-functions-for-raster-data 
+h5:common-file-formats-for-raster-data 
+h4:key-differences-between-vector-and-raster-tools 
+h4:practical-example-combining-vector-and-raster-data 
+h3:practical-considerations 
+h3:fun-facts-and-tips 
+h3:summary-and-key-takeaways 
 

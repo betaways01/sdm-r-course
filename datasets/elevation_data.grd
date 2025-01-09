@@ -1,0 +1,27 @@
+[general]
+creator=R package 'raster'
+created=2025-01-09 07:22:24
+[data]
+datatype=FLT4S
+byteorder=little
+nbands=1
+bandorder=BIL
+categorical=FALSE
+minvalue=138.707077026367
+maxvalue=1736.05798339844
+nodatavalue=-3.4e+38
+[legend]
+legendtype=
+values=
+color=
+[description]
+layername=test
+[georeference]
+nrows=115
+ncols=80
+xmin=178400
+ymin=329400
+xmax=181600
+ymax=334000
+projection=+proj=sterea +lat_0=52.1561605555556 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +datum=WGS84 +units=m +no_defs
+wkt=PROJCRS["unknown",    BASEGEOGCRS["unknown",        DATUM["World Geodetic System 1984",            ELLIPSOID["WGS 84",6378137,298.257223563,                LENGTHUNIT["metre",1]],            ID["EPSG",6326]],        PRIMEM["Greenwich",0,            ANGLEUNIT["degree",0.0174532925199433],            ID["EPSG",8901]]],    CONVERSION["unknown",        METHOD["Oblique Stereographic",            ID["EPSG",9809]],        PARAMETER["Latitude of natural origin",52.1561605555556,            ANGLEUNIT["degree",0.0174532925199433],            ID["EPSG",8801]],        PARAMETER["Longitude of natural origin",5.38763888888889,            ANGLEUNIT["degree",0.0174532925199433],            ID["EPSG",8802]],        PARAMETER["Scale factor at natural origin",0.9999079,            SCALEUNIT["unity",1],            ID["EPSG",8805]],        PARAMETER["False easting",155000,            LENGTHUNIT["metre",1],            ID["EPSG",8806]],        PARAMETER["False northing",463000,            LENGTHUNIT["metre",1],            ID["EPSG",8807]]],    CS[Cartesian,2],        AXIS["(E)",east,            ORDER[1],            LENGTHUNIT["metre",1,                ID["EPSG",9001]]],        AXIS["(N)",north,            ORDER[2],            LENGTHUNIT["metre",1,                ID["EPSG",9001]]]]

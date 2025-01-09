@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Understanding Spatial Data | A Minimal Book Example</title>
+<meta name="author" content="Basim Alsaedi">
+<meta name="description" content="3.0.1 1. Introduction to Spatial Data 🌍  3.0.1.1 What is Spatial Data? Spatial data is any data that tells us where something is located on Earth. It is tied to a specific location and often...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Understanding Spatial Data | A Minimal Book Example">
+<meta property="og:type" content="book">
+<meta property="og:description" content="3.0.1 1. Introduction to Spatial Data 🌍  3.0.1.1 What is Spatial Data? Spatial data is any data that tells us where something is located on Earth. It is tied to a specific location and often...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Understanding Spatial Data | A Minimal Book Example">
+<meta name="twitter:description" content="3.0.1 1. Introduction to Spatial Data 🌍  3.0.1.1 What is Spatial Data? Spatial data is any data that tells us where something is located on Earth. It is tied to a specific location and often...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.7.0/transition.js"></script><script src="libs/bs3compat-0.7.0/tabs.js"></script><script src="libs/bs3compat-0.7.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">A Minimal Book Example</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Welcome!</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="active" href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></li>
+<li><a class="" href="parts.html"><span class="header-section-number">4</span> Parts</a></li>
+<li><a class="" href="footnotes-and-citations.html"><span class="header-section-number">5</span> Footnotes and citations</a></li>
+<li><a class="" href="blocks.html"><span class="header-section-number">6</span> Blocks</a></li>
+<li><a class="" href="sharing-your-book.html"><span class="header-section-number">7</span> Sharing your book</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="understanding-spatial-data" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Understanding Spatial Data<a class="anchor" aria-label="anchor" href="#understanding-spatial-data"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<div id="introduction-to-spatial-data" class="section level3" number="3.0.1">
+<h3>
+<span class="header-section-number">3.0.1</span> <strong>1. Introduction to Spatial Data</strong> 🌍<a class="anchor" aria-label="anchor" href="#introduction-to-spatial-data"><i class="fas fa-link"></i></a>
+</h3>
+<hr>
+<div id="what-is-spatial-data" class="section level4" number="3.0.1.1">
+<h4>
+<span class="header-section-number">3.0.1.1</span> <strong>What is Spatial Data?</strong><a class="anchor" aria-label="anchor" href="#what-is-spatial-data"><i class="fas fa-link"></i></a>
+</h4>
+<p>Spatial data is any data that tells us <strong>where something is located on Earth</strong>. It is tied to a specific location and often includes information about features like:</p>
+<ul>
+<li>
+<strong>Natural elements</strong>: Rivers, forests, mountains.<br>
+</li>
+<li>
+<strong>Human-made structures</strong>: Roads, cities, bridges.<br>
+</li>
+<li>
+<strong>Environmental conditions</strong>: Temperature, rainfall, soil type.</li>
+</ul>
+<blockquote>
+<p><strong>Think about this</strong>:<br>
+Every time you check a weather map or search for a place on Google Maps, you’re working with spatial data!</p>
+</blockquote>
+<hr>
+</div>
+<div id="why-is-spatial-data-important" class="section level4" number="3.0.1.2">
+<h4>
+<span class="header-section-number">3.0.1.2</span> <strong>Why is Spatial Data Important?</strong><a class="anchor" aria-label="anchor" href="#why-is-spatial-data-important"><i class="fas fa-link"></i></a>
+</h4>
+<p>Spatial data helps us <strong>understand patterns and relationships</strong> in the environment. It is essential for answering questions like:</p>
+<ul>
+<li>
+<strong>Where are species found?</strong>
+<ul>
+<li>Helps map species distributions and habitats.</li>
+</ul>
+</li>
+<li>
+<strong>What environmental conditions are present?</strong>
+<ul>
+<li>For example, where it’s warm or wet enough for specific plants to grow.</li>
+</ul>
+</li>
+<li>
+<strong>How are things changing over time?</strong>
+<ul>
+<li>Spatial data is crucial for monitoring climate change, urban expansion, or deforestation.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Fun Fact</strong>:<br>
+Spatial data is used by conservationists to protect endangered species, by city planners to design better transport systems, and even by gamers to build realistic maps in video games!</p>
+</blockquote>
+<hr>
+</div>
+<div id="real-world-example" class="section level4" number="3.0.1.3">
+<h4>
+<span class="header-section-number">3.0.1.3</span> <strong>Real-World Example</strong><a class="anchor" aria-label="anchor" href="#real-world-example"><i class="fas fa-link"></i></a>
+</h4>
+<p>Let’s say we want to study the distribution of sloths in South America. We can combine <strong>species occurrence data</strong> (locations where sloths were spotted) with <strong>environmental data</strong> (temperature, forest cover) to build a <strong>Species Distribution Model (SDM)</strong>. This helps us predict where sloths might live—even in areas we haven’t explored yet.</p>
+<hr>
+</div>
+<div id="types-of-spatial-data" class="section level4" number="3.0.1.4">
+<h4>
+<span class="header-section-number">3.0.1.4</span> <strong>Types of Spatial Data</strong><a class="anchor" aria-label="anchor" href="#types-of-spatial-data"><i class="fas fa-link"></i></a>
+</h4>
+<p>Spatial data comes in two main forms:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Vector Data</strong>
+<ul>
+<li>Represents features with clear boundaries, like roads, rivers, and city borders.<br>
+</li>
+<li>Think of it as a detailed map showing shapes and lines.</li>
+</ul>
+</li>
+<li>
+<strong>Raster Data</strong>
+<ul>
+<li>Represents continuous data, like temperature or elevation, as a grid of cells (pixels).<br>
+</li>
+<li>Think of it as a heatmap showing variations across a region.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<blockquote>
+<p><strong>Let’s Explore More</strong>:<br>
+In the next sections, we’ll dive into these two types of spatial data and learn how to work with them in R. Stay curious! 🐾</p>
+</blockquote>
+</div>
+</div>
+<div id="types-of-spatial-data-1" class="section level3" number="3.0.2">
+<h3>
+<span class="header-section-number">3.0.2</span> <strong>2. Types of Spatial Data</strong> 🗺️<a class="anchor" aria-label="anchor" href="#types-of-spatial-data-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Spatial data comes in two main types: <strong>vector data</strong> and <strong>raster data</strong>. Each has unique characteristics and is used for different purposes. Let’s dive in!</p>
+<hr>
+<div id="vector-data" class="section level4" number="3.0.2.1">
+<h4>
+<span class="header-section-number">3.0.2.1</span> <strong>2.1. Vector Data</strong> ✏️<a class="anchor" aria-label="anchor" href="#vector-data"><i class="fas fa-link"></i></a>
+</h4>
+<div id="what-is-vector-data" class="section level5" number="3.0.2.1.1">
+<h5>
+<span class="header-section-number">3.0.2.1.1</span> <strong>What is Vector Data?</strong><a class="anchor" aria-label="anchor" href="#what-is-vector-data"><i class="fas fa-link"></i></a>
+</h5>
+<p>Vector data represents features as <strong>points</strong>, <strong>lines</strong>, or <strong>polygons</strong>. It’s great for capturing objects with clear boundaries.</p>
+</div>
+<div id="components-of-vector-data" class="section level5" number="3.0.2.1.2">
+<h5>
+<span class="header-section-number">3.0.2.1.2</span> <strong>Components of Vector Data</strong><a class="anchor" aria-label="anchor" href="#components-of-vector-data"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Points</strong>: Represent specific locations, like:
+<ul>
+<li>Cities<br>
+</li>
+<li>Tree locations<br>
+</li>
+<li>Observation points for species occurrence.</li>
+</ul>
+</li>
+<li>
+<strong>Lines</strong>: Represent linear features, such as:
+<ul>
+<li>Roads<br>
+</li>
+<li>Rivers<br>
+</li>
+<li>Trails.</li>
+</ul>
+</li>
+<li>
+<strong>Polygons</strong>: Represent areas, such as:
+<ul>
+<li>Countries<br>
+</li>
+<li>Lakes<br>
+</li>
+<li>Forest boundaries.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="attributes-of-vector-data" class="section level5" number="3.0.2.1.3">
+<h5>
+<span class="header-section-number">3.0.2.1.3</span> <strong>Attributes of Vector Data</strong><a class="anchor" aria-label="anchor" href="#attributes-of-vector-data"><i class="fas fa-link"></i></a>
+</h5>
+<p>Each vector feature can have <strong>attributes</strong>, which provide additional information.<br>
+For example:
+| <strong>Feature</strong> | <strong>Attribute</strong> |
+|—————–|————————|
+| A tree point | Tree species name |
+| A road line | Road name and length |
+| A country polygon | Population and area size |</p>
+<blockquote>
+<p><strong>Fun Fact</strong>: The shapefile format (.shp) is one of the most common ways to store vector data, and it has been used since the 1990s!</p>
+</blockquote>
+<hr>
+</div>
+<div id="vector-data-in-r" class="section level5" number="3.0.2.1.4">
+<h5>
+<span class="header-section-number">3.0.2.1.4</span> <strong>Vector Data in R</strong><a class="anchor" aria-label="anchor" href="#vector-data-in-r"><i class="fas fa-link"></i></a>
+</h5>
+<p>In R, we use packages like <code>sf</code> and <code>terra</code> to work with vector data. Let’s see an example:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the 'sf' package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2()</span></span>
+<span><span class="co">#&gt; is TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Load a sample shapefile (comes with the 'sf' package)</span></span>
+<span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading layer `nc' from data source </span></span>
+<span><span class="co">#&gt;   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># View the first few rows of the data</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html">head</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 6 features and 14 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -81.74107 ymin: 36.07282 xmax: -75.77316 ymax: 36.58965</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span><span class="co">#&gt;    AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO</span></span>
+<span><span class="co">#&gt; 1 0.114     1.442  1825    1825        Ashe 37009  37009</span></span>
+<span><span class="co">#&gt; 2 0.061     1.231  1827    1827   Alleghany 37005  37005</span></span>
+<span><span class="co">#&gt; 3 0.143     1.630  1828    1828       Surry 37171  37171</span></span>
+<span><span class="co">#&gt; 4 0.070     2.968  1831    1831   Currituck 37053  37053</span></span>
+<span><span class="co">#&gt; 5 0.153     2.206  1832    1832 Northampton 37131  37131</span></span>
+<span><span class="co">#&gt; 6 0.097     1.670  1833    1833    Hertford 37091  37091</span></span>
+<span><span class="co">#&gt;   CRESS_ID BIR74 SID74 NWBIR74 BIR79 SID79 NWBIR79</span></span>
+<span><span class="co">#&gt; 1        5  1091     1      10  1364     0      19</span></span>
+<span><span class="co">#&gt; 2        3   487     0      10   542     3      12</span></span>
+<span><span class="co">#&gt; 3       86  3188     5     208  3616     6     260</span></span>
+<span><span class="co">#&gt; 4       27   508     1     123   830     2     145</span></span>
+<span><span class="co">#&gt; 5       66  1421     9    1066  1606     3    1197</span></span>
+<span><span class="co">#&gt; 6       46  1452     7     954  1838     5    1237</span></span>
+<span><span class="co">#&gt;                         geometry</span></span>
+<span><span class="co">#&gt; 1 MULTIPOLYGON (((-81.47276 3...</span></span>
+<span><span class="co">#&gt; 2 MULTIPOLYGON (((-81.23989 3...</span></span>
+<span><span class="co">#&gt; 3 MULTIPOLYGON (((-80.45634 3...</span></span>
+<span><span class="co">#&gt; 4 MULTIPOLYGON (((-76.00897 3...</span></span>
+<span><span class="co">#&gt; 5 MULTIPOLYGON (((-77.21767 3...</span></span>
+<span><span class="co">#&gt; 6 MULTIPOLYGON (((-76.74506 3...</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Plot the shapefile</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">[</span><span class="st">"NAME"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Counties in North Carolina"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-1-1.png" width="672"></div>
+<blockquote>
+<p><strong>Tip</strong>: Use <code>sf</code> for modern workflows. It’s faster and more flexible than the older <code>sp</code> package.</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="raster-data" class="section level4" number="3.0.2.2">
+<h4>
+<span class="header-section-number">3.0.2.2</span> <strong>2.2. Raster Data</strong> 🖼️<a class="anchor" aria-label="anchor" href="#raster-data"><i class="fas fa-link"></i></a>
+</h4>
+<div id="what-is-raster-data" class="section level5" number="3.0.2.2.1">
+<h5>
+<span class="header-section-number">3.0.2.2.1</span> <strong>What is Raster Data?</strong><a class="anchor" aria-label="anchor" href="#what-is-raster-data"><i class="fas fa-link"></i></a>
+</h5>
+<p>Raster data represents the world as a grid of equally sized cells (pixels). Each cell contains a value representing a specific property.</p>
+</div>
+<div id="examples-of-raster-data" class="section level5" number="3.0.2.2.2">
+<h5>
+<span class="header-section-number">3.0.2.2.2</span> <strong>Examples of Raster Data</strong><a class="anchor" aria-label="anchor" href="#examples-of-raster-data"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Land cover</strong>: Shows different vegetation types or urban areas.<br>
+</li>
+<li>
+<strong>Elevation</strong>: Represents the height above sea level.<br>
+</li>
+<li>
+<strong>Temperature</strong>: Shows temperature variations across a region.</li>
+</ul>
+</div>
+<div id="properties-of-raster-data" class="section level5" number="3.0.2.2.3">
+<h5>
+<span class="header-section-number">3.0.2.2.3</span> <strong>Properties of Raster Data</strong><a class="anchor" aria-label="anchor" href="#properties-of-raster-data"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Resolution</strong>: The size of each cell (e.g., 1 km vs. 10 m).
+<ul>
+<li>
+<strong>Higher resolution</strong> = More detail (smaller cells).<br>
+</li>
+</ul>
+</li>
+<li>
+<strong>Values</strong>: Each cell holds a value:
+<ul>
+<li>Example: A cell in a temperature raster might store 25°C.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="raster-data-in-r" class="section level5" number="3.0.2.2.4">
+<h5>
+<span class="header-section-number">3.0.2.2.4</span> <strong>Raster Data in R</strong><a class="anchor" aria-label="anchor" href="#raster-data-in-r"><i class="fas fa-link"></i></a>
+</h5>
+<p>In R, the <code>raster</code> and <code>terra</code> packages are used to handle raster data. Let’s explore:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the 'raster' package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: sp</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Load a sample raster dataset (comes with the 'raster' package)</span></span>
+<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/test.grd"</span>, package <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View basic information about the raster</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
+<span><span class="co">#&gt; class      : RasterLayer </span></span>
+<span><span class="co">#&gt; dimensions : 115, 80, 9200  (nrow, ncol, ncell)</span></span>
+<span><span class="co">#&gt; resolution : 40, 40  (x, y)</span></span>
+<span><span class="co">#&gt; extent     : 178400, 181600, 329400, 334000  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; crs        : +proj=sterea +lat_0=52.1561605555556 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +datum=WGS84 +units=m +no_defs </span></span>
+<span><span class="co">#&gt; source     : test.grd </span></span>
+<span><span class="co">#&gt; names      : test </span></span>
+<span><span class="co">#&gt; values     : 138.7071, 1736.058  (min, max)</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Plot the raster</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"Example Raster"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<hr>
+</div>
+<div id="types-of-raster-objects" class="section level5" number="3.0.2.2.5">
+<h5>
+<span class="header-section-number">3.0.2.2.5</span> <strong>Types of Raster Objects</strong><a class="anchor" aria-label="anchor" href="#types-of-raster-objects"><i class="fas fa-link"></i></a>
+</h5>
+<p>In R, there are different types of raster objects:
+1. <strong>RasterLayer</strong>: A single raster layer (e.g., temperature).<br>
+2. <strong>RasterStack</strong>: A collection of multiple raster layers (e.g., temperature, precipitation, elevation).<br>
+3. <strong>RasterBrick</strong>: Similar to <code>RasterStack</code>, but more efficient for large datasets.</p>
+<hr>
+</div>
+<div id="trade-offs-of-raster-data" class="section level5" number="3.0.2.2.6">
+<h5>
+<span class="header-section-number">3.0.2.2.6</span> <strong>Trade-offs of Raster Data</strong><a class="anchor" aria-label="anchor" href="#trade-offs-of-raster-data"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Finer Resolution</strong>:
+<ul>
+<li>Captures more detail (e.g., 1 m grid cells show small features).<br>
+</li>
+<li>
+<strong>BUT</strong>: Increases file size and processing time.</li>
+</ul>
+</li>
+<li>
+<strong>Coarser Resolution</strong>:
+<ul>
+<li>Faster processing.<br>
+</li>
+<li>
+<strong>BUT</strong>: Loses fine details.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Fun Fact</strong>: Did you know satellite images, like those from NASA’s Landsat program, are raster data?</p>
+</blockquote>
+<hr>
+</div>
+</div>
+</div>
+<div id="key-takeaways" class="section level3" number="3.0.3">
+<h3>
+<span class="header-section-number">3.0.3</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th><strong>Vector Data</strong></th>
+<th><strong>Raster Data</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Points, lines, polygons</td>
+<td>Grid of cells (pixels)</td>
+</tr>
+<tr class="even">
+<td>Best for discrete features</td>
+<td>Best for continuous variables</td>
+</tr>
+<tr class="odd">
+<td>Examples: Roads, rivers, areas</td>
+<td>Examples: Elevation, temperature</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<p>Next, we’ll explore <strong>Coordinate Reference Systems (CRS)</strong> and learn how they ensure that spatial data aligns correctly on a map. Stay tuned! 🌐</p>
+</div>
+<div id="coordinate-reference-systems-crs" class="section level3" number="3.0.4">
+<h3>
+<span class="header-section-number">3.0.4</span> <strong>3. Coordinate Reference Systems (CRS)</strong> 🌍<a class="anchor" aria-label="anchor" href="#coordinate-reference-systems-crs"><i class="fas fa-link"></i></a>
+</h3>
+<p>A <strong>Coordinate Reference System (CRS)</strong> is fundamental to working with spatial data. It ensures that data layers align properly on a map and that distances, areas, and other geographic relationships are accurately represented.</p>
+<hr>
+<div id="what-is-a-crs" class="section level4" number="3.0.4.1">
+<h4>
+<span class="header-section-number">3.0.4.1</span> <strong>3.1. What is a CRS?</strong><a class="anchor" aria-label="anchor" href="#what-is-a-crs"><i class="fas fa-link"></i></a>
+</h4>
+<p>A CRS defines how locations on Earth’s surface are mapped onto a flat 2D plane. Since Earth is a 3D sphere (or an ellipsoid), CRSs are necessary for projecting this curved surface into a flat map.</p>
+<hr>
+<div class="rmdimportant">
+<p><strong>Two Main Types of CRS</strong></p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Angular Coordinates</strong>
+<ul>
+<li>Use <strong>latitude (y)</strong> and <strong>longitude (x)</strong> to represent positions.<br>
+</li>
+<li>Commonly used for global datasets.<br>
+</li>
+<li>Example: <strong>WGS84 (EPSG:4326)</strong> is the standard CRS for GPS systems.</li>
+</ul>
+</li>
+<li>
+<strong>Planar Coordinates</strong>
+<ul>
+<li>Transform Earth’s 3D surface into a 2D map using projections.<br>
+</li>
+<li>Examples:
+<ul>
+<li>
+<strong>Mercator</strong>: Great for navigation, but distorts areas near the poles.<br>
+</li>
+<li>
+<strong>UTM (Universal Transverse Mercator)</strong>: Divides the world into zones for high-accuracy mapping.<br>
+</li>
+<li>
+<strong>Albers Equal-Area</strong>: Maintains accurate area measurements, often used in environmental studies.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<blockquote>
+<p><strong>Did You Know?</strong><br>
+The shape of Earth is not a perfect sphere; it’s an <strong>ellipsoid</strong>. This slight flattening at the poles affects how CRSs are designed.</p>
+</blockquote>
+<hr>
+</div>
+<div id="why-crs-matters" class="section level4" number="3.0.4.2">
+<h4>
+<span class="header-section-number">3.0.4.2</span> <strong>3.2. Why CRS Matters</strong><a class="anchor" aria-label="anchor" href="#why-crs-matters"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdcaution">
+<p>CRS is critical because spatial datasets from different sources often use different coordinate systems. If the CRSs don’t match, layers won’t align, leading to inaccurate results.</p>
+</div>
+<div id="key-reasons-why-crs-is-important" class="section level5" number="3.0.4.2.1">
+<h5>
+<span class="header-section-number">3.0.4.2.1</span> <strong>Key Reasons Why CRS is Important</strong><a class="anchor" aria-label="anchor" href="#key-reasons-why-crs-is-important"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Alignment</strong><br>
+Ensures datasets from different sources overlap correctly on a map.
+<ul>
+<li>Example: A road layer in WGS84 might not align with a satellite image in UTM until both are reprojected into the same CRS.</li>
+</ul>
+</li>
+<li>
+<strong>Accuracy</strong><br>
+Preserves the integrity of spatial relationships like distance and area.
+<ul>
+<li>Example: Calculating the area of a forest in the wrong CRS could result in significant errors.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="real-world-example-1" class="section level5" number="3.0.4.2.2">
+<h5>
+<span class="header-section-number">3.0.4.2.2</span> <strong>Real-World Example</strong><a class="anchor" aria-label="anchor" href="#real-world-example-1"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Incorrect CRS</strong>:</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="co"># Load two layers</span></span>
+<span><span class="va">layer1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading layer `nc' from data source </span></span>
+<span><span class="co">#&gt;   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">layer2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">layer1</span>, crs <span class="op">=</span> <span class="fl">3857</span><span class="op">)</span>  <span class="co"># Transform to Web Mercator</span></span>
+<span></span>
+<span><span class="co"># Plot misaligned layers</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">layer1</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>, main <span class="op">=</span> <span class="st">"Misaligned Layers"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">layer2</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<blockquote>
+<p>The two layers won’t overlap because they have different CRSs.</p>
+</blockquote>
+<ul>
+<li>
+<strong>Correct CRS</strong>:</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Transform both layers to the same CRS</span></span>
+<span><span class="va">layer2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">layer2</span>, crs <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">layer1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot aligned layers</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">layer1</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>, main <span class="op">=</span> <span class="st">"Aligned Layers"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">layer2</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure">
+<img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-4-1.png" width="672">
+&gt; Now the layers align perfectly.</div>
+<hr>
+</div>
+</div>
+<div id="crs-in-r" class="section level4" number="3.0.4.3">
+<h4>
+<span class="header-section-number">3.0.4.3</span> <strong>3.3. CRS in R</strong><a class="anchor" aria-label="anchor" href="#crs-in-r"><i class="fas fa-link"></i></a>
+</h4>
+<p>R provides powerful tools to handle CRSs, primarily through the <code>sf</code> and <code>terra</code> packages.</p>
+<div id="checking-crs-in-r" class="section level5" number="3.0.4.3.1">
+<h5>
+<span class="header-section-number">3.0.4.3.1</span> <strong>Checking CRS in R</strong><a class="anchor" aria-label="anchor" href="#checking-crs-in-r"><i class="fas fa-link"></i></a>
+</h5>
+<p>Use <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> to check the CRS of a vector object:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="co"># Load a shapefile</span></span>
+<span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading layer `nc' from data source </span></span>
+<span><span class="co">#&gt;   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Check the CRS</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span><span class="co">#&gt;   User input: NAD27 </span></span>
+<span><span class="co">#&gt;   wkt:</span></span>
+<span><span class="co">#&gt; GEOGCRS["NAD27",</span></span>
+<span><span class="co">#&gt;     DATUM["North American Datum 1927",</span></span>
+<span><span class="co">#&gt;         ELLIPSOID["Clarke 1866",6378206.4,294.978698213898,</span></span>
+<span><span class="co">#&gt;             LENGTHUNIT["metre",1]]],</span></span>
+<span><span class="co">#&gt;     PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">#&gt;         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
+<span><span class="co">#&gt;         AXIS["latitude",north,</span></span>
+<span><span class="co">#&gt;             ORDER[1],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;         AXIS["longitude",east,</span></span>
+<span><span class="co">#&gt;             ORDER[2],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     ID["EPSG",4267]]</span></span></code></pre></div>
+</div>
+<div id="transforming-crs-in-r" class="section level5" number="3.0.4.3.2">
+<h5>
+<span class="header-section-number">3.0.4.3.2</span> <strong>Transforming CRS in R</strong><a class="anchor" aria-label="anchor" href="#transforming-crs-in-r"><i class="fas fa-link"></i></a>
+</h5>
+<p>You can reproject (transform) a spatial object to a different CRS using <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code>:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Transform to WGS84 (EPSG:4326)</span></span>
+<span><span class="va">nc_wgs84</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">nc</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Verify the new CRS</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">nc_wgs84</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span><span class="co">#&gt;   User input: EPSG:4326 </span></span>
+<span><span class="co">#&gt;   wkt:</span></span>
+<span><span class="co">#&gt; GEOGCRS["WGS 84",</span></span>
+<span><span class="co">#&gt;     ENSEMBLE["World Geodetic System 1984 ensemble",</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (Transit)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G730)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G873)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1150)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1674)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G1762)"],</span></span>
+<span><span class="co">#&gt;         MEMBER["World Geodetic System 1984 (G2139)"],</span></span>
+<span><span class="co">#&gt;         ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
+<span><span class="co">#&gt;             LENGTHUNIT["metre",1]],</span></span>
+<span><span class="co">#&gt;         ENSEMBLEACCURACY[2.0]],</span></span>
+<span><span class="co">#&gt;     PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">#&gt;         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
+<span><span class="co">#&gt;         AXIS["geodetic latitude (Lat)",north,</span></span>
+<span><span class="co">#&gt;             ORDER[1],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;         AXIS["geodetic longitude (Lon)",east,</span></span>
+<span><span class="co">#&gt;             ORDER[2],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     USAGE[</span></span>
+<span><span class="co">#&gt;         SCOPE["Horizontal component of 3D system."],</span></span>
+<span><span class="co">#&gt;         AREA["World."],</span></span>
+<span><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
+<span><span class="co">#&gt;     ID["EPSG",4326]]</span></span></code></pre></div>
+</div>
+<div id="working-with-raster-data" class="section level5" number="3.0.4.3.3">
+<h5>
+<span class="header-section-number">3.0.4.3.3</span> <strong>Working with Raster Data</strong><a class="anchor" aria-label="anchor" href="#working-with-raster-data"><i class="fas fa-link"></i></a>
+</h5>
+<p>For raster data, use the <code><a href="https://rspatial.github.io/terra/reference/crs.html">crs()</a></code> function from the <code>terra</code> or <code>raster</code> packages:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; terra 1.8.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Load a raster</span></span>
+<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"ex/elev.tif"</span>, package <span class="op">=</span> <span class="st">"terra"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check the CRS</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "GEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]"</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Transform CRS</span></span>
+<span><span class="va">r_transformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html">project</a></span><span class="op">(</span><span class="va">r</span>, <span class="st">"+proj=utm +zone=33 +datum=WGS84 +units=m"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="common-crs-notations" class="section level4" number="3.0.4.4">
+<h4>
+<span class="header-section-number">3.0.4.4</span> <strong>3.4. Common CRS Notations</strong><a class="anchor" aria-label="anchor" href="#common-crs-notations"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdtip">
+<ol style="list-style-type: decimal">
+<li>
+<p><strong>PROJ.4 Strings</strong>:<br>
+Text-based format describing CRS properties. Example:</p>
+<pre><code>+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs</code></pre>
+</li>
+<li>
+<p><strong>EPSG Codes</strong>:<br>
+Numeric identifiers for CRSs. Examples:</p>
+<ul>
+<li>
+<strong>EPSG:4326</strong>: WGS84, the most commonly used CRS.<br>
+</li>
+<li>
+<strong>EPSG:3857</strong>: Web Mercator, used by Google Maps.</li>
+</ul>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+<div id="key-takeaways-1" class="section level4" number="3.0.4.5">
+<h4>
+<span class="header-section-number">3.0.4.5</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-1"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="35%">
+<col width="46%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Task</strong></th>
+<th><strong>Function</strong></th>
+<th><strong>Package</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Check CRS</td>
+<td><code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code></td>
+<td><code>sf</code></td>
+</tr>
+<tr class="even">
+<td>Transform CRS</td>
+<td><code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code></td>
+<td><code>sf</code></td>
+</tr>
+<tr class="odd">
+<td>Check CRS (Raster)</td>
+<td><code><a href="https://rspatial.github.io/terra/reference/crs.html">crs()</a></code></td>
+<td><code>terra</code></td>
+</tr>
+<tr class="even">
+<td>Set or Transform CRS</td>
+<td><code><a href="https://rspatial.github.io/terra/reference/project.html">project()</a></code></td>
+<td><code>terra</code></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Reminder</strong>: Always ensure your spatial layers have the same CRS before performing any analysis.</p>
+</blockquote>
+<hr>
+<p>By mastering CRS concepts and tools, you’ll avoid alignment errors and ensure accurate spatial analysis. In the next section, we’ll dive into <strong>spatial data tools in R</strong>! 🚀</p>
+</div>
+</div>
+<div id="spatial-data-tools-in-r" class="section level3" number="3.0.5">
+<h3>
+<span class="header-section-number">3.0.5</span> <strong>4. Spatial Data Tools in R</strong> 🛠️<a class="anchor" aria-label="anchor" href="#spatial-data-tools-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>In this section, we’ll explore the key tools and functions in R for working with spatial data. These tools allow us to load, manipulate, and visualize both <strong>vector</strong> and <strong>raster</strong> data.</p>
+<hr>
+<div id="vector-data-tools" class="section level4" number="3.0.5.1">
+<h4>
+<span class="header-section-number">3.0.5.1</span> <strong>4.1. Vector Data Tools</strong> ✏️<a class="anchor" aria-label="anchor" href="#vector-data-tools"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Vector data</strong> consists of points, lines, and polygons that represent discrete features on a map (e.g., cities, rivers, and country boundaries).</p>
+<div id="key-functions-for-vector-data" class="section level5" number="3.0.5.1.1">
+<h5>
+<span class="header-section-number">3.0.5.1.1</span> <strong>Key Functions for Vector Data</strong><a class="anchor" aria-label="anchor" href="#key-functions-for-vector-data"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>
+<strong><code><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read()</a></code></strong>:<br>
+Loads vector data from various file formats (e.g., shapefiles, GeoJSON).</li>
+</ol>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span>   <span class="co"># Load a shapefile of North Carolina counties</span></span>
+<span>   <span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading layer `nc' from data source </span></span>
+<span><span class="co">#&gt;   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong>:<br>
+Visualizes vector data.</li>
+</ol>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot the shapefile</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">[</span><span class="st">"NAME"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Counties in North Carolina"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<ol start="3" style="list-style-type: decimal">
+<li>
+<strong><code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code></strong>:<br>
+Reprojects vector data to a different CRS.</li>
+</ol>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Transform to WGS84</span></span>
+<span><span class="va">nc_wgs84</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">nc</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>
+<strong><code><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write()</a></code></strong>:<br>
+Saves vector data to a file (e.g., shapefile or GeoJSON).<br>
+</li>
+</ol>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span><span class="va">nc</span>, <span class="st">"nc_counties.geojson"</span>, append<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="common-file-formats-for-vector-data" class="section level5" number="3.0.5.1.2">
+<h5>
+<span class="header-section-number">3.0.5.1.2</span> <strong>Common File Formats for Vector Data</strong><a class="anchor" aria-label="anchor" href="#common-file-formats-for-vector-data"><i class="fas fa-link"></i></a>
+</h5>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="16%">
+<col width="83%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Format</strong></th>
+<th><strong>Description</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Shapefile (.shp)</strong></td>
+<td>A widely used format for vector data, but requires multiple associated files (.shp, .shx, .dbf).</td>
+</tr>
+<tr class="even">
+<td><strong>GeoJSON</strong></td>
+<td>A lightweight, text-based format for vector data, often used in web mapping applications.</td>
+</tr>
+<tr class="odd">
+<td><strong>KML</strong></td>
+<td>Used by Google Earth to represent geographic data.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Did You Know?</strong><br>
+The shapefile format was introduced by Esri in the early 1990s and remains one of the most commonly used vector data formats, despite its limitations.</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="raster-data-tools" class="section level4" number="3.0.5.2">
+<h4>
+<span class="header-section-number">3.0.5.2</span> <strong>4.2. Raster Data Tools</strong> 🌄<a class="anchor" aria-label="anchor" href="#raster-data-tools"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Raster data</strong> represents the world as a grid of cells, where each cell has a value (e.g., elevation, temperature).</p>
+<div id="key-functions-for-raster-data" class="section level5" number="3.0.5.2.1">
+<h5>
+<span class="header-section-number">3.0.5.2.1</span> <strong>Key Functions for Raster Data</strong><a class="anchor" aria-label="anchor" href="#key-functions-for-raster-data"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>
+<strong><code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code></strong>:<br>
+Loads raster data from a file.</li>
+</ol>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span><span class="co"># Load a sample raster</span></span>
+<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/test.grd"</span>, package <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<strong><code><a href="https://rspatial.github.io/terra/reference/rast.html">terra::rast()</a></code></strong>:<br>
+An alternative to <code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code> from the <code>terra</code> package, which offers better performance.</li>
+</ol>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
+<span><span class="co"># Load the raster using terra but from raster's sample file</span></span>
+<span><span class="co"># in your local machine, run this commented line:</span></span>
+<span><span class="co">#r_terra &lt;- rast(system.file("external/test.grd", package = "raster"))</span></span>
+<span><span class="co"># for demonstration, we do this:</span></span>
+<span><span class="va">r_terra</span> <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"sample_raster.tif"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">r_terra</span>, main <span class="op">=</span> <span class="st">"Sample Raster Loaded with terra"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<ol start="3" style="list-style-type: decimal">
+<li>
+<strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong>:<br>
+Visualizes raster layers.</li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot the raster</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"Example Raster Layer"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+<ol start="4" style="list-style-type: decimal">
+<li>
+<strong><code><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster()</a></code></strong>:<br>
+Saves raster data to a file (e.g., GeoTIFF).</li>
+</ol>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Save the raster as a GeoTIFF file</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster</a></span><span class="op">(</span><span class="va">r</span>, <span class="st">"example_raster.tif"</span>, format <span class="op">=</span> <span class="st">"GTiff"</span>, overwrite<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="common-file-formats-for-raster-data" class="section level5" number="3.0.5.2.2">
+<h5>
+<span class="header-section-number">3.0.5.2.2</span> <strong>Common File Formats for Raster Data</strong><a class="anchor" aria-label="anchor" href="#common-file-formats-for-raster-data"><i class="fas fa-link"></i></a>
+</h5>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="17%">
+<col width="82%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Format</strong></th>
+<th><strong>Description</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>GeoTIFF</strong></td>
+<td>High-resolution raster format that supports metadata.</td>
+</tr>
+<tr class="even">
+<td><strong>NetCDF</strong></td>
+<td>Commonly used for climate and environmental data, supports multi-dimensional data.</td>
+</tr>
+<tr class="odd">
+<td><strong>ASCII Grid</strong></td>
+<td>A text-based format for raster data, but less efficient than GeoTIFF.</td>
+</tr>
+<tr class="even">
+<td><strong>GRIB</strong></td>
+<td>Widely used for weather data, stores compressed raster data.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Fun Fact</strong>:<br>
+GeoTIFF is a georeferenced version of the popular TIFF image format. It’s widely used in remote sensing and GIS applications because it stores spatial information alongside the image data.</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="key-differences-between-vector-and-raster-tools" class="section level4" number="3.0.5.3">
+<h4>
+<span class="header-section-number">3.0.5.3</span> <strong>Key Differences Between Vector and Raster Tools</strong><a class="anchor" aria-label="anchor" href="#key-differences-between-vector-and-raster-tools"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="16%">
+<col width="41%">
+<col width="41%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Aspect</strong></th>
+<th><strong>Vector Tools (<code>sf</code>, <code>terra</code>)</strong></th>
+<th><strong>Raster Tools (<code>raster</code>, <code>terra</code>)</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Data Representation</strong></td>
+<td>Points, lines, and polygons</td>
+<td>Grid of cells (pixels)</td>
+</tr>
+<tr class="even">
+<td><strong>Common Functions</strong></td>
+<td>
+<code><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read()</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write()</a></code>
+</td>
+<td>
+<code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code>, <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code>, <code><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster()</a></code>
+</td>
+</tr>
+<tr class="odd">
+<td><strong>Common File Formats</strong></td>
+<td>Shapefiles, GeoJSON, KML</td>
+<td>GeoTIFF, NetCDF, ASCII Grid</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="practical-example-combining-vector-and-raster-data" class="section level4" number="3.0.5.4">
+<h4>
+<span class="header-section-number">3.0.5.4</span> <strong>Practical Example: Combining Vector and Raster Data</strong><a class="anchor" aria-label="anchor" href="#practical-example-combining-vector-and-raster-data"><i class="fas fa-link"></i></a>
+</h4>
+<p>Let’s say we want to extract the elevation values at specific observation points (vector data) from a digital elevation model (raster data):</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load vector data (polygons)</span></span>
+<span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading layer `nc' from data source </span></span>
+<span><span class="co">#&gt;   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Load the saved raster file</span></span>
+<span><span class="va">elev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"datasets/elevation_data.grd"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate centroids of the polygons</span></span>
+<span><span class="va">centroids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_centroid</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over</span></span>
+<span><span class="co">#&gt; geometries</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Extract only the X and Y coordinates of the centroids</span></span>
+<span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html">st_coordinates</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Extract elevation values at the centroids</span></span>
+<span><span class="va">elevation_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">elev</span>, <span class="va">coords</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add extracted values as a new column</span></span>
+<span><span class="va">nc</span><span class="op">$</span><span class="va">elevation</span> <span class="op">&lt;-</span> <span class="va">elevation_values</span></span>
+<span></span>
+<span><span class="co"># View the updated data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 6 features and 15 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -81.74107 ymin: 36.07282 xmax: -75.77316 ymax: 36.58965</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span><span class="co">#&gt;    AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO</span></span>
+<span><span class="co">#&gt; 1 0.114     1.442  1825    1825        Ashe 37009  37009</span></span>
+<span><span class="co">#&gt; 2 0.061     1.231  1827    1827   Alleghany 37005  37005</span></span>
+<span><span class="co">#&gt; 3 0.143     1.630  1828    1828       Surry 37171  37171</span></span>
+<span><span class="co">#&gt; 4 0.070     2.968  1831    1831   Currituck 37053  37053</span></span>
+<span><span class="co">#&gt; 5 0.153     2.206  1832    1832 Northampton 37131  37131</span></span>
+<span><span class="co">#&gt; 6 0.097     1.670  1833    1833    Hertford 37091  37091</span></span>
+<span><span class="co">#&gt;   CRESS_ID BIR74 SID74 NWBIR74 BIR79 SID79 NWBIR79</span></span>
+<span><span class="co">#&gt; 1        5  1091     1      10  1364     0      19</span></span>
+<span><span class="co">#&gt; 2        3   487     0      10   542     3      12</span></span>
+<span><span class="co">#&gt; 3       86  3188     5     208  3616     6     260</span></span>
+<span><span class="co">#&gt; 4       27   508     1     123   830     2     145</span></span>
+<span><span class="co">#&gt; 5       66  1421     9    1066  1606     3    1197</span></span>
+<span><span class="co">#&gt; 6       46  1452     7     954  1838     5    1237</span></span>
+<span><span class="co">#&gt;                         geometry elevation</span></span>
+<span><span class="co">#&gt; 1 MULTIPOLYGON (((-81.47276 3...        NA</span></span>
+<span><span class="co">#&gt; 2 MULTIPOLYGON (((-81.23989 3...        NA</span></span>
+<span><span class="co">#&gt; 3 MULTIPOLYGON (((-80.45634 3...        NA</span></span>
+<span><span class="co">#&gt; 4 MULTIPOLYGON (((-76.00897 3...        NA</span></span>
+<span><span class="co">#&gt; 5 MULTIPOLYGON (((-77.21767 3...        NA</span></span>
+<span><span class="co">#&gt; 6 MULTIPOLYGON (((-76.74506 3...        NA</span></span></code></pre></div>
+<hr>
+<div class="rmdtip">
+<p><strong>Tip</strong>:<br>
+Use the <code>terra</code> package for faster processing when working with large raster datasets.</p>
+</div>
+<hr>
+<p>By mastering these tools, you’ll be well-equipped to handle a wide range of spatial data tasks in R. Next, we’ll explore <strong>spatial analysis techniques</strong>, including buffering, overlay operations, and spatial joins! 🚀</p>
+</div>
+</div>
+<div id="practical-considerations" class="section level3" number="3.0.6">
+<h3>
+<span class="header-section-number">3.0.6</span> <strong>5. Practical Considerations</strong><a class="anchor" aria-label="anchor" href="#practical-considerations"><i class="fas fa-link"></i></a>
+</h3>
+<p>#### <strong>5.1. Data Alignment</strong>
+- Ensure that vector and raster data use the same CRS.
+- Align raster layers (same resolution, extent, and origin).</p>
+<p>#### <strong>5.2. Data Quality</strong>
+- Check for missing values (e.g., <code>NoData</code> cells in rasters).
+- Remove duplicates in vector data.</p>
+<p>#### <strong>5.3. Computational Trade-offs</strong>
+- High-resolution data increases processing time.
+- Use appropriate resolution for your study area.</p>
+<hr>
+</div>
+<div id="fun-facts-and-tips" class="section level3" number="3.0.7">
+<h3>
+<span class="header-section-number">3.0.7</span> <strong>6. Fun Facts and Tips</strong><a class="anchor" aria-label="anchor" href="#fun-facts-and-tips"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Did you know?
+<ul>
+<li>Raster data is like an image grid, where each pixel stores environmental information!<br>
+</li>
+</ul>
+</li>
+<li>Pro Tip:
+<ul>
+<li>Use <code>terra</code> over <code>raster</code> for faster computations with large datasets.</li>
+</ul>
+</li>
+<li>Fun Fact:
+<ul>
+<li>CRSs like Mercator distort area near the poles, which is why Greenland looks so big on some maps!</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="summary-and-key-takeaways" class="section level3" number="3.0.8">
+<h3>
+<span class="header-section-number">3.0.8</span> <strong>7. Summary and Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#summary-and-key-takeaways"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Spatial Data Types</strong>: Vector (points, lines, polygons) vs. Raster (grids).<br>
+</li>
+<li>
+<strong>CRS Importance</strong>: Ensures accurate alignment and analysis.<br>
+</li>
+<li>
+<strong>R Packages</strong>: Use <code>sf</code> and <code>terra</code> for modern and efficient workflows.</li>
+</ul>
+<hr>
+<p>This outline covers all the major topics from the slides and organizes them into logical sections and sub-sections to help students easily follow and learn about spatial data concepts. Let me know if this works!</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="introduction.html"><span class="header-section-number">2</span> Introduction</a></div>
+<div class="next"><a href="parts.html"><span class="header-section-number">4</span> Parts</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li>
+<a class="nav-link" href="#understanding-spatial-data"><span class="header-section-number">3</span> Understanding Spatial Data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-spatial-data"><span class="header-section-number">3.0.1</span> 1. Introduction to Spatial Data 🌍</a></li>
+<li><a class="nav-link" href="#types-of-spatial-data-1"><span class="header-section-number">3.0.2</span> 2. Types of Spatial Data 🗺️</a></li>
+<li><a class="nav-link" href="#key-takeaways"><span class="header-section-number">3.0.3</span> Key Takeaways</a></li>
+<li><a class="nav-link" href="#coordinate-reference-systems-crs"><span class="header-section-number">3.0.4</span> 3. Coordinate Reference Systems (CRS) 🌍</a></li>
+<li><a class="nav-link" href="#spatial-data-tools-in-r"><span class="header-section-number">3.0.5</span> 4. Spatial Data Tools in R 🛠️</a></li>
+<li><a class="nav-link" href="#practical-considerations"><span class="header-section-number">3.0.6</span> 5. Practical Considerations</a></li>
+<li><a class="nav-link" href="#fun-facts-and-tips"><span class="header-section-number">3.0.7</span> 6. Fun Facts and Tips</a></li>
+<li><a class="nav-link" href="#summary-and-key-takeaways"><span class="header-section-number">3.0.8</span> 7. Summary and Key Takeaways</a></li>
+</ul>
+</li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/02-spatial-data-overview.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/02-spatial-data-overview.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-01-09.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

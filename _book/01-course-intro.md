@@ -447,5 +447,3 @@ Interpreting SDM results correctly is crucial:
 > Ensemble models combine predictions from multiple algorithms to improve accuracy and reduce uncertainty.
 
 ---
-
-This concludes the **practical example** and **best practices** for building SDMs in R. Up next, we’ll cover advanced topics like ensemble modeling and projecting species distributions under future climate scenarios! 🌍
