@@ -798,7 +798,7 @@ Loads vector data from various file formats (e.g., shapefiles, GeoJSON).</li>
 <span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>
-<strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong>:<br>
+<strong><code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code></strong>:<br>
 Visualizes vector data.</li>
 </ol>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
@@ -887,12 +887,12 @@ An alternative to <code><a href="https://rdrr.io/pkg/raster/man/raster.html">ras
 <span><span class="co"># in your local machine, run this commented line:</span></span>
 <span><span class="co">#r_terra &lt;- rast(system.file("external/test.grd", package = "raster"))</span></span>
 <span><span class="co"># for demonstration, we do this:</span></span>
-<span><span class="va">r_terra</span> <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"sample_raster.tif"</span><span class="op">)</span></span>
+<span><span class="va">r_terra</span> <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"datasets/sample_raster.tif"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">r_terra</span>, main <span class="op">=</span> <span class="st">"Sample Raster Loaded with terra"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
 <ol start="3" style="list-style-type: decimal">
 <li>
-<strong><code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code></strong>:<br>
+<strong><code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code></strong>:<br>
 Visualizes raster layers.</li>
 </ol>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
@@ -975,7 +975,7 @@ GeoTIFF is a georeferenced version of the popular TIFF image format. It’s wide
 <code><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read()</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write()</a></code>
 </td>
 <td>
-<code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code>, <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code>, <code><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster()</a></code>
+<code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code>, <code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code>, <code><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster()</a></code>
 </td>
 </tr>
 <tr class="odd">
@@ -1065,38 +1065,213 @@ Use the <code>terra</code> package for faster processing when working with large
 </div>
 <div id="practical-considerations" class="section level3" number="3.0.6">
 <h3>
-<span class="header-section-number">3.0.6</span> <strong>5. Practical Considerations</strong><a class="anchor" aria-label="anchor" href="#practical-considerations"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.0.6</span> <strong>5. Practical Considerations</strong> 🛠️<a class="anchor" aria-label="anchor" href="#practical-considerations"><i class="fas fa-link"></i></a>
 </h3>
-<p>#### <strong>5.1. Data Alignment</strong>
-- Ensure that vector and raster data use the same CRS.
-- Align raster layers (same resolution, extent, and origin).</p>
-<p>#### <strong>5.2. Data Quality</strong>
-- Check for missing values (e.g., <code>NoData</code> cells in rasters).
-- Remove duplicates in vector data.</p>
-<p>#### <strong>5.3. Computational Trade-offs</strong>
-- High-resolution data increases processing time.
-- Use appropriate resolution for your study area.</p>
 <hr>
+<p>Working with spatial data requires careful attention to detail to ensure accurate analysis and meaningful results. Let’s go over some important <strong>practical considerations</strong> when using spatial data.</p>
+<hr>
+<div id="data-alignment" class="section level4" number="3.0.6.1">
+<h4>
+<span class="header-section-number">3.0.6.1</span> <strong>5.1. Data Alignment</strong><a class="anchor" aria-label="anchor" href="#data-alignment"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdimportant">
+<p>When combining different spatial datasets, it’s crucial to ensure they are properly aligned. Misaligned data can lead to incorrect analysis and misleading results.</p>
+</div>
+<p><strong>Key Points for Data Alignment</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Same CRS</strong>
+<ul>
+<li>All spatial layers (vector and raster) should use the same <strong>Coordinate Reference System (CRS)</strong>.<br>
+</li>
+<li>Example: If your vector data uses <strong>EPSG:4326</strong> (WGS84), your raster data should be reprojected to match this CRS.</li>
+</ul>
+</li>
+</ol>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co"># Load vector data</span></span>
+<span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Reading layer `nc' from data source </span></span>
+<span><span class="co">#&gt;   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' </span></span>
+<span><span class="co">#&gt;   using driver `ESRI Shapefile'</span></span>
+<span><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Load raster data</span></span>
+<span><span class="va">elev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"datasets/elevation_data.grd"</span><span class="op">)</span></span>
+<span>   </span>
+<span><span class="co"># Check CRS of both datasets</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span>  <span class="co"># Vector CRS</span></span>
+<span><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span><span class="co">#&gt;   User input: NAD27 </span></span>
+<span><span class="co">#&gt;   wkt:</span></span>
+<span><span class="co">#&gt; GEOGCRS["NAD27",</span></span>
+<span><span class="co">#&gt;     DATUM["North American Datum 1927",</span></span>
+<span><span class="co">#&gt;         ELLIPSOID["Clarke 1866",6378206.4,294.978698213898,</span></span>
+<span><span class="co">#&gt;             LENGTHUNIT["metre",1]]],</span></span>
+<span><span class="co">#&gt;     PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">#&gt;         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
+<span><span class="co">#&gt;         AXIS["latitude",north,</span></span>
+<span><span class="co">#&gt;             ORDER[1],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;         AXIS["longitude",east,</span></span>
+<span><span class="co">#&gt;             ORDER[2],</span></span>
+<span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;     ID["EPSG",4267]]</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span>   <span class="co"># Raster CRS</span></span>
+<span><span class="co">#&gt; [1] "PROJCRS[\"unknown\",\n    BASEGEOGCRS[\"unknown\",\n        DATUM[\"World Geodetic System 1984\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]],\n            ID[\"EPSG\",6326]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8901]]],\n    CONVERSION[\"unknown\",\n        METHOD[\"Oblique Stereographic\",\n            ID[\"EPSG\",9809]],\n        PARAMETER[\"Latitude of natural origin\",52.1561605555556,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",5.38763888888889,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9999079,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",155000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",463000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]]]"</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>   </span>
+<span><span class="co"># Reproject vector data to match raster CRS</span></span>
+<span><span class="va">nc_aligned</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">nc</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<strong>Align Raster Layers</strong>
+<ul>
+<li>When working with multiple raster layers (e.g., temperature, precipitation), ensure they have the same <strong>resolution</strong>, <strong>extent</strong>, and <strong>origin</strong>.<br>
+</li>
+<li>This ensures they can be used together without errors in analysis.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</div>
+<div id="data-quality" class="section level4" number="3.0.6.2">
+<h4>
+<span class="header-section-number">3.0.6.2</span> <strong>5.2. Data Quality</strong><a class="anchor" aria-label="anchor" href="#data-quality"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdcaution">
+<p>Always check your data for missing values or inconsistencies before analysis. Poor data quality leads to unreliable models.</p>
+</div>
+<p><strong>Steps to Ensure Data Quality</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Check for Missing Values</strong>
+<ul>
+<li>Raster data often contains cells with <strong>NoData</strong> values.<br>
+</li>
+<li>You can use <code>terra</code> to check and handle these missing values:</li>
+</ul>
+</li>
+</ol>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Check for NoData cells</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       test       </span></span>
+<span><span class="co">#&gt;  Min.   : 138.7  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 294.0  </span></span>
+<span><span class="co">#&gt;  Median : 371.9  </span></span>
+<span><span class="co">#&gt;  Mean   : 425.6  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 501.0  </span></span>
+<span><span class="co">#&gt;  Max.   :1736.1  </span></span>
+<span><span class="co">#&gt;  NA's   :6022</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Replace NoData cells with 0 (if appropriate)</span></span>
+<span><span class="va">elev</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       test       </span></span>
+<span><span class="co">#&gt;  Min.   :   0.0  </span></span>
+<span><span class="co">#&gt;  1st Qu.:   0.0  </span></span>
+<span><span class="co">#&gt;  Median :   0.0  </span></span>
+<span><span class="co">#&gt;  Mean   : 147.0  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 302.8  </span></span>
+<span><span class="co">#&gt;  Max.   :1736.1</span></span></code></pre></div>
+<p>We observe now that there are no missing observations in the data.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<strong>Remove Duplicates</strong> in Vector Data
+<ul>
+<li>If your vector data contains duplicate points, it can bias your analysis.<br>
+</li>
+<li>Use <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code> from <code>dplyr</code> or <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf()</a></code> to remove duplicates:</li>
+</ul>
+</li>
+</ol>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:terra':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, union</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:raster':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, select, union</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="computational-trade-offs" class="section level4" number="3.0.6.3">
+<h4>
+<span class="header-section-number">3.0.6.3</span> <strong>5.3. Computational Trade-offs</strong><a class="anchor" aria-label="anchor" href="#computational-trade-offs"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdtip">
+<p>High-resolution data provides more detail but increases computation time and memory usage. Choose a resolution appropriate for your study area.</p>
+</div>
+<p><strong>Key Considerations</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Resolution</strong>
+<ul>
+<li>
+<strong>High-resolution</strong> data (e.g., 1 m cells) is great for detailed analysis but requires significant computational power.<br>
+</li>
+<li>
+<strong>Low-resolution</strong> data (e.g., 10 km cells) is faster to process but may miss important details.</li>
+</ul>
+<blockquote>
+<p><strong>Tip</strong>: Start with lower resolution data when prototyping your analysis, then switch to high-resolution data for the final results.</p>
+</blockquote>
+</li>
+<li>
+<strong>Extent</strong>
+<ul>
+<li>Limiting the spatial extent of your data can reduce processing time. If you’re only interested in a specific region, crop your raster to that region:</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Crop raster to the extent of vector data</span></span>
+<span><span class="va">elev_cropped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">elev</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</li>
+</ol>
+<hr>
+</div>
 </div>
 <div id="fun-facts-and-tips" class="section level3" number="3.0.7">
 <h3>
-<span class="header-section-number">3.0.7</span> <strong>6. Fun Facts and Tips</strong><a class="anchor" aria-label="anchor" href="#fun-facts-and-tips"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.0.7</span> <strong>6. Fun Facts and Tips</strong> 🎉<a class="anchor" aria-label="anchor" href="#fun-facts-and-tips"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
-<li>Did you know?
+<li>
+<strong>Did You Know?</strong>
 <ul>
-<li>Raster data is like an image grid, where each pixel stores environmental information!<br>
-</li>
+<li>Raster data is like an image grid, where each pixel stores environmental information, such as temperature or elevation.</li>
 </ul>
 </li>
-<li>Pro Tip:
+<li>
+<strong>Pro Tip</strong>:
 <ul>
-<li>Use <code>terra</code> over <code>raster</code> for faster computations with large datasets.</li>
+<li>Use the <code>terra</code> package instead of <code>raster</code> for faster computations with large datasets. It’s designed to handle big spatial data more efficiently.</li>
 </ul>
 </li>
-<li>Fun Fact:
+<li>
+<strong>Fun Fact</strong>:
 <ul>
-<li>CRSs like Mercator distort area near the poles, which is why Greenland looks so big on some maps!</li>
+<li>The <strong>Mercator projection</strong> distorts areas near the poles, which is why Greenland looks much larger than it actually is!</li>
 </ul>
 </li>
 </ul>
@@ -1104,20 +1279,39 @@ Use the <code>terra</code> package for faster processing when working with large
 </div>
 <div id="summary-and-key-takeaways" class="section level3" number="3.0.8">
 <h3>
-<span class="header-section-number">3.0.8</span> <strong>7. Summary and Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#summary-and-key-takeaways"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.0.8</span> <strong>7. Summary and Key Takeaways</strong> 📝<a class="anchor" aria-label="anchor" href="#summary-and-key-takeaways"><i class="fas fa-link"></i></a>
 </h3>
+<p>Let’s wrap up what we’ve learned:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Spatial Data Types</strong>
 <ul>
 <li>
-<strong>Spatial Data Types</strong>: Vector (points, lines, polygons) vs. Raster (grids).<br>
+<strong>Vector data</strong>: Points, lines, polygons.<br>
 </li>
 <li>
-<strong>CRS Importance</strong>: Ensures accurate alignment and analysis.<br>
-</li>
-<li>
-<strong>R Packages</strong>: Use <code>sf</code> and <code>terra</code> for modern and efficient workflows.</li>
+<strong>Raster data</strong>: Grids of cells with values representing continuous data.</li>
 </ul>
+</li>
+<li>
+<strong>CRS Importance</strong>
+<ul>
+<li>Always ensure that your spatial datasets have the same CRS to avoid alignment issues.<br>
+</li>
+<li>Use functions like <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> (vector) and <code><a href="https://rspatial.github.io/terra/reference/project.html">project()</a></code> (raster) to reproject data when needed.</li>
+</ul>
+</li>
+<li>
+<strong>R Packages for Spatial Data</strong>
+<ul>
+<li>Use <code>sf</code> for vector data and <code>terra</code> for raster data.<br>
+</li>
+<li>These packages provide modern, efficient workflows for handling spatial data in R.</li>
+</ul>
+</li>
+</ol>
 <hr>
-<p>This outline covers all the major topics from the slides and organizes them into logical sections and sub-sections to help students easily follow and learn about spatial data concepts. Let me know if this works!</p>
+<p>With these concepts in mind, you’re well on your way to becoming proficient in handling spatial data in R! Next, we’ll explore more advanced topics, such as <strong>spatial analysis techniques</strong> and <strong>model building</strong>. Stay tuned! 🚀</p>
 
 </div>
 </div>
@@ -1133,9 +1327,9 @@ Use the <code>terra</code> package for faster processing when working with large
 <li><a class="nav-link" href="#key-takeaways"><span class="header-section-number">3.0.3</span> Key Takeaways</a></li>
 <li><a class="nav-link" href="#coordinate-reference-systems-crs"><span class="header-section-number">3.0.4</span> 3. Coordinate Reference Systems (CRS) 🌍</a></li>
 <li><a class="nav-link" href="#spatial-data-tools-in-r"><span class="header-section-number">3.0.5</span> 4. Spatial Data Tools in R 🛠️</a></li>
-<li><a class="nav-link" href="#practical-considerations"><span class="header-section-number">3.0.6</span> 5. Practical Considerations</a></li>
-<li><a class="nav-link" href="#fun-facts-and-tips"><span class="header-section-number">3.0.7</span> 6. Fun Facts and Tips</a></li>
-<li><a class="nav-link" href="#summary-and-key-takeaways"><span class="header-section-number">3.0.8</span> 7. Summary and Key Takeaways</a></li>
+<li><a class="nav-link" href="#practical-considerations"><span class="header-section-number">3.0.6</span> 5. Practical Considerations 🛠️</a></li>
+<li><a class="nav-link" href="#fun-facts-and-tips"><span class="header-section-number">3.0.7</span> 6. Fun Facts and Tips 🎉</a></li>
+<li><a class="nav-link" href="#summary-and-key-takeaways"><span class="header-section-number">3.0.8</span> 7. Summary and Key Takeaways 📝</a></li>
 </ul>
 </li></ul>
 

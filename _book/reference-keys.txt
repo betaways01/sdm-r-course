@@ -90,6 +90,9 @@ common-file-formats-for-raster-data
 key-differences-between-vector-and-raster-tools
 practical-example-combining-vector-and-raster-data
 practical-considerations
+data-alignment
+data-quality
+computational-trade-offs
 fun-facts-and-tips
 summary-and-key-takeaways
 parts

@@ -38,7 +38,12 @@ h5:key-functions-for-raster-data
 h5:common-file-formats-for-raster-data 
 h4:key-differences-between-vector-and-raster-tools 
 h4:practical-example-combining-vector-and-raster-data 
-h3:practical-considerations 
-h3:fun-facts-and-tips 
-h3:summary-and-key-takeaways 
+h3:practical-considerations  🛠️
+h4:data-alignment 
+h1:load-vector-data Load vector data
+h1:load-raster-data Load raster data
+h1:check-crs-of-both-datasets Check CRS of both datasets
+h1:reproject-vector-data-to-match-raster-crs Reproject vector data to match raster CRS
+h3:fun-facts-and-tips  🎉
+h3:summary-and-key-takeaways  📝
 

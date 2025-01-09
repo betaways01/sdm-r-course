@@ -599,7 +599,7 @@ library(terra)
 # in your local machine, run this commented line:
 #r_terra <- rast(system.file("external/test.grd", package = "raster"))
 # for demonstration, we do this:
-r_terra = rast("sample_raster.tif")
+r_terra = rast("datasets/sample_raster.tif")
 plot(r_terra, main = "Sample Raster Loaded with terra")
 ```
 
@@ -736,36 +736,206 @@ By mastering these tools, you’ll be well-equipped to handle a wide range of sp
 ---
 ---
 
-### **5. Practical Considerations**
-   #### **5.1. Data Alignment**
-   - Ensure that vector and raster data use the same CRS.
-   - Align raster layers (same resolution, extent, and origin).
-
-   #### **5.2. Data Quality**
-   - Check for missing values (e.g., `NoData` cells in rasters).
-   - Remove duplicates in vector data.
-
-   #### **5.3. Computational Trade-offs**
-   - High-resolution data increases processing time.
-   - Use appropriate resolution for your study area.
+### **5. Practical Considerations** 🛠️
 
 ---
 
-### **6. Fun Facts and Tips**
-   - Did you know?  
-     - Raster data is like an image grid, where each pixel stores environmental information!  
-   - Pro Tip:  
-     - Use `terra` over `raster` for faster computations with large datasets.
-   - Fun Fact:  
-     - CRSs like Mercator distort area near the poles, which is why Greenland looks so big on some maps!
+Working with spatial data requires careful attention to detail to ensure accurate analysis and meaningful results. Let’s go over some important **practical considerations** when using spatial data.
 
 ---
 
-### **7. Summary and Key Takeaways**
-   - **Spatial Data Types**: Vector (points, lines, polygons) vs. Raster (grids).  
-   - **CRS Importance**: Ensures accurate alignment and analysis.  
-   - **R Packages**: Use `sf` and `terra` for modern and efficient workflows.  
+#### **5.1. Data Alignment**
+
+::: {.rmdimportant}
+When combining different spatial datasets, it’s crucial to ensure they are properly aligned. Misaligned data can lead to incorrect analysis and misleading results.
+:::
+
+**Key Points for Data Alignment**:
+
+1. **Same CRS**  
+   - All spatial layers (vector and raster) should use the same **Coordinate Reference System (CRS)**.  
+   - Example: If your vector data uses **EPSG:4326** (WGS84), your raster data should be reprojected to match this CRS.
+
+``` r
+library(sf)
+library(terra)
+ 
+# Load vector data
+nc <- st_read(system.file("shape/nc.shp", package = "sf"))
+#> Reading layer `nc' from data source 
+#>   `/Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/sf/shape/nc.shp' 
+#>   using driver `ESRI Shapefile'
+#> Simple feature collection with 100 features and 14 fields
+#> Geometry type: MULTIPOLYGON
+#> Dimension:     XY
+#> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+#> Geodetic CRS:  NAD27
+```
+
+``` r
+
+# Load raster data
+elev <- rast("datasets/elevation_data.grd")
+   
+# Check CRS of both datasets
+st_crs(nc)  # Vector CRS
+#> Coordinate Reference System:
+#>   User input: NAD27 
+#>   wkt:
+#> GEOGCRS["NAD27",
+#>     DATUM["North American Datum 1927",
+#>         ELLIPSOID["Clarke 1866",6378206.4,294.978698213898,
+#>             LENGTHUNIT["metre",1]]],
+#>     PRIMEM["Greenwich",0,
+#>         ANGLEUNIT["degree",0.0174532925199433]],
+#>     CS[ellipsoidal,2],
+#>         AXIS["latitude",north,
+#>             ORDER[1],
+#>             ANGLEUNIT["degree",0.0174532925199433]],
+#>         AXIS["longitude",east,
+#>             ORDER[2],
+#>             ANGLEUNIT["degree",0.0174532925199433]],
+#>     ID["EPSG",4267]]
+```
+
+``` r
+crs(elev)   # Raster CRS
+#> [1] "PROJCRS[\"unknown\",\n    BASEGEOGCRS[\"unknown\",\n        DATUM[\"World Geodetic System 1984\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]],\n            ID[\"EPSG\",6326]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8901]]],\n    CONVERSION[\"unknown\",\n        METHOD[\"Oblique Stereographic\",\n            ID[\"EPSG\",9809]],\n        PARAMETER[\"Latitude of natural origin\",52.1561605555556,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",5.38763888888889,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9999079,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",155000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",463000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]]]"
+```
+
+``` r
+   
+# Reproject vector data to match raster CRS
+nc_aligned <- st_transform(nc, crs(elev))
+```
+
+2. **Align Raster Layers**  
+   - When working with multiple raster layers (e.g., temperature, precipitation), ensure they have the same **resolution**, **extent**, and **origin**.  
+   - This ensures they can be used together without errors in analysis.
 
 ---
 
-This outline covers all the major topics from the slides and organizes them into logical sections and sub-sections to help students easily follow and learn about spatial data concepts. Let me know if this works!
+#### **5.2. Data Quality**
+
+::: {.rmdcaution}
+Always check your data for missing values or inconsistencies before analysis. Poor data quality leads to unreliable models.
+:::
+
+**Steps to Ensure Data Quality**:
+
+1. **Check for Missing Values**  
+   - Raster data often contains cells with **NoData** values.  
+   - You can use `terra` to check and handle these missing values:
+
+``` r
+# Check for NoData cells
+summary(elev)
+#>       test       
+#>  Min.   : 138.7  
+#>  1st Qu.: 294.0  
+#>  Median : 371.9  
+#>  Mean   : 425.6  
+#>  3rd Qu.: 501.0  
+#>  Max.   :1736.1  
+#>  NA's   :6022
+```
+
+
+``` r
+# Replace NoData cells with 0 (if appropriate)
+elev[is.na(elev)] <- 0
+summary(elev)
+#>       test       
+#>  Min.   :   0.0  
+#>  1st Qu.:   0.0  
+#>  Median :   0.0  
+#>  Mean   : 147.0  
+#>  3rd Qu.: 302.8  
+#>  Max.   :1736.1
+```
+We observe now that there are no missing observations in the data.
+
+
+2. **Remove Duplicates** in Vector Data  
+   - If your vector data contains duplicate points, it can bias your analysis.  
+   - Use `distinct()` from `dplyr` or `st_as_sf()` to remove duplicates:
+
+``` r
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:terra':
+#> 
+#>     intersect, union
+#> The following objects are masked from 'package:raster':
+#> 
+#>     intersect, select, union
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+```
+
+``` r
+nc <- distinct(nc)
+```
+
+---
+
+#### **5.3. Computational Trade-offs**
+
+::: {.rmdtip}
+High-resolution data provides more detail but increases computation time and memory usage. Choose a resolution appropriate for your study area.
+:::
+
+**Key Considerations**:
+
+1. **Resolution**  
+   - **High-resolution** data (e.g., 1 m cells) is great for detailed analysis but requires significant computational power.  
+   - **Low-resolution** data (e.g., 10 km cells) is faster to process but may miss important details.
+   
+   > **Tip**: Start with lower resolution data when prototyping your analysis, then switch to high-resolution data for the final results.
+
+2. **Extent**  
+   - Limiting the spatial extent of your data can reduce processing time. If you’re only interested in a specific region, crop your raster to that region:
+   ```r
+   # Crop raster to the extent of vector data
+   elev_cropped <- crop(elev, st_bbox(nc))
+   ```
+
+---
+
+### **6. Fun Facts and Tips** 🎉
+
+- **Did You Know?**  
+  - Raster data is like an image grid, where each pixel stores environmental information, such as temperature or elevation.
+  
+- **Pro Tip**:  
+  - Use the `terra` package instead of `raster` for faster computations with large datasets. It’s designed to handle big spatial data more efficiently.
+  
+- **Fun Fact**:  
+  - The **Mercator projection** distorts areas near the poles, which is why Greenland looks much larger than it actually is!
+
+---
+
+### **7. Summary and Key Takeaways** 📝
+
+Let’s wrap up what we’ve learned:
+
+1. **Spatial Data Types**  
+   - **Vector data**: Points, lines, polygons.  
+   - **Raster data**: Grids of cells with values representing continuous data.
+
+2. **CRS Importance**  
+   - Always ensure that your spatial datasets have the same CRS to avoid alignment issues.  
+   - Use functions like `st_transform()` (vector) and `project()` (raster) to reproject data when needed.
+
+3. **R Packages for Spatial Data**  
+   - Use `sf` for vector data and `terra` for raster data.  
+   - These packages provide modern, efficient workflows for handling spatial data in R.
+
+---
+
+With these concepts in mind, you’re well on your way to becoming proficient in handling spatial data in R! Next, we’ll explore more advanced topics, such as **spatial analysis techniques** and **model building**. Stay tuned! 🚀
