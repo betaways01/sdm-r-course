@@ -93,6 +93,7 @@ Vector data represents features as **points**, **lines**, or **polygons**. It’
 ##### **Attributes of Vector Data**
 Each vector feature can have **attributes**, which provide additional information.  
 For example:
+
 | **Feature**    | **Attribute**          |
 |-----------------|------------------------|
 | A tree point    | Tree species name      |
@@ -900,10 +901,10 @@ High-resolution data provides more detail but increases computation time and mem
 
 2. **Extent**  
    - Limiting the spatial extent of your data can reduce processing time. If you’re only interested in a specific region, crop your raster to that region:
-   ```r
-   # Crop raster to the extent of vector data
-   elev_cropped <- crop(elev, st_bbox(nc))
-   ```
+```r
+# Crop raster to the extent of vector data
+elev_cropped <- crop(elev, st_bbox(nc))
+```
 
 ---
 
