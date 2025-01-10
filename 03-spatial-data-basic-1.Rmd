@@ -264,9 +264,6 @@ plot(b, main = c("Layer 1: Random Values", "Layer 2: Values * 2", "Layer 3: Squa
 - **RasterBrick**: A more memory-efficient version of a `RasterStack`.
 
 ---
-Thank you for the clarification! Building upon the earlier section, I’ll now extend the discussion by focusing on **practical R steps to assign and transform CRS** with detailed examples and callouts for better understanding.
-
----
 ---
 
 ### **4. Working with Coordinate Reference Systems (CRS)**
