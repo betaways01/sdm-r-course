@@ -81,16 +81,15 @@
 <p>By following along, you’ll learn basic methods for handling both <strong>vector</strong> and <strong>raster data</strong> in R. You’ll also get familiar with common GIS tasks like reading, writing, and transforming spatial data.</p>
 <p>Let’s start! 🌍</p>
 </div>
-<div id="working-with-vector-data-in-r" class="section level3" number="4.0.2">
-<h3>
-<span class="header-section-number">4.0.2</span> <strong>2. Working with Vector Data in R</strong><a class="anchor" aria-label="anchor" href="#working-with-vector-data-in-r"><i class="fas fa-link"></i></a>
-</h3>
-<hr>
+<div id="working-with-vector-data-in-r" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> ### <strong>2. Working with Vector Data in R</strong><a class="anchor" aria-label="anchor" href="#working-with-vector-data-in-r"><i class="fas fa-link"></i></a>
+</h2>
 <p>Vector data includes points, lines, and polygons. In this section, we will focus on <strong>creating point data</strong>, converting it into a <strong>spatial object</strong>, and adding <strong>attribute data</strong>.</p>
 <hr>
-<div id="creating-point-data" class="section level4" number="4.0.2.1">
+<div id="creating-point-data" class="section level4" number="4.1.0.1">
 <h4>
-<span class="header-section-number">4.0.2.1</span> <strong>2.1. Creating Point Data</strong><a class="anchor" aria-label="anchor" href="#creating-point-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.0.1</span> <strong>2.1. Creating Point Data</strong><a class="anchor" aria-label="anchor" href="#creating-point-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>To start, we need to create a set of points using longitude and latitude values. In R, this can be done using simple vectors.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
@@ -114,9 +113,9 @@
 </div>
 <hr>
 </div>
-<div id="converting-to-a-spatial-object" class="section level4" number="4.0.2.2">
+<div id="converting-to-a-spatial-object" class="section level4" number="4.1.0.2">
 <h4>
-<span class="header-section-number">4.0.2.2</span> <strong>2.2. Converting to a Spatial Object</strong><a class="anchor" aria-label="anchor" href="#converting-to-a-spatial-object"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.0.2</span> <strong>2.2. Converting to a Spatial Object</strong><a class="anchor" aria-label="anchor" href="#converting-to-a-spatial-object"><i class="fas fa-link"></i></a>
 </h4>
 <p>Although we have plotted the points, they are not yet considered <strong>spatial data</strong>. To work with spatial data, we need to convert these points into a <code>SpatialPoints</code> object.</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
@@ -136,9 +135,9 @@
 </div>
 <hr>
 </div>
-<div id="assigning-a-coordinate-reference-system-crs" class="section level4" number="4.0.2.3">
+<div id="assigning-a-coordinate-reference-system-crs" class="section level4" number="4.1.0.3">
 <h4>
-<span class="header-section-number">4.0.2.3</span> <strong>Assigning a Coordinate Reference System (CRS)</strong><a class="anchor" aria-label="anchor" href="#assigning-a-coordinate-reference-system-crs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.0.3</span> <strong>Assigning a Coordinate Reference System (CRS)</strong><a class="anchor" aria-label="anchor" href="#assigning-a-coordinate-reference-system-crs"><i class="fas fa-link"></i></a>
 </h4>
 <p>A <strong>CRS</strong> defines how the spatial data relates to locations on Earth. Without a CRS, your points won’t align properly with other spatial datasets.</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
@@ -161,9 +160,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 <hr>
 </div>
-<div id="creating-a-spatialpointsdataframe" class="section level4" number="4.0.2.4">
+<div id="creating-a-spatialpointsdataframe" class="section level4" number="4.1.0.4">
 <h4>
-<span class="header-section-number">4.0.2.4</span> <strong>2.3. Creating a <code>SpatialPointsDataFrame</code></strong><a class="anchor" aria-label="anchor" href="#creating-a-spatialpointsdataframe"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.0.4</span> <strong>2.3. Creating a <code>SpatialPointsDataFrame</code></strong><a class="anchor" aria-label="anchor" href="#creating-a-spatialpointsdataframe"><i class="fas fa-link"></i></a>
 </h4>
 <p>A <code>SpatialPointsDataFrame</code> combines spatial data with <strong>attribute data</strong>. Let’s add some random precipitation values to our points.</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
@@ -185,9 +184,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <span><span class="co">#&gt; 5  5 64.17455</span></span></code></pre></div>
 <hr>
 </div>
-<div id="output-check" class="section level4" number="4.0.2.5">
+<div id="output-check" class="section level4" number="4.1.0.5">
 <h4>
-<span class="header-section-number">4.0.2.5</span> <strong>Output Check</strong><a class="anchor" aria-label="anchor" href="#output-check"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.0.5</span> <strong>Output Check</strong><a class="anchor" aria-label="anchor" href="#output-check"><i class="fas fa-link"></i></a>
 </h4>
 <p>You can access both the <strong>coordinates</strong> and <strong>attributes</strong> separately.</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
@@ -216,9 +215,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 <hr>
 </div>
-<div id="plotting-the-data" class="section level4" number="4.0.2.6">
+<div id="plotting-the-data" class="section level4" number="4.1.0.6">
 <h4>
-<span class="header-section-number">4.0.2.6</span> <strong>Plotting the Data</strong><a class="anchor" aria-label="anchor" href="#plotting-the-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.0.6</span> <strong>Plotting the Data</strong><a class="anchor" aria-label="anchor" href="#plotting-the-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>We can now visualize the points on a simple plot, coloring them based on precipitation values.</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
@@ -230,10 +229,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <div class="inline-figure"><img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 <hr>
 </div>
-</div>
-<div id="summary" class="section level3" number="4.0.3">
+<div id="summary" class="section level3" number="4.1.1">
 <h3>
-<span class="header-section-number">4.0.3</span> <strong>Summary</strong><a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.1</span> <strong>Summary</strong><a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>We learned how to <strong>create point data</strong> using longitude and latitude.</li>
@@ -242,13 +240,13 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <li>Finally, we plotted the points with precipitation values.</li>
 </ul>
 </div>
-<div id="creating-and-manipulating-raster-data-in-r" class="section level3" number="4.0.4">
+<div id="creating-and-manipulating-raster-data-in-r" class="section level3" number="4.1.2">
 <h3>
-<span class="header-section-number">4.0.4</span> <strong>3. Creating and Manipulating Raster Data in R</strong><a class="anchor" aria-label="anchor" href="#creating-and-manipulating-raster-data-in-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2</span> <strong>3. Creating and Manipulating Raster Data in R</strong><a class="anchor" aria-label="anchor" href="#creating-and-manipulating-raster-data-in-r"><i class="fas fa-link"></i></a>
 </h3>
-<div id="creating-a-rasterlayer" class="section level4" number="4.0.4.1">
+<div id="creating-a-rasterlayer" class="section level4" number="4.1.2.1">
 <h4>
-<span class="header-section-number">4.0.4.1</span> <strong>3.1. Creating a <code>RasterLayer</code></strong><a class="anchor" aria-label="anchor" href="#creating-a-rasterlayer"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2.1</span> <strong>3.1. Creating a <code>RasterLayer</code></strong><a class="anchor" aria-label="anchor" href="#creating-a-rasterlayer"><i class="fas fa-link"></i></a>
 </h4>
 <p>A <strong>raster</strong> represents spatial data as a grid of cells, where each cell has a value. This is useful for continuous data like temperature, elevation, or land cover.</p>
 <p>We’ll start by creating a blank raster with <strong>10 columns</strong> and <strong>10 rows</strong>, and we’ll define its extent (the geographic area it covers).</p>
@@ -282,9 +280,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 <hr>
 </div>
-<div id="adding-values-to-the-raster" class="section level4" number="4.0.4.2">
+<div id="adding-values-to-the-raster" class="section level4" number="4.1.2.2">
 <h4>
-<span class="header-section-number">4.0.4.2</span> <strong>3.2. Adding Values to the Raster</strong><a class="anchor" aria-label="anchor" href="#adding-values-to-the-raster"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2.2</span> <strong>3.2. Adding Values to the Raster</strong><a class="anchor" aria-label="anchor" href="#adding-values-to-the-raster"><i class="fas fa-link"></i></a>
 </h4>
 <p>Now that we have a blank raster, we can assign values to its cells. Let’s assign random values between 0 and 100 using the <code><a href="https://rdrr.io/r/stats/Uniform.html">runif()</a></code> function, which generates random numbers.</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
@@ -302,9 +300,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 <hr>
 </div>
-<div id="creating-a-rasterstack" class="section level4" number="4.0.4.3">
+<div id="creating-a-rasterstack" class="section level4" number="4.1.2.3">
 <h4>
-<span class="header-section-number">4.0.4.3</span> <strong>3.3. Creating a <code>RasterStack</code></strong><a class="anchor" aria-label="anchor" href="#creating-a-rasterstack"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2.3</span> <strong>3.3. Creating a <code>RasterStack</code></strong><a class="anchor" aria-label="anchor" href="#creating-a-rasterstack"><i class="fas fa-link"></i></a>
 </h4>
 <p>A <strong><code>RasterStack</code></strong> is a collection of multiple rasters with the same extent and resolution. This is useful when you have multiple layers of data for the same area, such as temperature, precipitation, and elevation.</p>
 <p>Let’s create two more rasters and stack them together.</p>
@@ -328,9 +326,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 <hr>
 </div>
-<div id="creating-a-rasterbrick" class="section level4" number="4.0.4.4">
+<div id="creating-a-rasterbrick" class="section level4" number="4.1.2.4">
 <h4>
-<span class="header-section-number">4.0.4.4</span> <strong>3.4. Creating a <code>RasterBrick</code></strong><a class="anchor" aria-label="anchor" href="#creating-a-rasterbrick"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2.4</span> <strong>3.4. Creating a <code>RasterBrick</code></strong><a class="anchor" aria-label="anchor" href="#creating-a-rasterbrick"><i class="fas fa-link"></i></a>
 </h4>
 <p>A <strong><code>RasterBrick</code></strong> is similar to a <code>RasterStack</code>, but it is stored more efficiently in memory. This makes it faster to process when working with large datasets.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
@@ -348,9 +346,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </ul>
 </div>
 <hr>
-<div id="key-takeaways-2" class="section level5" number="4.0.4.4.1">
+<div id="key-takeaways-2" class="section level5" number="4.1.2.4.1">
 <h5>
-<span class="header-section-number">4.0.4.4.1</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2.4.1</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-2"><i class="fas fa-link"></i></a>
 </h5>
 <ul>
 <li>
@@ -363,20 +361,20 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 </div>
 </div>
-<div id="working-with-coordinate-reference-systems-crs" class="section level3" number="4.0.5">
-<h3>
-<span class="header-section-number">4.0.5</span> <strong>4. Working with Coordinate Reference Systems (CRS)</strong><a class="anchor" aria-label="anchor" href="#working-with-coordinate-reference-systems-crs"><i class="fas fa-link"></i></a>
-</h3>
-<hr>
-<div id="assigning-and-transforming-crs" class="section level4" number="4.0.5.1">
+</div>
+<div id="working-with-coordinate-reference-systems-crs" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> ### <strong>4. Working with Coordinate Reference Systems (CRS)</strong><a class="anchor" aria-label="anchor" href="#working-with-coordinate-reference-systems-crs"><i class="fas fa-link"></i></a>
+</h2>
+<div id="assigning-and-transforming-crs" class="section level4" number="4.2.0.1">
 <h4>
-<span class="header-section-number">4.0.5.1</span> <strong>4.1. Assigning and Transforming CRS</strong><a class="anchor" aria-label="anchor" href="#assigning-and-transforming-crs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.0.1</span> <strong>4.1. Assigning and Transforming CRS</strong><a class="anchor" aria-label="anchor" href="#assigning-and-transforming-crs"><i class="fas fa-link"></i></a>
 </h4>
 <p>When working with spatial data, ensuring that all layers share a common CRS is crucial for proper alignment and accurate analysis. Let’s walk through assigning a CRS and transforming it to a new one using <strong>vector</strong> and <strong>raster data</strong>.</p>
 <hr>
-<div id="assigning-a-crs-to-vector-data" class="section level5" number="4.0.5.1.1">
+<div id="assigning-a-crs-to-vector-data" class="section level5" number="4.2.0.1.1">
 <h5>
-<span class="header-section-number">4.0.5.1.1</span> <strong>Assigning a CRS to Vector Data</strong><a class="anchor" aria-label="anchor" href="#assigning-a-crs-to-vector-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.0.1.1</span> <strong>Assigning a CRS to Vector Data</strong><a class="anchor" aria-label="anchor" href="#assigning-a-crs-to-vector-data"><i class="fas fa-link"></i></a>
 </h5>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load necessary library</span></span>
@@ -432,9 +430,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 <hr>
 </div>
-<div id="transforming-vector-data-to-a-new-crs" class="section level5" number="4.0.5.1.2">
+<div id="transforming-vector-data-to-a-new-crs" class="section level5" number="4.2.0.1.2">
 <h5>
-<span class="header-section-number">4.0.5.1.2</span> <strong>Transforming Vector Data to a New CRS</strong><a class="anchor" aria-label="anchor" href="#transforming-vector-data-to-a-new-crs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.0.1.2</span> <strong>Transforming Vector Data to a New CRS</strong><a class="anchor" aria-label="anchor" href="#transforming-vector-data-to-a-new-crs"><i class="fas fa-link"></i></a>
 </h5>
 <p>Let’s transform the spatial data from <strong>WGS84</strong> to a <strong>Robinson projection</strong>.</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
@@ -464,15 +462,15 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <hr>
 </div>
 </div>
-<div id="projecting-raster-data" class="section level4" number="4.0.5.2">
+<div id="projecting-raster-data" class="section level4" number="4.2.0.2">
 <h4>
-<span class="header-section-number">4.0.5.2</span> <strong>4.2. Projecting Raster Data</strong><a class="anchor" aria-label="anchor" href="#projecting-raster-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.0.2</span> <strong>4.2. Projecting Raster Data</strong><a class="anchor" aria-label="anchor" href="#projecting-raster-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>Projecting raster data involves recalculating cell values and adjusting the resolution to fit the new CRS. Let’s demonstrate this using a raster dataset.</p>
 <hr>
-<div id="reprojecting-a-raster" class="section level5" number="4.0.5.2.1">
+<div id="reprojecting-a-raster" class="section level5" number="4.2.0.2.1">
 <h5>
-<span class="header-section-number">4.0.5.2.1</span> <strong>Reprojecting a Raster</strong><a class="anchor" aria-label="anchor" href="#reprojecting-a-raster"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.0.2.1</span> <strong>Reprojecting a Raster</strong><a class="anchor" aria-label="anchor" href="#reprojecting-a-raster"><i class="fas fa-link"></i></a>
 </h5>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load necessary library</span></span>
@@ -509,10 +507,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <hr>
 </div>
 </div>
-</div>
-<div id="key-takeaways-3" class="section level3" number="4.0.6">
+<div id="key-takeaways-3" class="section level3" number="4.2.1">
 <h3>
-<span class="header-section-number">4.0.6</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.1</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-3"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>Always ensure that your spatial datasets use the same CRS before performing analysis.</li>
@@ -520,20 +517,20 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <li>Choose appropriate CRSs based on the scope and goals of your project.</li>
 </ul>
 </div>
-<div id="reading-and-writing-spatial-data" class="section level3" number="4.0.7">
-<h3>
-<span class="header-section-number">4.0.7</span> <strong>5. Reading and Writing Spatial Data</strong><a class="anchor" aria-label="anchor" href="#reading-and-writing-spatial-data"><i class="fas fa-link"></i></a>
-</h3>
-<hr>
-<div id="reading-shapefiles-and-rasters" class="section level4" number="4.0.7.1">
+</div>
+<div id="reading-and-writing-spatial-data" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> ### <strong>5. Reading and Writing Spatial Data</strong><a class="anchor" aria-label="anchor" href="#reading-and-writing-spatial-data"><i class="fas fa-link"></i></a>
+</h2>
+<div id="reading-shapefiles-and-rasters" class="section level4" number="4.3.0.1">
 <h4>
-<span class="header-section-number">4.0.7.1</span> <strong>5.1. Reading Shapefiles and Rasters</strong><a class="anchor" aria-label="anchor" href="#reading-shapefiles-and-rasters"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.0.1</span> <strong>5.1. Reading Shapefiles and Rasters</strong><a class="anchor" aria-label="anchor" href="#reading-shapefiles-and-rasters"><i class="fas fa-link"></i></a>
 </h4>
 <p>Working with spatial data often starts by <strong>reading external files</strong> such as shapefiles and raster datasets. R provides convenient functions to load these files into spatial objects for analysis.</p>
 <hr>
-<div id="reading-a-shapefile" class="section level5" number="4.0.7.1.1">
+<div id="reading-a-shapefile" class="section level5" number="4.3.0.1.1">
 <h5>
-<span class="header-section-number">4.0.7.1.1</span> <strong>Reading a Shapefile</strong><a class="anchor" aria-label="anchor" href="#reading-a-shapefile"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.0.1.1</span> <strong>Reading a Shapefile</strong><a class="anchor" aria-label="anchor" href="#reading-a-shapefile"><i class="fas fa-link"></i></a>
 </h5>
 <p>Let’s read a sample shapefile provided by the <code>raster</code> package.</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
@@ -567,9 +564,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 <hr>
 </div>
-<div id="reading-a-raster-file" class="section level5" number="4.0.7.1.2">
+<div id="reading-a-raster-file" class="section level5" number="4.3.0.1.2">
 <h5>
-<span class="header-section-number">4.0.7.1.2</span> <strong>Reading a Raster File</strong><a class="anchor" aria-label="anchor" href="#reading-a-raster-file"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.0.1.2</span> <strong>Reading a Raster File</strong><a class="anchor" aria-label="anchor" href="#reading-a-raster-file"><i class="fas fa-link"></i></a>
 </h5>
 <p>Now, let’s load a sample raster dataset, also provided by the <code>raster</code> package.</p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
@@ -600,15 +597,15 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <hr>
 </div>
 </div>
-<div id="writing-spatial-data-to-disk" class="section level4" number="4.0.7.2">
+<div id="writing-spatial-data-to-disk" class="section level4" number="4.3.0.2">
 <h4>
-<span class="header-section-number">4.0.7.2</span> <strong>5.2. Writing Spatial Data to Disk</strong><a class="anchor" aria-label="anchor" href="#writing-spatial-data-to-disk"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.0.2</span> <strong>5.2. Writing Spatial Data to Disk</strong><a class="anchor" aria-label="anchor" href="#writing-spatial-data-to-disk"><i class="fas fa-link"></i></a>
 </h4>
 <p>Once you’ve processed your spatial data, you’ll often want to <strong>save it to disk</strong> for sharing or future use. Let’s see how to save both shapefiles and rasters.</p>
 <hr>
-<div id="saving-a-shapefile" class="section level5" number="4.0.7.2.1">
+<div id="saving-a-shapefile" class="section level5" number="4.3.0.2.1">
 <h5>
-<span class="header-section-number">4.0.7.2.1</span> <strong>Saving a Shapefile</strong><a class="anchor" aria-label="anchor" href="#saving-a-shapefile"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.0.2.1</span> <strong>Saving a Shapefile</strong><a class="anchor" aria-label="anchor" href="#saving-a-shapefile"><i class="fas fa-link"></i></a>
 </h5>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define output file path</span></span>
@@ -630,9 +627,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </div>
 <hr>
 </div>
-<div id="saving-a-raster" class="section level5" number="4.0.7.2.2">
+<div id="saving-a-raster" class="section level5" number="4.3.0.2.2">
 <h5>
-<span class="header-section-number">4.0.7.2.2</span> <strong>Saving a Raster</strong><a class="anchor" aria-label="anchor" href="#saving-a-raster"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.0.2.2</span> <strong>Saving a Raster</strong><a class="anchor" aria-label="anchor" href="#saving-a-raster"><i class="fas fa-link"></i></a>
 </h5>
 <p>Let’s save the raster we read earlier to a new file in <strong>GeoTIFF</strong> format.</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
@@ -654,10 +651,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <hr>
 </div>
 </div>
-</div>
-<div id="key-takeaways-4" class="section level3" number="4.0.8">
+<div id="key-takeaways-4" class="section level3" number="4.3.1">
 <h3>
-<span class="header-section-number">4.0.8</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.1</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-4"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>Use <code><a href="https://rdrr.io/pkg/raster/man/shapefile.html">shapefile()</a></code> to <strong>read</strong> and <strong>write shapefiles</strong>.</li>
@@ -666,11 +662,11 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <li>Always check the CRS, resolution, and extent of your data to ensure proper alignment when saving files.</li>
 </ul>
 </div>
-<div id="practical-applications-in-sdm" class="section level3" number="4.0.9">
-<h3>
-<span class="header-section-number">4.0.9</span> <strong>6. Practical Applications in SDM</strong><a class="anchor" aria-label="anchor" href="#practical-applications-in-sdm"><i class="fas fa-link"></i></a>
-</h3>
-<hr>
+</div>
+<div id="practical-applications-in-sdm" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> ### <strong>6. Practical Applications in SDM</strong><a class="anchor" aria-label="anchor" href="#practical-applications-in-sdm"><i class="fas fa-link"></i></a>
+</h2>
 <p>Species Distribution Modeling (<strong>SDM</strong>) involves predicting the geographic distribution of species based on <strong>environmental data</strong> (e.g., climate variables) and <strong>species occurrence data</strong> (e.g., observed locations of a species). In this section, we’ll demonstrate how to:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -680,9 +676,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <strong>Retrieve species occurrence data</strong> from <strong>GBIF</strong> using the <code><a href="https://rdrr.io/pkg/dismo/man/gbif.html">gbif()</a></code> function.</li>
 </ol>
 <hr>
-<div id="downloading-environmental-data" class="section level4" number="4.0.9.1">
+<div id="downloading-environmental-data" class="section level4" number="4.4.0.1">
 <h4>
-<span class="header-section-number">4.0.9.1</span> <strong>6.1. Downloading Environmental Data</strong><a class="anchor" aria-label="anchor" href="#downloading-environmental-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.0.1</span> <strong>6.1. Downloading Environmental Data</strong><a class="anchor" aria-label="anchor" href="#downloading-environmental-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>Bioclimatic variables are commonly used in SDM. These variables represent different climate characteristics, such as annual mean temperature, temperature seasonality, and annual precipitation.</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
@@ -723,14 +719,14 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 </ul>
 </div>
 <hr>
-<div id="key-bioclimatic-variables" class="section level5" number="4.0.9.1.1">
+<div id="key-bioclimatic-variables" class="section level5" number="4.4.0.1.1">
 <h5>
-<span class="header-section-number">4.0.9.1.1</span> <strong>Key Bioclimatic Variables</strong><a class="anchor" aria-label="anchor" href="#key-bioclimatic-variables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.0.1.1</span> <strong>Key Bioclimatic Variables</strong><a class="anchor" aria-label="anchor" href="#key-bioclimatic-variables"><i class="fas fa-link"></i></a>
 </h5>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
-<col width="35%">
-<col width="64%">
+<col width="26%">
+<col width="73%">
 </colgroup>
 <thead><tr class="header">
 <th><strong>Variable Name</strong></th>
@@ -758,9 +754,9 @@ In most cases, use <code>"+proj=longlat +datum=WGS84"</code> for data with longi
 <hr>
 </div>
 </div>
-<div id="retrieving-species-occurrence-data" class="section level4" number="4.0.9.2">
+<div id="retrieving-species-occurrence-data" class="section level4" number="4.4.0.2">
 <h4>
-<span class="header-section-number">4.0.9.2</span> <strong>6.2. Retrieving Species Occurrence Data</strong><a class="anchor" aria-label="anchor" href="#retrieving-species-occurrence-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.0.2</span> <strong>6.2. Retrieving Species Occurrence Data</strong><a class="anchor" aria-label="anchor" href="#retrieving-species-occurrence-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <strong>Global Biodiversity Information Facility (GBIF)</strong> provides open-access data on species occurrences worldwide. Let’s retrieve occurrence data for the <strong>African lion</strong> (<em>Panthera leo</em>).</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
@@ -804,22 +800,21 @@ In particular, check for <code>NA</code> values in the longitude (<code>lon</cod
 </div>
 <hr>
 </div>
-</div>
-<div id="summary-and-key-takeaways-1" class="section level3" number="4.0.10">
+<div id="summary-and-key-takeaways-1" class="section level3" number="4.4.1">
 <h3>
-<span class="header-section-number">4.0.10</span> <strong>7. Summary and Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#summary-and-key-takeaways-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.1</span> <strong>7. Summary and Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#summary-and-key-takeaways-1"><i class="fas fa-link"></i></a>
 </h3>
 <hr>
 <p>In this tutorial, we covered several essential steps for working with spatial data in R, particularly focusing on <strong>Species Distribution Modeling (SDM)</strong>.</p>
-<div id="summary-table" class="section level4" number="4.0.10.1">
+<div id="summary-table" class="section level4" number="4.4.1.1">
 <h4>
-<span class="header-section-number">4.0.10.1</span> <strong>Summary Table</strong><a class="anchor" aria-label="anchor" href="#summary-table"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.1.1</span> <strong>Summary Table</strong><a class="anchor" aria-label="anchor" href="#summary-table"><i class="fas fa-link"></i></a>
 </h4>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
-<col width="22%">
+<col width="25%">
 <col width="29%">
-<col width="47%">
+<col width="45%">
 </colgroup>
 <thead><tr class="header">
 <th><strong>Concept</strong></th>
@@ -863,9 +858,9 @@ In particular, check for <code>NA</code> values in the longitude (<code>lon</cod
 <hr>
 </div>
 </div>
-<div id="key-takeaways-5" class="section level3" number="4.0.11">
+<div id="key-takeaways-5" class="section level3" number="4.4.2">
 <h3>
-<span class="header-section-number">4.0.11</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.2</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-5"><i class="fas fa-link"></i></a>
 </h3>
 <div class="rmdimportant">
 <ol style="list-style-type: decimal">
@@ -876,9 +871,19 @@ In particular, check for <code>NA</code> values in the longitude (<code>lon</cod
 </div>
 <hr>
 </div>
-<div id="next-steps" class="section level3" number="4.0.12">
+<div id="task" class="section level3" number="4.4.3">
 <h3>
-<span class="header-section-number">4.0.12</span> <strong>Next Steps</strong><a class="anchor" aria-label="anchor" href="#next-steps"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.3</span> Task<a class="anchor" aria-label="anchor" href="#task"><i class="fas fa-link"></i></a>
+</h3>
+<p>Try and do the following tasks to test your knowledge:</p>
+<div class="inline-figure"><img src="images/Picture1-task1.png"></div>
+<div class="inline-figure"><img src="images/Picture2-tak1.png"></div>
+<div class="inline-figure"><img src="images/Picture3-task3.png"></div>
+<hr>
+</div>
+<div id="next-steps" class="section level3" number="4.4.4">
+<h3>
+<span class="header-section-number">4.4.4</span> <strong>Next Steps</strong><a class="anchor" aria-label="anchor" href="#next-steps"><i class="fas fa-link"></i></a>
 </h3>
 <hr>
 <p>In the next part, we will dive deeper into:</p>
@@ -905,27 +910,37 @@ In particular, check for <code>NA</code> values in the longitude (<code>lon</cod
 <hr>
 </div>
 </div>
+</div>
   <div class="chapter-nav">
 <div class="prev"><a href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></div>
 <div class="next"><a href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li>
-<a class="nav-link" href="#spartial-data-in-r"><span class="header-section-number">4</span> Spartial Data in R</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#introduction-1"><span class="header-section-number">4.0.1</span> 1. Introduction</a></li>
-<li><a class="nav-link" href="#working-with-vector-data-in-r"><span class="header-section-number">4.0.2</span> 2. Working with Vector Data in R</a></li>
-<li><a class="nav-link" href="#summary"><span class="header-section-number">4.0.3</span> Summary</a></li>
-<li><a class="nav-link" href="#creating-and-manipulating-raster-data-in-r"><span class="header-section-number">4.0.4</span> 3. Creating and Manipulating Raster Data in R</a></li>
-<li><a class="nav-link" href="#working-with-coordinate-reference-systems-crs"><span class="header-section-number">4.0.5</span> 4. Working with Coordinate Reference Systems (CRS)</a></li>
-<li><a class="nav-link" href="#key-takeaways-3"><span class="header-section-number">4.0.6</span> Key Takeaways</a></li>
-<li><a class="nav-link" href="#reading-and-writing-spatial-data"><span class="header-section-number">4.0.7</span> 5. Reading and Writing Spatial Data</a></li>
-<li><a class="nav-link" href="#key-takeaways-4"><span class="header-section-number">4.0.8</span> Key Takeaways</a></li>
-<li><a class="nav-link" href="#practical-applications-in-sdm"><span class="header-section-number">4.0.9</span> 6. Practical Applications in SDM</a></li>
-<li><a class="nav-link" href="#summary-and-key-takeaways-1"><span class="header-section-number">4.0.10</span> 7. Summary and Key Takeaways</a></li>
-<li><a class="nav-link" href="#key-takeaways-5"><span class="header-section-number">4.0.11</span> Key Takeaways</a></li>
-<li><a class="nav-link" href="#next-steps"><span class="header-section-number">4.0.12</span> Next Steps</a></li>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#spartial-data-in-r"><span class="header-section-number">4</span> Spartial Data in R</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#introduction-1"><span class="header-section-number">4.0.1</span> 1. Introduction</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#working-with-vector-data-in-r"><span class="header-section-number">4.1</span> ### 2. Working with Vector Data in R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summary"><span class="header-section-number">4.1.1</span> Summary</a></li>
+<li><a class="nav-link" href="#creating-and-manipulating-raster-data-in-r"><span class="header-section-number">4.1.2</span> 3. Creating and Manipulating Raster Data in R</a></li>
 </ul>
-</li></ul>
+</li>
+<li>
+<a class="nav-link" href="#working-with-coordinate-reference-systems-crs"><span class="header-section-number">4.2</span> ### 4. Working with Coordinate Reference Systems (CRS)</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#key-takeaways-3"><span class="header-section-number">4.2.1</span> Key Takeaways</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#reading-and-writing-spatial-data"><span class="header-section-number">4.3</span> ### 5. Reading and Writing Spatial Data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#key-takeaways-4"><span class="header-section-number">4.3.1</span> Key Takeaways</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#practical-applications-in-sdm"><span class="header-section-number">4.4</span> ### 6. Practical Applications in SDM</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summary-and-key-takeaways-1"><span class="header-section-number">4.4.1</span> 7. Summary and Key Takeaways</a></li>
+<li><a class="nav-link" href="#key-takeaways-5"><span class="header-section-number">4.4.2</span> Key Takeaways</a></li>
+<li><a class="nav-link" href="#task"><span class="header-section-number">4.4.3</span> Task</a></li>
+<li><a class="nav-link" href="#next-steps"><span class="header-section-number">4.4.4</span> Next Steps</a></li>
+</ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">

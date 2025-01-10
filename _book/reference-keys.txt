@@ -133,6 +133,7 @@ retrieving-species-occurrence-data
 summary-and-key-takeaways-1
 summary-table
 key-takeaways-5
+task
 next-steps
 key-spatial-concepts-and-terminologies
 vector-data-1

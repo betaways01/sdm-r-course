@@ -1,6 +1,6 @@
 h1:spartial-data-in-r Spartial Data in R
 h3:introduction 
-h3:working-with-vector-data-in-r 
+h2:working-with-vector-data-in-r ### 
 h4:creating-point-data 
 h4:converting-to-a-spatial-object 
 h4:assigning-a-coordinate-reference-system-crs 
@@ -14,14 +14,14 @@ h4:adding-values-to-the-raster
 h4:creating-a-rasterstack 
 h4:creating-a-rasterbrick 
 h5:key-takeaways 
-h3:working-with-coordinate-reference-systems-crs 
+h2:working-with-coordinate-reference-systems-crs ### 
 h4:assigning-and-transforming-crs 
 h5:assigning-a-crs-to-vector-data 
 h5:transforming-vector-data-to-a-new-crs 
 h4:projecting-raster-data 
 h5:reprojecting-a-raster 
 h3:key-takeaways-1 
-h3:reading-and-writing-spatial-data 
+h2:reading-and-writing-spatial-data ### 
 h4:reading-shapefiles-and-rasters 
 h5:reading-a-shapefile 
 h5:reading-a-raster-file 
@@ -29,12 +29,13 @@ h4:writing-spatial-data-to-disk
 h5:saving-a-shapefile 
 h5:saving-a-raster 
 h3:key-takeaways-2 
-h3:practical-applications-in-sdm 
+h2:practical-applications-in-sdm ### 
 h4:downloading-environmental-data 
 h5:key-bioclimatic-variables 
 h4:retrieving-species-occurrence-data 
 h3:summary-and-key-takeaways 
 h4:summary-table 
 h3:key-takeaways-3 
+h3:task Task
 h3:next-steps 
 

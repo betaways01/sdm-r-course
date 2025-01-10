@@ -1,23 +1,23 @@
 # Spartial Data in R
 
----
+------------------------------------------------------------------------
 
 ### **1. Introduction**
 
----
+------------------------------------------------------------------------
 
 In the previous section, we learned about **spatial data** and why it’s important for understanding species distribution and the environment. Now, we will move forward by learning how to actually work with this data in **R**.
 
----
+------------------------------------------------------------------------
 
 This part of the tutorial will show you step by step:
 
-- How to **create vector data** (like points, lines, and polygons).
-- How to **make raster layers** and combine them into stacks and bricks.
-- How to **set and change projections** so that your data lines up correctly on a map.
-- How to **get real-world data**, like climate information and species locations, which you can use to build models.
+-   How to **create vector data** (like points, lines, and polygons).
+-   How to **make raster layers** and combine them into stacks and bricks.
+-   How to **set and change projections** so that your data lines up correctly on a map.
+-   How to **get real-world data**, like climate information and species locations, which you can use to build models.
 
----
+------------------------------------------------------------------------
 
 By following along, you’ll learn basic methods for handling both **vector** and **raster data** in R. You’ll also get familiar with common GIS tasks like reading, writing, and transforming spatial data.
 
@@ -27,12 +27,11 @@ Let’s start! 🌍
 ---
 
 ### **2. Working with Vector Data in R**
-
 ---
 
 Vector data includes points, lines, and polygons. In this section, we will focus on **creating point data**, converting it into a **spatial object**, and adding **attribute data**.
 
----
+------------------------------------------------------------------------
 
 #### **2.1. Creating Point Data**
 
@@ -51,12 +50,12 @@ plot(lonlat, pch = 19, col = "blue", xlab = "Longitude", ylab = "Latitude",
      main = "Plot of Longitude and Latitude Points")
 ```
 
-::: {.rmdnote}
-- **Order matters**: Always specify coordinates as `(longitude, latitude)`, not `(latitude, longitude)`. This follows the common geographic convention.
-- The `plot()` function gives a quick view of the points.
+::: rmdnote
+-   **Order matters**: Always specify coordinates as `(longitude, latitude)`, not `(latitude, longitude)`. This follows the common geographic convention.
+-   The `plot()` function gives a quick view of the points.
 :::
 
----
+------------------------------------------------------------------------
 
 #### **2.2. Converting to a Spatial Object**
 
@@ -73,11 +72,11 @@ pts <- SpatialPoints(lonlat)
 class(pts)
 ```
 
-::: {.rmdtip}
+::: rmdtip
 The `sp` package is a core tool for handling vector data in R. `SpatialPoints` objects store spatial information, but they don’t yet have any associated attributes.
 :::
 
----
+------------------------------------------------------------------------
 
 #### **Assigning a Coordinate Reference System (CRS)**
 
@@ -90,12 +89,12 @@ pts <- SpatialPoints(lonlat, proj4string = CRS(crs_string))
 pts
 ```
 
-::: {.rmdcaution}
-Always assign a CRS when working with spatial data!  
+::: rmdcaution
+Always assign a CRS when working with spatial data!\
 In most cases, use `"+proj=longlat +datum=WGS84"` for data with longitude and latitude coordinates.
 :::
 
----
+------------------------------------------------------------------------
 
 #### **2.3. Creating a `SpatialPointsDataFrame`**
 
@@ -114,7 +113,7 @@ ptsdf <- SpatialPointsDataFrame(pts, data = df)
 head(ptsdf@data)
 ```
 
----
+------------------------------------------------------------------------
 
 #### **Output Check**
 
@@ -130,12 +129,12 @@ ptsdf@coords
 ptsdf@data
 ```
 
-::: {.rmdtip}
-- Use `ptsdf@coords` to extract the spatial coordinates.
-- Use `ptsdf@data` to extract the non-spatial attribute data.
+::: rmdtip
+-   Use `ptsdf@coords` to extract the spatial coordinates.
+-   Use `ptsdf@data` to extract the non-spatial attribute data.
 :::
 
----
+------------------------------------------------------------------------
 
 #### **Plotting the Data**
 
@@ -149,17 +148,14 @@ legend("topright", legend = c("Low", "Medium", "High"), fill = heat.colors(5),
        title = "Precipitation")
 ```
 
----
+------------------------------------------------------------------------
 
 ### **Summary**
 
-- We learned how to **create point data** using longitude and latitude.
-- We converted the points into a **spatial object** using the `sp` package.
-- We added **attribute data** to create a `SpatialPointsDataFrame`.
-- Finally, we plotted the points with precipitation values.
-
----
----
+-   We learned how to **create point data** using longitude and latitude.
+-   We converted the points into a **spatial object** using the `sp` package.
+-   We added **attribute data** to create a `SpatialPointsDataFrame`.
+-   Finally, we plotted the points with precipitation values.
 
 ### **3. Creating and Manipulating Raster Data in R**
 
@@ -180,15 +176,15 @@ r <- raster(ncol = 10, nrow = 10, xmx = -80, xmn = -150, ymn = 20, ymx = 60)
 r
 ```
 
-::: {.rmdnote}
-- The raster has **10 columns** and **10 rows**, meaning there are 100 cells in total.
-- The extent specifies the geographic boundaries:
-  - `xmn = -150` and `xmx = -80` (longitude range)
-  - `ymn = 20` and `ymx = 60` (latitude range)
-- The default **Coordinate Reference System (CRS)** is `WGS84`, which uses longitude and latitude.
+::: rmdnote
+-   The raster has **10 columns** and **10 rows**, meaning there are 100 cells in total.
+-   The extent specifies the geographic boundaries:
+    -   `xmn = -150` and `xmx = -80` (longitude range)
+    -   `ymn = 20` and `ymx = 60` (latitude range)
+-   The default **Coordinate Reference System (CRS)** is `WGS84`, which uses longitude and latitude.
 :::
 
----
+------------------------------------------------------------------------
 
 #### **3.2. Adding Values to the Raster**
 
@@ -202,12 +198,12 @@ values(r) <- runif(ncell(r), min = 0, max = 100)
 plot(r, main = "Random Values Raster", col = terrain.colors(10))
 ```
 
-::: {.rmdtip}
-- The `ncell()` function returns the total number of cells in the raster.
-- The `terrain.colors()` function is used to create a nice color gradient for the plot.
+::: rmdtip
+-   The `ncell()` function returns the total number of cells in the raster.
+-   The `terrain.colors()` function is used to create a nice color gradient for the plot.
 :::
 
----
+------------------------------------------------------------------------
 
 #### **3.3. Creating a `RasterStack`**
 
@@ -229,12 +225,12 @@ plot(s, main = c("Layer 1: Random Values", "Layer 2: Values * 2", "Layer 3: Squa
 
 ```
 
-::: {.rmdnote}
-- All rasters in the stack must have the **same resolution** and **extent**.
-- You can stack as many rasters as you need.
+::: rmdnote
+-   All rasters in the stack must have the **same resolution** and **extent**.
+-   You can stack as many rasters as you need.
 :::
 
----
+------------------------------------------------------------------------
 
 #### **3.4. Creating a `RasterBrick`**
 
@@ -250,31 +246,30 @@ plot(b, main = c("Layer 1: Random Values", "Layer 2: Values * 2", "Layer 3: Squa
 
 ```
 
-::: {.rmdtip}
-- Use a `RasterBrick` when you need better performance and memory efficiency.
-- A `RasterBrick` is particularly useful when dealing with large datasets, such as satellite imagery or time-series data.
+::: rmdtip
+-   Use a `RasterBrick` when you need better performance and memory efficiency.
+-   A `RasterBrick` is particularly useful when dealing with large datasets, such as satellite imagery or time-series data.
 :::
 
----
+------------------------------------------------------------------------
 
 ##### **Key Takeaways**
 
-- **RasterLayer**: A grid of cells representing spatial data.
-- **RasterStack**: A collection of rasters with the same resolution and extent.
-- **RasterBrick**: A more memory-efficient version of a `RasterStack`.
+-   **RasterLayer**: A grid of cells representing spatial data.
+-   **RasterStack**: A collection of rasters with the same resolution and extent.
+-   **RasterBrick**: A more memory-efficient version of a `RasterStack`.
 
 ---
 ---
 
 ### **4. Working with Coordinate Reference Systems (CRS)**
-
 ---
 
 #### **4.1. Assigning and Transforming CRS**
 
 When working with spatial data, ensuring that all layers share a common CRS is crucial for proper alignment and accurate analysis. Let’s walk through assigning a CRS and transforming it to a new one using **vector** and **raster data**.
 
----
+------------------------------------------------------------------------
 
 ##### **Assigning a CRS to Vector Data**
 
@@ -294,12 +289,12 @@ sf_pts <- st_as_sf(pts, coords = c("longitude", "latitude"), crs = 4326)
 st_crs(sf_pts)
 ```
 
-::: {.rmdnote}
-- The **EPSG code `4326`** corresponds to the **WGS84** geographic CRS, commonly used for data with longitude and latitude coordinates.
-- Using `st_as_sf()` converts the data frame into a spatial object.
+::: rmdnote
+-   The **EPSG code `4326`** corresponds to the **WGS84** geographic CRS, commonly used for data with longitude and latitude coordinates.
+-   Using `st_as_sf()` converts the data frame into a spatial object.
 :::
 
----
+------------------------------------------------------------------------
 
 ##### **Transforming Vector Data to a New CRS**
 
@@ -322,18 +317,18 @@ plot(sf_pts, main = "Original CRS: WGS84", col = "blue", pch = 19)
 plot(sf_pts_transformed, main = "Transformed CRS: Robinson", col = "red", pch = 19)
 ```
 
-::: {.rmdcaution}
-- Different CRSs can distort distances, areas, and angles differently, depending on their projection method.
-- Always choose a CRS that fits your analysis needs (e.g., **UTM** for local-scale accuracy, **Albers Equal-Area** for area-preserving studies).
+::: rmdcaution
+-   Different CRSs can distort distances, areas, and angles differently, depending on their projection method.
+-   Always choose a CRS that fits your analysis needs (e.g., **UTM** for local-scale accuracy, **Albers Equal-Area** for area-preserving studies).
 :::
 
----
+------------------------------------------------------------------------
 
 #### **4.2. Projecting Raster Data**
 
 Projecting raster data involves recalculating cell values and adjusting the resolution to fit the new CRS. Let’s demonstrate this using a raster dataset.
 
----
+------------------------------------------------------------------------
 
 ##### **Reprojecting a Raster**
 
@@ -361,33 +356,32 @@ plot(r, main = "Original CRS: WGS84", col = terrain.colors(10))
 plot(r_projected, main = "Projected CRS: LCC", col = terrain.colors(10))
 ```
 
----
+------------------------------------------------------------------------
 
-::: {.rmdtip}
-- The `project()` function from the **terra** package is used for raster reprojection.
-- Ensure that the target CRS is defined using PROJ.4 strings or EPSG codes.
+::: rmdtip
+-   The `project()` function from the **terra** package is used for raster reprojection.
+-   Ensure that the target CRS is defined using PROJ.4 strings or EPSG codes.
 :::
 
----
+------------------------------------------------------------------------
 
 ### **Key Takeaways**
 
-- Always ensure that your spatial datasets use the same CRS before performing analysis.
-- Use `st_crs()` and `st_transform()` for vector data and `crs()` and `project()` for raster data.
-- Choose appropriate CRSs based on the scope and goals of your project.
+-   Always ensure that your spatial datasets use the same CRS before performing analysis.
+-   Use `st_crs()` and `st_transform()` for vector data and `crs()` and `project()` for raster data.
+-   Choose appropriate CRSs based on the scope and goals of your project.
 
 ---
 ---
 
 ### **5. Reading and Writing Spatial Data**
-
 ---
 
 #### **5.1. Reading Shapefiles and Rasters**
 
 Working with spatial data often starts by **reading external files** such as shapefiles and raster datasets. R provides convenient functions to load these files into spatial objects for analysis.
 
----
+------------------------------------------------------------------------
 
 ##### **Reading a Shapefile**
 
@@ -408,12 +402,12 @@ print(shape_data)
 plot(shape_data, main = "Sample Shapefile (Luxembourg)", col = "lightblue")
 ```
 
-::: {.rmdnote}
-- The function `shapefile()` reads vector data in **shapefile format** and loads it as a `Spatial*` object.
-- The `system.file()` function retrieves the path to a sample shapefile provided by the package.
+::: rmdnote
+-   The function `shapefile()` reads vector data in **shapefile format** and loads it as a `Spatial*` object.
+-   The `system.file()` function retrieves the path to a sample shapefile provided by the package.
 :::
 
----
+------------------------------------------------------------------------
 
 ##### **Reading a Raster File**
 
@@ -433,18 +427,18 @@ print(raster_data)
 plot(raster_data, main = "Sample Raster Data", col = terrain.colors(10))
 ```
 
-::: {.rmdtip}
-- The function `raster()` reads raster files and loads them as `RasterLayer` objects.
-- Use `print()` to display basic metadata, such as resolution, extent, and CRS.
+::: rmdtip
+-   The function `raster()` reads raster files and loads them as `RasterLayer` objects.
+-   Use `print()` to display basic metadata, such as resolution, extent, and CRS.
 :::
 
----
+------------------------------------------------------------------------
 
 #### **5.2. Writing Spatial Data to Disk**
 
 Once you’ve processed your spatial data, you’ll often want to **save it to disk** for sharing or future use. Let’s see how to save both shapefiles and rasters.
 
----
+------------------------------------------------------------------------
 
 ##### **Saving a Shapefile**
 
@@ -459,12 +453,12 @@ shapefile(shape_data, filename = output_shapefile, overwrite = TRUE)
 list.files(pattern = "output_shapefile*")
 ```
 
-::: {.rmdtip}
-- The `shapefile()` function writes a `Spatial*` object to disk in shapefile format.
-- Always set `overwrite = TRUE` if you want to overwrite existing files.
+::: rmdtip
+-   The `shapefile()` function writes a `Spatial*` object to disk in shapefile format.
+-   Always set `overwrite = TRUE` if you want to overwrite existing files.
 :::
 
----
+------------------------------------------------------------------------
 
 ##### **Saving a Raster**
 
@@ -481,33 +475,32 @@ writeRaster(raster_data, filename = output_raster, format = "GTiff", overwrite =
 list.files(pattern = "output_raster*")
 ```
 
-::: {.rmdnote}
-- The `writeRaster()` function writes raster data to various formats, including **GeoTIFF**, **NetCDF**, and **ASCII Grid**.
-- Set `format = "GTiff"` to specify the file format as GeoTIFF.
+::: rmdnote
+-   The `writeRaster()` function writes raster data to various formats, including **GeoTIFF**, **NetCDF**, and **ASCII Grid**.
+-   Set `format = "GTiff"` to specify the file format as GeoTIFF.
 :::
 
----
+------------------------------------------------------------------------
 
 ### **Key Takeaways**
 
-- Use `shapefile()` to **read** and **write shapefiles**.
-- Use `raster()` and `writeRaster()` for **reading** and **saving raster data**.
-- The `system.file()` function is useful for accessing sample datasets bundled with R packages.
-- Always check the CRS, resolution, and extent of your data to ensure proper alignment when saving files.
+-   Use `shapefile()` to **read** and **write shapefiles**.
+-   Use `raster()` and `writeRaster()` for **reading** and **saving raster data**.
+-   The `system.file()` function is useful for accessing sample datasets bundled with R packages.
+-   Always check the CRS, resolution, and extent of your data to ensure proper alignment when saving files.
 
 ---
 ---
 
 ### **6. Practical Applications in SDM**
-
 ---
 
 Species Distribution Modeling (**SDM**) involves predicting the geographic distribution of species based on **environmental data** (e.g., climate variables) and **species occurrence data** (e.g., observed locations of a species). In this section, we’ll demonstrate how to:
 
-1. **Download environmental data** using the `getData()` function from the **`dismo`** package.  
-2. **Retrieve species occurrence data** from **GBIF** using the `gbif()` function.
+1.  **Download environmental data** using the `getData()` function from the **`dismo`** package.\
+2.  **Retrieve species occurrence data** from **GBIF** using the `gbif()` function.
 
----
+------------------------------------------------------------------------
 
 #### **6.1. Downloading Environmental Data**
 
@@ -533,24 +526,24 @@ plot(bioclim_data[[1]], main = "Annual Mean Temperature (Bio1)", col = terrain.c
 
 ```
 
-::: {.rmdnote}
-- The function `getData()` retrieves **bioclimatic variables** from the **WorldClim** dataset.  
-- `var = "bio"` specifies that we want **bioclimatic data**, and `res = 10` sets the grid resolution to **10 minutes**.
-- The result, `bioclim_data`, is a **RasterStack** containing multiple environmental layers.
+::: rmdnote
+-   The function `getData()` retrieves **bioclimatic variables** from the **WorldClim** dataset.\
+-   `var = "bio"` specifies that we want **bioclimatic data**, and `res = 10` sets the grid resolution to **10 minutes**.
+-   The result, `bioclim_data`, is a **RasterStack** containing multiple environmental layers.
 :::
 
----
+------------------------------------------------------------------------
 
 ##### **Key Bioclimatic Variables**
 
-| **Variable Name**            | **Description**                                      |
-|------------------------------|------------------------------------------------------|
-| **Bio1**                     | Annual Mean Temperature                              |
-| **Bio4**                     | Temperature Seasonality (Standard Deviation × 100)   |
-| **Bio12**                    | Annual Precipitation                                 |
-| **Bio15**                    | Precipitation Seasonality (Coefficient of Variation) |
+| **Variable Name** | **Description**                                      |
+|-------------------|------------------------------------------------------|
+| **Bio1**          | Annual Mean Temperature                              |
+| **Bio4**          | Temperature Seasonality (Standard Deviation × 100)   |
+| **Bio12**         | Annual Precipitation                                 |
+| **Bio15**         | Precipitation Seasonality (Coefficient of Variation) |
 
----
+------------------------------------------------------------------------
 
 #### **6.2. Retrieving Species Occurrence Data**
 
@@ -590,56 +583,65 @@ points(lion_data_subset$lon, lion_data_subset$lat, col = "red", pch = 10, cex = 
 
 ```
 
-::: {.rmdcaution}
-- **Data quality check**:  
-  Always inspect GBIF data for **missing values** and **incorrect coordinates** before using it in models.  
-  In particular, check for `NA` values in the longitude (`lon`) and latitude (`lat`) columns.
+::: rmdcaution
+-   **Data quality check**:\
+    Always inspect GBIF data for **missing values** and **incorrect coordinates** before using it in models.\
+    In particular, check for `NA` values in the longitude (`lon`) and latitude (`lat`) columns.
 :::
 
----
+------------------------------------------------------------------------
 
 ### **7. Summary and Key Takeaways**
 
----
+------------------------------------------------------------------------
 
 In this tutorial, we covered several essential steps for working with spatial data in R, particularly focusing on **Species Distribution Modeling (SDM)**.
 
 #### **Summary Table**
 
-| **Concept**                  | **Key Functions**                       | **Description**                                                |
-|------------------------------|----------------------------------------|----------------------------------------------------------------|
-| **Vector Data**              | `st_as_sf()`, `st_transform()`          | Creating, transforming, and plotting vector data.              |
-| **Raster Data**              | `raster()`, `stack()`, `writeRaster()`  | Creating and manipulating raster layers.                       |
-| **CRS Handling**             | `st_crs()`, `project()`                 | Checking and transforming Coordinate Reference Systems (CRS).  |
-| **Environmental Data**       | `getData()`                             | Downloading global bioclimatic variables for SDM.              |
-| **Species Occurrence Data**  | `gbif()`                                | Retrieving species occurrence data from GBIF.                  |
+| **Concept**                 | **Key Functions**                      | **Description**                                               |
+|------------------|---------------------|---------------------------------|
+| **Vector Data**             | `st_as_sf()`, `st_transform()`         | Creating, transforming, and plotting vector data.             |
+| **Raster Data**             | `raster()`, `stack()`, `writeRaster()` | Creating and manipulating raster layers.                      |
+| **CRS Handling**            | `st_crs()`, `project()`                | Checking and transforming Coordinate Reference Systems (CRS). |
+| **Environmental Data**      | `getData()`                            | Downloading global bioclimatic variables for SDM.             |
+| **Species Occurrence Data** | `gbif()`                               | Retrieving species occurrence data from GBIF.                 |
 
----
+------------------------------------------------------------------------
 
 ### **Key Takeaways**
 
-::: {.rmdimportant}
-1. Always ensure that your **spatial datasets share the same CRS** before performing any analysis.
-2. Use reliable sources for **environmental data**, such as **WorldClim**, and carefully inspect **species occurrence data** from GBIF.
-3. Properly handle and visualize both vector and raster data in R using functions from packages like `sf`, `raster`, and `dismo`.
+::: rmdimportant
+1.  Always ensure that your **spatial datasets share the same CRS** before performing any analysis.
+2.  Use reliable sources for **environmental data**, such as **WorldClim**, and carefully inspect **species occurrence data** from GBIF.
+3.  Properly handle and visualize both vector and raster data in R using functions from packages like `sf`, `raster`, and `dismo`.
 :::
 
----
+------------------------------------------------------------------------
+
+### Task
+
+Try and do the following tasks to test your knowledge:
+
+![](images/Picture1-task1.png)
+
+![](images/Picture2-tak1.png)
+
+![](images/Picture3-task3.png)
+
+------------------------------------------------------------------------
 
 ### **Next Steps**
 
----
+------------------------------------------------------------------------
 
 In the next part, we will dive deeper into:
 
-- **Advanced spatial analysis techniques**:  
-  - Buffering, spatial joins, and overlay operations.
-  
-- **Building SDMs**:  
-  - Using machine learning methods (e.g., MaxEnt, Random Forest) to predict species distributions.
+-   **Advanced spatial analysis techniques**:
+    -   Buffering, spatial joins, and overlay operations.
+-   **Building SDMs**:
+    -   Using machine learning methods (e.g., MaxEnt, Random Forest) to predict species distributions.
+-   **Predictive modeling**:
+    -   Projecting species distributions under **future climate scenarios** using environmental datasets.
 
-- **Predictive modeling**:  
-  - Projecting species distributions under **future climate scenarios** using environmental datasets.
-
----
-
+------------------------------------------------------------------------
