@@ -187,7 +187,7 @@ legend("topright", legend = c("Low", "Medium", "High"), fill = heat.colors(5),
        title = "Precipitation")
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 ------------------------------------------------------------------------
 
@@ -246,7 +246,7 @@ values(r) <- runif(ncell(r), min = 0, max = 100)
 plot(r, main = "Random Values Raster", col = terrain.colors(10))
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 ::: rmdtip
 -   The `ncell()` function returns the total number of cells in the raster.
@@ -275,7 +275,7 @@ plot(s, main = c("Layer 1: Random Values", "Layer 2: Values * 2", "Layer 3: Squa
      col = terrain.colors(10), nr = 1)
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 ::: rmdnote
 -   All rasters in the stack must have the **same resolution** and **extent**.
@@ -298,7 +298,7 @@ plot(b, main = c("Layer 1: Random Values", "Layer 2: Values * 2", "Layer 3: Squa
      col = heat.colors(10), nr = 1)
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 ::: rmdtip
 -   Use a `RasterBrick` when you need better performance and memory efficiency.
@@ -404,7 +404,7 @@ par(mfrow = c(1, 2))  # Set plotting layout
 plot(sf_pts, main = "Original CRS: WGS84", col = "blue", pch = 19)
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 ``` r
 
@@ -412,7 +412,7 @@ plot(sf_pts, main = "Original CRS: WGS84", col = "blue", pch = 19)
 plot(sf_pts_transformed, main = "Transformed CRS: Robinson", col = "red", pch = 19)
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-13-2.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-12-2.png" width="672" />
 
 ::: rmdcaution
 -   Different CRSs can distort distances, areas, and angles differently, depending on their projection method.
@@ -458,7 +458,7 @@ plot(r, main = "Original CRS: WGS84", col = terrain.colors(10))
 plot(r_projected, main = "Projected CRS: LCC", col = terrain.colors(10))
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 ------------------------------------------------------------------------
 
@@ -518,7 +518,7 @@ print(shape_data)
 plot(shape_data, main = "Sample Shapefile (Luxembourg)", col = "lightblue")
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 ::: rmdnote
 -   The function `shapefile()` reads vector data in **shapefile format** and loads it as a `Spatial*` object.
@@ -555,7 +555,7 @@ print(raster_data)
 plot(raster_data, main = "Sample Raster Data", col = terrain.colors(10))
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ::: rmdtip
 -   The function `raster()` reads raster files and loads them as `RasterLayer` objects.
@@ -675,7 +675,7 @@ print(bioclim_data)
 plot(bioclim_data[[1]], main = "Annual Mean Temperature (Bio1)", col = terrain.colors(10))
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 ::: rmdnote
 -   The function `getData()` retrieves **bioclimatic variables** from the **WorldClim** dataset.\
@@ -736,7 +736,7 @@ map("world", col = "gray90", fill = TRUE, bg = "lightblue", lwd = 0.5)
 points(lion_data_subset$lon, lion_data_subset$lat, col = "red", pch = 10, cex = 0.7)
 ```
 
-<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="03-spatial-data-basic-1_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 ::: rmdcaution
 -   **Data quality check**:\

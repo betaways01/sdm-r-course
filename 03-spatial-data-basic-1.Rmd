@@ -61,7 +61,7 @@ plot(lonlat, pch = 19, col = "blue", xlab = "Longitude", ylab = "Latitude",
 
 Although we have plotted the points, they are not yet considered **spatial data**. To work with spatial data, we need to convert these points into a `SpatialPoints` object.
 
-```{r}
+```{r code}
 # Load the 'sp' package for spatial data handling
 library(sp)
 

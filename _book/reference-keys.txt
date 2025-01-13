@@ -1,5 +1,3 @@
-eq:binom
-thm:tri
 welcome
 what-to-expect
 learning-path
@@ -146,10 +144,6 @@ proj.4-strings
 shapefiles
 geotiff
 key-points-to-remember
-blocks
-equations
-theorems-and-proofs
-callout-blocks
 sharing-your-book
 publishing
 pages
