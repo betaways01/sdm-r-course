@@ -774,15 +774,15 @@ In this tutorial, we covered several essential steps for working with spatial da
 
 ------------------------------------------------------------------------
 
-### Task
+## Task
 
 Try and do the following tasks to test your knowledge:
 
-![](images/Picture1-task1.png)
+![](images/Picture1-task1.png){width="600"}
 
-![](images/Picture2-tak1.png)
+![](images/Picture2-tak1.png){width="598"}
 
-![](images/Picture3-task3.png)
+![](images/Picture3-task3.png){width="596"}
 
 ------------------------------------------------------------------------
 
