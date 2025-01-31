@@ -114,9 +114,6 @@ In R, we use packages like `sf` and `terra` to work with vector data. Let’s se
 library(sf)
 #> Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2()
 #> is TRUE
-```
-
-``` r
 
 # Load a sample shapefile (comes with the 'sf' package)
 nc <- st_read(system.file("shape/nc.shp", package = "sf"))
@@ -128,9 +125,6 @@ nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 #> Dimension:     XY
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
-```
-
-``` r
 
 # View the first few rows of the data
 head(nc)
@@ -160,9 +154,6 @@ head(nc)
 #> 4 MULTIPOLYGON (((-76.00897 3...
 #> 5 MULTIPOLYGON (((-77.21767 3...
 #> 6 MULTIPOLYGON (((-76.74506 3...
-```
-
-``` r
 
 # Plot the shapefile
 plot(nc["NAME"], main = "Counties in North Carolina")
@@ -201,9 +192,6 @@ In R, the `raster` and `terra` packages are used to handle raster data. Let’s 
 # Load the 'raster' package
 library(raster)
 #> Loading required package: sp
-```
-
-``` r
 
 # Load a sample raster dataset (comes with the 'raster' package)
 r <- raster(system.file("external/test.grd", package = "raster"))
@@ -218,9 +206,6 @@ print(r)
 #> source     : test.grd 
 #> names      : test 
 #> values     : 138.7071, 1736.058  (min, max)
-```
-
-``` r
 
 # Plot the raster
 plot(r, main = "Example Raster")
@@ -329,9 +314,6 @@ layer1 <- st_read(system.file("shape/nc.shp", package = "sf"))
 #> Dimension:     XY
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
-```
-
-``` r
 layer2 <- st_transform(layer1, crs = 3857)  # Transform to Web Mercator
 
 # Plot misaligned layers
@@ -379,9 +361,6 @@ nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 #> Dimension:     XY
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
-```
-
-``` r
 
 # Check the CRS
 st_crs(nc)
@@ -453,9 +432,6 @@ For raster data, use the `crs()` function from the `terra` or `raster` packages:
 ``` r
 library(terra)
 #> terra 1.8.5
-```
-
-``` r
 
 # Load a raster
 r <- rast(system.file("ex/elev.tif", package = "terra"))
@@ -463,9 +439,6 @@ r <- rast(system.file("ex/elev.tif", package = "terra"))
 # Check the CRS
 crs(r)
 #> [1] "GEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]"
-```
-
-``` r
 
 # Transform CRS
 r_transformed <- project(r, "+proj=utm +zone=33 +datum=WGS84 +units=m")
@@ -669,9 +642,6 @@ nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 #> Dimension:     XY
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
-```
-
-``` r
 
 # Load the saved raster file
 elev <- raster("datasets/elevation_data.grd")
@@ -680,9 +650,6 @@ elev <- raster("datasets/elevation_data.grd")
 centroids <- st_centroid(nc)
 #> Warning: st_centroid assumes attributes are constant over
 #> geometries
-```
-
-``` r
 
 # Extract only the X and Y coordinates of the centroids
 coords <- st_coordinates(centroids)
@@ -771,9 +738,6 @@ nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 #> Dimension:     XY
 #> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
 #> Geodetic CRS:  NAD27
-```
-
-``` r
 
 # Load raster data
 elev <- rast("datasets/elevation_data.grd")
@@ -797,14 +761,8 @@ st_crs(nc)  # Vector CRS
 #>             ORDER[2],
 #>             ANGLEUNIT["degree",0.0174532925199433]],
 #>     ID["EPSG",4267]]
-```
-
-``` r
 crs(elev)   # Raster CRS
 #> [1] "PROJCRS[\"unknown\",\n    BASEGEOGCRS[\"unknown\",\n        DATUM[\"World Geodetic System 1984\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]],\n            ID[\"EPSG\",6326]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8901]]],\n    CONVERSION[\"unknown\",\n        METHOD[\"Oblique Stereographic\",\n            ID[\"EPSG\",9809]],\n        PARAMETER[\"Latitude of natural origin\",52.1561605555556,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",5.38763888888889,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9999079,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",155000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",463000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]]]"
-```
-
-``` r
    
 # Reproject vector data to match raster CRS
 nc_aligned <- st_transform(nc, crs(elev))
@@ -877,9 +835,6 @@ library(dplyr)
 #> The following objects are masked from 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
-```
-
-``` r
 nc <- distinct(nc)
 ```
 

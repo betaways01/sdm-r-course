@@ -1,7 +1,7 @@
 --- 
 title: "A Minimal Book Example"
 author: "Basim Alsaedi"
-date: "2025-01-13"
+date: "2025-01-31"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]

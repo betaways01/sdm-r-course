@@ -333,9 +333,6 @@ When working with spatial data, ensuring that all layers share a common CRS is c
 library(sf)
 #> Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2()
 #> is TRUE
-```
-
-``` r
 
 # Create sample point data
 longitude <- c(-116.7, -120.4, -116.7, -113.5, -115.5)
@@ -434,9 +431,6 @@ Projecting raster data involves recalculating cell values and adjusting the reso
 # Load necessary library
 library(terra)
 #> terra 1.8.5
-```
-
-``` r
 
 # Create a sample raster
 r <- rast(ncol = 10, nrow = 10, xmin = -150, xmax = -80, ymin = 20, ymax = 60, crs = "EPSG:4326")
@@ -510,9 +504,6 @@ print(shape_data)
 #> names       : ID_1,     NAME_1, ID_2,   NAME_2, AREA 
 #> min values  :    1,   Diekirch,    1, Capellen,   76 
 #> max values  :    3, Luxembourg,   12,    Wiltz,  312
-```
-
-``` r
 
 # Plot the shapefile
 plot(shape_data, main = "Sample Shapefile (Luxembourg)", col = "lightblue")
