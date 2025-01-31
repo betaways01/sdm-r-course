@@ -244,3 +244,10 @@ study-objectives
 summary-and-key-takeaways-2
 key-points
 next-steps-1
+maxent
+maxent-bias-correction
+cart-rf-gbm
+model-evaluation-1
+more-sdm-theory
+more-sdm-theory-part-2
+ensemble-models
