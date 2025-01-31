@@ -1,4 +1,4 @@
-# **8. Steps in Species Distribution Modeling (SDM)**
+# **Steps in Species Distribution Modeling (SDM)**
 
 ![](images/Pic-5Steps.png){width="379"}
 
