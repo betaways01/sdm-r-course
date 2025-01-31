@@ -2480,7 +2480,7 @@ If you feel more terms need to be explained or expanded upon, feel free to let m
 
 <!--chapter:end:04-key-spatial-concepts-and-terminologies.Rmd-->
 
-# **8. Steps in Species Distribution Modeling (SDM)**
+# **Steps in Species Distribution Modeling (SDM)**
 
 ![](images/Pic-5Steps.png){width="379"}
 
