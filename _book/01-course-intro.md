@@ -1,6 +1,6 @@
 # Introduction
 
-![World Distribution of Plants and Animals](images/World%20Distribution%20of%20Plants%20and%20Animals%20Blue%20Pastel%20Nature%20Style.png)
+![World Distribution of Plants and Animals](images/World.png)
 
 ------------------------------------------------------------------------
 

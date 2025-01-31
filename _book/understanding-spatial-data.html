@@ -48,7 +48,8 @@
 <li><a class="active" href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></li>
 <li><a class="" href="spartial-data-in-r.html"><span class="header-section-number">4</span> Spartial Data in R</a></li>
 <li><a class="" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
-<li><a class="" href="sharing-your-book.html"><span class="header-section-number">6</span> Sharing your book</a></li>
+<li><a class="" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
+<li><a class="" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
 
@@ -249,9 +250,8 @@ For example:</p>
 <code class="sourceCode R"><span><span class="co"># Load the 'sf' package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2()</span></span>
-<span><span class="co">#&gt; is TRUE</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; is TRUE</span></span>
+<span></span>
 <span><span class="co"># Load a sample shapefile (comes with the 'sf' package)</span></span>
 <span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Reading layer `nc' from data source </span></span>
@@ -261,9 +261,8 @@ For example:</p>
 <span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
 <span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span></span>
 <span><span class="co"># View the first few rows of the data</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html">head</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Simple feature collection with 6 features and 14 fields</span></span>
@@ -291,9 +290,8 @@ For example:</p>
 <span><span class="co">#&gt; 3 MULTIPOLYGON (((-80.45634 3...</span></span>
 <span><span class="co">#&gt; 4 MULTIPOLYGON (((-76.00897 3...</span></span>
 <span><span class="co">#&gt; 5 MULTIPOLYGON (((-77.21767 3...</span></span>
-<span><span class="co">#&gt; 6 MULTIPOLYGON (((-76.74506 3...</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; 6 MULTIPOLYGON (((-76.74506 3...</span></span>
+<span></span>
 <span><span class="co"># Plot the shapefile</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">[</span><span class="st">"NAME"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Counties in North Carolina"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-1-1.png" width="672"></div>
@@ -355,12 +353,11 @@ For example:</p>
 <span class="header-section-number">3.0.2.2.4</span> <strong>Raster Data in R</strong><a class="anchor" aria-label="anchor" href="#raster-data-in-r"><i class="fas fa-link"></i></a>
 </h5>
 <p>In R, the <code>raster</code> and <code>terra</code> packages are used to handle raster data. Let’s explore:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the 'raster' package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: sp</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Loading required package: sp</span></span>
+<span></span>
 <span><span class="co"># Load a sample raster dataset (comes with the 'raster' package)</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/test.grd"</span>, package <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -373,9 +370,8 @@ For example:</p>
 <span><span class="co">#&gt; crs        : +proj=sterea +lat_0=52.1561605555556 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +datum=WGS84 +units=m +no_defs </span></span>
 <span><span class="co">#&gt; source     : test.grd </span></span>
 <span><span class="co">#&gt; names      : test </span></span>
-<span><span class="co">#&gt; values     : 138.7071, 1736.058  (min, max)</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; values     : 138.7071, 1736.058  (min, max)</span></span>
+<span></span>
 <span><span class="co"># Plot the raster</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"Example Raster"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
@@ -537,7 +533,7 @@ Preserves the integrity of spatial relationships like distance and area.
 <li>
 <strong>Incorrect CRS</strong>:</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="co"># Load two layers</span></span>
 <span><span class="va">layer1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
@@ -548,9 +544,8 @@ Preserves the integrity of spatial relationships like distance and area.
 <span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
 <span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">layer2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">layer1</span>, crs <span class="op">=</span> <span class="fl">3857</span><span class="op">)</span>  <span class="co"># Transform to Web Mercator</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span><span class="va">layer2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">layer1</span>, crs <span class="op">=</span> <span class="fl">3857</span><span class="op">)</span>  <span class="co"># Transform to Web Mercator</span></span>
 <span></span>
 <span><span class="co"># Plot misaligned layers</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">layer1</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>, main <span class="op">=</span> <span class="st">"Misaligned Layers"</span><span class="op">)</span></span>
@@ -563,7 +558,7 @@ Preserves the integrity of spatial relationships like distance and area.
 <li>
 <strong>Correct CRS</strong>:</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform both layers to the same CRS</span></span>
 <span><span class="va">layer2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">layer2</span>, crs <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">layer1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -586,7 +581,7 @@ Preserves the integrity of spatial relationships like distance and area.
 <span class="header-section-number">3.0.4.3.1</span> <strong>Checking CRS in R</strong><a class="anchor" aria-label="anchor" href="#checking-crs-in-r"><i class="fas fa-link"></i></a>
 </h5>
 <p>Use <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> to check the CRS of a vector object:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="co"># Load a shapefile</span></span>
 <span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
@@ -597,9 +592,8 @@ Preserves the integrity of spatial relationships like distance and area.
 <span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
 <span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span></span>
 <span><span class="co"># Check the CRS</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Coordinate Reference System:</span></span>
@@ -625,7 +619,7 @@ Preserves the integrity of spatial relationships like distance and area.
 <span class="header-section-number">3.0.4.3.2</span> <strong>Transforming CRS in R</strong><a class="anchor" aria-label="anchor" href="#transforming-crs-in-r"><i class="fas fa-link"></i></a>
 </h5>
 <p>You can reproject (transform) a spatial object to a different CRS using <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform to WGS84 (EPSG:4326)</span></span>
 <span><span class="va">nc_wgs84</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">nc</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
 <span></span>
@@ -666,19 +660,17 @@ Preserves the integrity of spatial relationships like distance and area.
 <span class="header-section-number">3.0.4.3.3</span> <strong>Working with Raster Data</strong><a class="anchor" aria-label="anchor" href="#working-with-raster-data"><i class="fas fa-link"></i></a>
 </h5>
 <p>For raster data, use the <code><a href="https://rspatial.github.io/terra/reference/crs.html">crs()</a></code> function from the <code>terra</code> or <code>raster</code> packages:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; terra 1.8.5</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; terra 1.8.5</span></span>
+<span></span>
 <span><span class="co"># Load a raster</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"ex/elev.tif"</span>, package <span class="op">=</span> <span class="st">"terra"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Check the CRS</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "GEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]"</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; [1] "GEOGCRS[\"WGS 84\",\n    ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n        MEMBER[\"World Geodetic System 1984 (Transit)\"],\n        MEMBER[\"World Geodetic System 1984 (G730)\"],\n        MEMBER[\"World Geodetic System 1984 (G873)\"],\n        MEMBER[\"World Geodetic System 1984 (G1150)\"],\n        MEMBER[\"World Geodetic System 1984 (G1674)\"],\n        MEMBER[\"World Geodetic System 1984 (G1762)\"],\n        MEMBER[\"World Geodetic System 1984 (G2139)\"],\n        ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[2.0]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Horizontal component of 3D system.\"],\n        AREA[\"World.\"],\n        BBOX[-90,-180,90,180]],\n    ID[\"EPSG\",4326]]"</span></span>
+<span></span>
 <span><span class="co"># Transform CRS</span></span>
 <span><span class="va">r_transformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html">project</a></span><span class="op">(</span><span class="va">r</span>, <span class="st">"+proj=utm +zone=33 +datum=WGS84 +units=m"</span><span class="op">)</span></span></code></pre></div>
 <hr>
@@ -775,7 +767,7 @@ Numeric identifiers for CRSs. Examples:</p>
 <strong><code><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read()</a></code></strong>:<br>
 Loads vector data from various file formats (e.g., shapefiles, GeoJSON).</li>
 </ol>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span>   <span class="co"># Load a shapefile of North Carolina counties</span></span>
 <span>   <span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span>
@@ -792,7 +784,7 @@ Loads vector data from various file formats (e.g., shapefiles, GeoJSON).</li>
 <strong><code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code></strong>:<br>
 Visualizes vector data.</li>
 </ol>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot the shapefile</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">[</span><span class="st">"NAME"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Counties in North Carolina"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
@@ -801,7 +793,7 @@ Visualizes vector data.</li>
 <strong><code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code></strong>:<br>
 Reprojects vector data to a different CRS.</li>
 </ol>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transform to WGS84</span></span>
 <span><span class="va">nc_wgs84</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">nc</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
@@ -810,7 +802,7 @@ Reprojects vector data to a different CRS.</li>
 Saves vector data to a file (e.g., shapefile or GeoJSON).<br>
 </li>
 </ol>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span><span class="va">nc</span>, <span class="st">"nc_counties.geojson"</span>, append<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
@@ -863,7 +855,7 @@ The shapefile format was introduced by Esri in the early 1990s and remains one o
 <strong><code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code></strong>:<br>
 Loads raster data from a file.</li>
 </ol>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
 <span><span class="co"># Load a sample raster</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/test.grd"</span>, package <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -872,7 +864,7 @@ Loads raster data from a file.</li>
 <strong><code><a href="https://rspatial.github.io/terra/reference/rast.html">terra::rast()</a></code></strong>:<br>
 An alternative to <code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code> from the <code>terra</code> package, which offers better performance.</li>
 </ol>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
 <span><span class="co"># Load the raster using terra but from raster's sample file</span></span>
 <span><span class="co"># in your local machine, run this commented line:</span></span>
@@ -886,7 +878,7 @@ An alternative to <code><a href="https://rdrr.io/pkg/raster/man/raster.html">ras
 <strong><code><a href="https://rspatial.github.io/terra/reference/plot.html">plot()</a></code></strong>:<br>
 Visualizes raster layers.</li>
 </ol>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot the raster</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"Example Raster Layer"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="02-spatial-data-overview_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
@@ -895,7 +887,7 @@ Visualizes raster layers.</li>
 <strong><code><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster()</a></code></strong>:<br>
 Saves raster data to a file (e.g., GeoTIFF).</li>
 </ol>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save the raster as a GeoTIFF file</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/writeRaster.html">writeRaster</a></span><span class="op">(</span><span class="va">r</span>, <span class="st">"example_raster.tif"</span>, format <span class="op">=</span> <span class="st">"GTiff"</span>, overwrite<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <hr>
@@ -983,7 +975,7 @@ GeoTIFF is a georeferenced version of the popular TIFF image format. It’s wide
 <span class="header-section-number">3.0.5.4</span> <strong>Practical Example: Combining Vector and Raster Data</strong><a class="anchor" aria-label="anchor" href="#practical-example-combining-vector-and-raster-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>Let’s say we want to extract the elevation values at specific observation points (vector data) from a digital elevation model (raster data):</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
 <span></span>
@@ -996,18 +988,16 @@ GeoTIFF is a georeferenced version of the popular TIFF image format. It’s wide
 <span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
 <span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span></span>
 <span><span class="co"># Load the saved raster file</span></span>
 <span><span class="va">elev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"datasets/elevation_data.grd"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Calculate centroids of the polygons</span></span>
 <span><span class="va">centroids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_centroid</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: st_centroid assumes attributes are constant over</span></span>
-<span><span class="co">#&gt; geometries</span></span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; geometries</span></span>
+<span></span>
 <span><span class="co"># Extract only the X and Y coordinates of the centroids</span></span>
 <span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html">st_coordinates</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">)</span></span>
 <span></span>
@@ -1079,7 +1069,7 @@ Use the <code>terra</code> package for faster processing when working with large
 </ul>
 </li>
 </ol>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span></span>
 <span> </span>
@@ -1092,9 +1082,8 @@ Use the <code>terra</code> package for faster processing when working with large
 <span><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
 <span><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span></span>
 <span><span class="co"># Load raster data</span></span>
 <span><span class="va">elev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html">rast</a></span><span class="op">(</span><span class="st">"datasets/elevation_data.grd"</span><span class="op">)</span></span>
 <span>   </span>
@@ -1116,12 +1105,10 @@ Use the <code>terra</code> package for faster processing when working with large
 <span><span class="co">#&gt;         AXIS["longitude",east,</span></span>
 <span><span class="co">#&gt;             ORDER[2],</span></span>
 <span><span class="co">#&gt;             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
-<span><span class="co">#&gt;     ID["EPSG",4267]]</span></span></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span>   <span class="co"># Raster CRS</span></span>
-<span><span class="co">#&gt; [1] "PROJCRS[\"unknown\",\n    BASEGEOGCRS[\"unknown\",\n        DATUM[\"World Geodetic System 1984\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]],\n            ID[\"EPSG\",6326]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8901]]],\n    CONVERSION[\"unknown\",\n        METHOD[\"Oblique Stereographic\",\n            ID[\"EPSG\",9809]],\n        PARAMETER[\"Latitude of natural origin\",52.1561605555556,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",5.38763888888889,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9999079,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",155000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",463000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]]]"</span></span></code></pre></div>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>   </span>
+<span><span class="co">#&gt;     ID["EPSG",4267]]</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span>   <span class="co"># Raster CRS</span></span>
+<span><span class="co">#&gt; [1] "PROJCRS[\"unknown\",\n    BASEGEOGCRS[\"unknown\",\n        DATUM[\"World Geodetic System 1984\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]],\n            ID[\"EPSG\",6326]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8901]]],\n    CONVERSION[\"unknown\",\n        METHOD[\"Oblique Stereographic\",\n            ID[\"EPSG\",9809]],\n        PARAMETER[\"Latitude of natural origin\",52.1561605555556,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",5.38763888888889,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9999079,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",155000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",463000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]]]"</span></span>
+<span>   </span>
 <span><span class="co"># Reproject vector data to match raster CRS</span></span>
 <span><span class="va">nc_aligned</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">nc</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
@@ -1154,7 +1141,7 @@ Use the <code>terra</code> package for faster processing when working with large
 </ul>
 </li>
 </ol>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check for NoData cells</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       test       </span></span>
@@ -1165,7 +1152,7 @@ Use the <code>terra</code> package for faster processing when working with large
 <span><span class="co">#&gt;  3rd Qu.: 501.0  </span></span>
 <span><span class="co">#&gt;  Max.   :1736.1  </span></span>
 <span><span class="co">#&gt;  NA's   :6022</span></span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Replace NoData cells with 0 (if appropriate)</span></span>
 <span><span class="va">elev</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">elev</span><span class="op">)</span></span>
@@ -1187,7 +1174,7 @@ Use the <code>terra</code> package for faster processing when working with large
 </ul>
 </li>
 </ol>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -1202,9 +1189,8 @@ Use the <code>terra</code> package for faster processing when working with large
 <span><span class="co">#&gt;     filter, lag</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div id="computational-trade-offs" class="section level4" number="3.0.6.3">
@@ -1234,7 +1220,7 @@ Use the <code>terra</code> package for faster processing when working with large
 <ul>
 <li>Limiting the spatial extent of your data can reduce processing time. If you’re only interested in a specific region, crop your raster to that region:</li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Crop raster to the extent of vector data</span></span>
 <span><span class="va">elev_cropped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">elev</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </li>
@@ -1339,7 +1325,7 @@ Use the <code>terra</code> package for faster processing when working with large
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-01-13.</p>
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-01-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

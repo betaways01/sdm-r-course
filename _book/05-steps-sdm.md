@@ -1,20 +1,18 @@
-# **Steps in Species Distribution Modeling (SDM)**
+# Steps in Species Distribution Modeling (SDM)
 
 ![](images/Pic-5Steps.png){width="379"}
 
 In this section, we break down the **five critical steps** in building a **Species Distribution Model (SDM)**. Each step has unique goals, methodologies, and challenges that guide you through understanding and predicting species distributions.
 
----
-### **Step 1: Conceptualization**
+--- *****
+## **Step 1: Conceptualization**
 **Objective**: Define the research question and identify both biological and environmental data needs.
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
-#### **Key Points to Consider**
 
-##### **1. Research Design**
+
+### **Key Points to Consider**
+
+#### **1. Research Design**
 
 A well-thought-out research design ensures your SDM focuses on the species and factors that matter most. Ask yourself:
 
@@ -28,9 +26,9 @@ A well-thought-out research design ensures your SDM focuses on the species and f
         -   **Indirect factors**: Elevation, aspect, vegetation cover.\
     -   Identify predictors based on ecological theory or prior studies.
 
-------------------------------------------------------------------------
+---
 
-##### **2. Data Sources**
+#### **2. Data Sources**
 
 To ensure data quality and relevance, rely on a combination of **biological** and **environmental data sources**:
 
@@ -52,9 +50,9 @@ To ensure data quality and relevance, rely on a combination of **biological** an
 - Environmental data: WorldClim for climate variables (e.g., annual mean temperature, precipitation).
 :::
 
-------------------------------------------------------------------------
+---
 
-##### **3. Assumptions**
+#### **3. Assumptions**
 
 Every SDM is built on ecological and statistical assumptions. Identifying and addressing these assumptions ensures model reliability:
 
@@ -68,9 +66,9 @@ Every SDM is built on ecological and statistical assumptions. Identifying and ad
     -   The chosen algorithm can capture the species-environment relationships effectively.\
     -   Predictors are independent of each other (e.g., no collinearity).
 
-------------------------------------------------------------------------
+---
 
-#### **Practical Example: Eastern Hemlock (*Tsuga canadensis*)**
+### **Practical Example: Eastern Hemlock (*Tsuga canadensis*)**
 
 Let’s conceptualize an SDM for **eastern hemlock**, a late-successional conifer in North America.
 
@@ -87,9 +85,9 @@ Let’s conceptualize an SDM for **eastern hemlock**, a late-successional conife
     -   The distribution of *Tsuga canadensis* is primarily limited by climate and soil factors.\
     -   Presence records accurately represent locations where the species occurs under current climate conditions.
 
-------------------------------------------------------------------------
+---
 
-#### **Why Conceptualization Matters**
+### **Why Conceptualization Matters**
 
 Proper conceptualization ensures the SDM focuses on biologically meaningful relationships and avoids common pitfalls like using irrelevant predictors or biased occurrence data. It lays the groundwork for robust, interpretable models that can inform conservation and management strategies.
 
@@ -100,7 +98,7 @@ Proper conceptualization ensures the SDM focuses on biologically meaningful rela
 ---
 ---
 
-### **Step 2: Data Preparation**
+## **Step 2: Data Preparation**
 
 ::: {.rmdcaution}
 **Objective**: Gather, clean, and process both biological and environmental data to ensure they are ready for modeling.
@@ -109,9 +107,9 @@ Proper conceptualization ensures the SDM focuses on biologically meaningful rela
 Data preparation is a critical step in Species Distribution Modeling (SDM). The quality of your input data significantly influences the accuracy and reliability of the resulting model. This step involves cleaning and processing both biological (species occurrence) data and environmental predictors.
 ---
 
-#### **Key Tasks**
+### **Key Tasks**
 
-##### **1. Preparing Biological Data**
+#### **1. Preparing Biological Data**
 
 Biological data forms the basis for understanding species distributions. It can come in two main formats:
 
@@ -125,9 +123,9 @@ Biological data forms the basis for understanding species distributions. It can 
 **Tool Spotlight**: Use packages like **`CoordinateCleaner`** in R to identify and clean problematic occurrence records, such as duplicates or points in impossible locations.
 :::
 
-------------------------------------------------------------------------
+---
 
-##### **2. Preparing Environmental Data**
+#### **2. Preparing Environmental Data**
 
 Environmental data consists of predictors that describe the abiotic and biotic conditions influencing species distributions. These predictors are typically derived from:
 
@@ -144,9 +142,9 @@ Environmental data consists of predictors that describe the abiotic and biotic c
 **Why Alignment Matters**: Mismatched resolution, extent, or CRS can lead to errors during spatial analysis, such as misaligned layers or invalid predictions.
 :::
 
-------------------------------------------------------------------------
+---
 
-##### **3. Scaling and Temporal Matching**
+#### **3. Scaling and Temporal Matching**
 
 Temporal and spatial consistency between biological and environmental data is essential for robust modeling:
 
@@ -161,9 +159,9 @@ Temporal and spatial consistency between biological and environmental data is es
 - Variables with units that aren’t comparable (e.g., temperature in °C vs. precipitation in mm).
 :::
 
-------------------------------------------------------------------------
+---
 
-#### **Pro Tip: Checking Multicollinearity**
+### **Pro Tip: Checking Multicollinearity**
 
 Multicollinearity occurs when predictors are highly correlated, which can distort the model's ability to attribute importance to variables. Common examples include: - Annual mean temperature (Bio1) and maximum temperature of the warmest month (Bio5). - Annual precipitation (Bio12) and precipitation seasonality (Bio15).
 
@@ -173,9 +171,9 @@ Multicollinearity occurs when predictors are highly correlated, which can distor
 **Tool Spotlight**: Use the **`vif()` function** from the `car` package to identify predictors with high variance inflation factors (VIF), which indicate multicollinearity.
 :::
 
-------------------------------------------------------------------------
+---
 
-#### **Example: Preparing Data for Eastern Hemlock SDM**
+### **Example: Preparing Data for Eastern Hemlock SDM**
 
 To model the distribution of eastern hemlock (*Tsuga canadensis*), you would:
 
@@ -190,13 +188,13 @@ To model the distribution of eastern hemlock (*Tsuga canadensis*), you would:
     -   Standardize climate variables (e.g., z-scores).\
     -   Ensure climate data corresponds to the same year as the occurrence data.
 
-------------------------------------------------------------------------
+---
 
-#### **Why Data Preparation Matters**
+### **Why Data Preparation Matters**
 
 High-quality data is the backbone of any SDM. Poorly prepared data can lead to: - Biased or inaccurate predictions. - Overfitting, where the model learns noise rather than meaningful patterns. - Misleading conservation decisions based on faulty models.
 
-------------------------------------------------------------------------
+---
 
 ::: rmdimportant
 **Checklist for Data Preparation**: 1. Biological Data: - Remove duplicates and erroneous coordinates. - Address spatial bias in occurrence data. 2. Environmental Data: - Align predictors (resolution, extent, CRS). - Standardize numerical variables. 3. Temporal Matching: - Ensure biological and environmental data reflect the same time period. 4. Multicollinearity Check: - Remove or reduce highly correlated predictors.
@@ -205,7 +203,7 @@ High-quality data is the backbone of any SDM. Poorly prepared data can lead to: 
 ---
 ---
 
-### **Step 3: Model Fitting**
+## **Step 3: Model Fitting**
 
 ::: {.rmdtip}
 **Objective**: Select and apply the most appropriate modeling algorithm to fit the SDM, ensuring the model captures meaningful species-environment relationships while avoiding overfitting.
@@ -214,11 +212,11 @@ High-quality data is the backbone of any SDM. Poorly prepared data can lead to: 
 Model fitting is the core step in SDM, where the relationship between species occurrence and environmental predictors is quantified. The choice of algorithm and careful selection of predictors are critical to building an accurate and interpretable model.
 ---
 
-#### **Key Considerations**
+### **Key Considerations**
 
-------------------------------------------------------------------------
+---
 
-##### **1. Algorithm Selection**
+#### **1. Algorithm Selection**
 
 Different algorithms are suitable for different data types and modeling goals. Choose an algorithm based on your biological data type (e.g., presence-only or presence-absence) and the complexity of the study.
 
@@ -233,9 +231,9 @@ Different algorithms are suitable for different data types and modeling goals. C
 **Pro Tip**: Start with a simple model (e.g., GLM) to establish baseline performance and then explore more complex algorithms like RF or BRT for improved accuracy.
 :::
 
-------------------------------------------------------------------------
+---
 
-##### **2. Variable Selection**
+#### **2. Variable Selection**
 
 Careful selection of predictors ensures your model captures meaningful relationships without overfitting. Multicollinearity (high correlation between predictors) can distort the model’s interpretation and reliability.
 
@@ -252,9 +250,9 @@ Careful selection of predictors ensures your model captures meaningful relations
 **Example**: If you have 19 bioclimatic variables from WorldClim, select only a subset (e.g., 4–6 variables) based on their correlation and ecological significance.
 :::
 
-------------------------------------------------------------------------
+---
 
-##### **3. Overfitting Avoidance**
+#### **3. Overfitting Avoidance**
 
 Overfitting occurs when the model becomes too complex and performs well on training data but poorly on unseen data. Avoid overfitting using the following strategies:
 
@@ -271,9 +269,9 @@ Overfitting occurs when the model becomes too complex and performs well on train
 **Watch Out For**: - Using all available predictors without assessing collinearity. - Relying solely on training accuracy without testing the model on independent data.
 :::
 
-------------------------------------------------------------------------
+---
 
-#### **Example: Fitting a Model for Eastern Hemlock**
+### **Example: Fitting a Model for Eastern Hemlock**
 
 For the eastern hemlock (*Tsuga canadensis*), we aim to understand how environmental factors influence its distribution:
 
@@ -290,9 +288,9 @@ For the eastern hemlock (*Tsuga canadensis*), we aim to understand how environme
     -   Perform 5-fold cross-validation to assess model performance.
     -   Evaluate metrics like AUC (Area Under the Curve) for discrimination ability.
 
-------------------------------------------------------------------------
+---
 
-#### **Key Metrics for Model Assessment**
+### **Key Metrics for Model Assessment**
 
 During model fitting, evaluate performance using appropriate metrics:
 
@@ -306,29 +304,29 @@ During model fitting, evaluate performance using appropriate metrics:
 **Best Practice**: Use a combination of metrics (e.g., AUC + TSS) to evaluate both the accuracy and ecological validity of your model.
 :::
 
-------------------------------------------------------------------------
+---
 
-#### **Final Thoughts on Model Fitting**
+### **Final Thoughts on Model Fitting**
 
 The goal of model fitting is to create a balance between simplicity and accuracy. A good SDM: 1. Captures biologically meaningful relationships between the species and its environment. 2. Avoids overfitting while maintaining high predictive power. 3. Uses a well-documented and reproducible methodology for variable selection and model evaluation.
 
 ---
 ---
 
-### **Step 4: Model Evaluation**
+## **Step 4: Model Evaluation**
 
 ::: {.rmdnote}
 **Objective**: Assess the model's accuracy, predictive performance, and ecological validity to ensure robust and reliable species distribution predictions.
 :::
 ---
 
-#### **Why Evaluate the Model?**
+### **Why Evaluate the Model?**
 
 Model evaluation is a critical step to verify: 1. **Predictive Power**: How well does the model generalize to unseen data? 2. **Ecological Relevance**: Are the relationships between species and environment biologically meaningful? 3. **Model Limitations**: Identify overfitting or potential biases.
 
-------------------------------------------------------------------------
+---
 
-#### **Evaluation Metrics**
+### **Evaluation Metrics**
 
 Model evaluation metrics help quantify the predictive performance of the SDM. Use a combination of metrics to assess both discrimination ability and agreement between predictions and observations.
 
@@ -339,15 +337,15 @@ Model evaluation metrics help quantify the predictive performance of the SDM. Us
 | **Kappa**                         | Compares predicted and observed values, accounting for random chance. Values range from 0 (no agreement) to 1 (perfect agreement).                                    |
 | **RMSE (Root Mean Square Error)** | Quantifies the difference between predicted and observed probabilities. Lower values indicate better performance.                                                     |
 
-------------------------------------------------------------------------
+---
 
-#### **Validation Techniques**
+### **Validation Techniques**
 
 A good SDM should be validated using appropriate techniques to assess its performance on independent data and its ecological soundness.
 
-------------------------------------------------------------------------
+---
 
-##### **1. Train/Test Split**
+#### **1. Train/Test Split**
 
 -   **Method**:
     -   Split the data into **training** (e.g., 70%) and **testing** (e.g., 30%) subsets.
@@ -359,9 +357,9 @@ A good SDM should be validated using appropriate techniques to assess its perfor
 **Best Practice**: Repeat the train/test split multiple times with different random seeds and average the evaluation metrics to reduce variability.
 :::
 
-------------------------------------------------------------------------
+---
 
-##### **2. Cross-Validation**
+#### **2. Cross-Validation**
 
 -   **Method**:
     -   Use **k-fold cross-validation**, where the dataset is split into `k` folds (e.g., 5 or 10).
@@ -369,9 +367,9 @@ A good SDM should be validated using appropriate techniques to assess its perfor
 -   **Purpose**:
     -   Provides a robust estimate of model accuracy, especially for small datasets.
 
-------------------------------------------------------------------------
+---
 
-##### **3. Ecological Plausibility**
+#### **3. Ecological Plausibility**
 
 -   **Steps**:
     -   Examine the fitted relationships between environmental predictors and species presence.
@@ -383,9 +381,9 @@ A good SDM should be validated using appropriate techniques to assess its perfor
 **Watch Out For**: - Counterintuitive relationships (e.g., predicting higher probabilities in unsuitable environments). - Over-reliance on predictors that lack ecological significance.
 :::
 
-------------------------------------------------------------------------
+---
 
-#### **Example: Evaluating an SDM for Eastern Hemlock**
+### **Example: Evaluating an SDM for Eastern Hemlock**
 
 Let’s evaluate a fitted SDM for eastern hemlock:
 
@@ -398,9 +396,9 @@ Let’s evaluate a fitted SDM for eastern hemlock:
 3.  **Ecological Validation**:
     -   Verify if predicted distributions correspond to known locations in cool, damp regions.
 
-------------------------------------------------------------------------
+---
 
-#### **Key Takeaways**
+### **Key Takeaways**
 
 -   Use multiple metrics (e.g., AUC, TSS, Kappa) for a comprehensive evaluation.
 -   Train/test splits and cross-validation are essential for estimating predictive accuracy.
@@ -413,20 +411,20 @@ Let’s evaluate a fitted SDM for eastern hemlock:
 ---
 ---
 
-### **Step 5: Model Prediction and Projection**
+## **Step 5: Model Prediction and Projection**
 
 ::: {.rmdimportant}
 **Objective**: Leverage the fitted model to predict species distributions under current conditions and project potential changes under future scenarios, including climate change.
 :::
 ---
 
-#### **Key Applications**
+### **Key Applications**
 
 Species Distribution Models (SDMs) can be used for various predictive and projection-based tasks:
 
-------------------------------------------------------------------------
+---
 
-##### **1. Current Range Prediction**
+#### **1. Current Range Prediction**
 
 -   **Purpose**:
     -   Use environmental predictors to estimate the species' potential distribution under current conditions.
@@ -434,9 +432,9 @@ Species Distribution Models (SDMs) can be used for various predictive and projec
 -   **Example**:
     -   For **eastern hemlock** (*Tsuga canadensis*), map its current habitat suitability based on predictors like temperature, precipitation, and soil type.
 
-------------------------------------------------------------------------
+---
 
-##### **2. Future Projections**
+#### **2. Future Projections**
 
 -   **Purpose**:
     -   Assess how species distributions might shift under future climate conditions.
@@ -445,15 +443,15 @@ Species Distribution Models (SDMs) can be used for various predictive and projec
     -   Replace current climate predictors with future climate layers (e.g., projected temperature and precipitation for 2050 or 2100).
     -   Explore multiple scenarios, such as **low emissions (SSP1-2.6)** or **high emissions (SSP5-8.5)**, to understand the range of possible outcomes.
 
-------------------------------------------------------------------------
+---
 
-#### **Uncertainty Quantification**
+### **Uncertainty Quantification**
 
 Predicting species distributions involves several sources of uncertainty. It’s essential to quantify and communicate these uncertainties for reliable decision-making.
 
-------------------------------------------------------------------------
+---
 
-##### **1. Ensemble Modeling**
+#### **1. Ensemble Modeling**
 
 -   **Approach**:
     -   Use projections from multiple models (e.g., several GCMs or SDM algorithms).
@@ -463,9 +461,9 @@ Predicting species distributions involves several sources of uncertainty. It’s
 -   **Example**:
     -   Combine habitat suitability maps for **eastern hemlock** from several GCMs to identify areas of high agreement.
 
-------------------------------------------------------------------------
+---
 
-##### **2. Scenario Comparisons**
+#### **2. Scenario Comparisons**
 
 -   **Approach**:
     -   Compare projections across different future scenarios (e.g., SSP1-2.6 vs. SSP5-8.5).
@@ -473,9 +471,9 @@ Predicting species distributions involves several sources of uncertainty. It’s
 -   **Benefits**:
     -   Provides a range of possible outcomes, helping policymakers prepare for varying conditions.
 
-------------------------------------------------------------------------
+---
 
-##### **3. Confidence Intervals and Uncertainty Maps**
+#### **3. Confidence Intervals and Uncertainty Maps**
 
 -   **Approach**:
     -   Calculate confidence intervals for predicted suitability values.
@@ -483,9 +481,9 @@ Predicting species distributions involves several sources of uncertainty. It’s
 -   **Benefits**:
     -   Identifies regions where predictions are less reliable, aiding in risk assessment.
 
-------------------------------------------------------------------------
+---
 
-#### **Example: Projecting Eastern Hemlock Distribution**
+### **Example: Projecting Eastern Hemlock Distribution**
 
 For **eastern hemlock**, future climate warming might lead to: 1. **Habitat Loss**: - Warmer temperatures may reduce habitat suitability in southern regions.
 
@@ -494,9 +492,9 @@ For **eastern hemlock**, future climate warming might lead to: 1. **Habitat Loss
 
 **Steps**: - Replace current bioclimatic variables with projections for 2050 and 2100 from **CMIP6** datasets. - Run the model using different SSP scenarios (e.g., SSP1-2.6 and SSP5-8.5). - Map areas predicted to remain suitable, gain suitability, or lose suitability.
 
-------------------------------------------------------------------------
+---
 
-#### **Key Considerations for Projections**
+### **Key Considerations for Projections**
 
 | **Aspect**                   | **Details**                                                                      |
 |-------------------|-----------------------------------------------------|
@@ -504,9 +502,9 @@ For **eastern hemlock**, future climate warming might lead to: 1. **Habitat Loss
 | **Model Generalization**     | Ensure the model is robust to novel environmental conditions (no extrapolation). |
 | **Ecological Plausibility**  | Verify predictions align with the species' known biology and ecology.            |
 
-------------------------------------------------------------------------
+---
 
-#### **Key Takeaways**
+### **Key Takeaways**
 
 1.  **Predict Current Distributions**:
     -   Use current environmental data to identify suitable habitats.
@@ -522,7 +520,7 @@ For **eastern hemlock**, future climate warming might lead to: 1. **Habitat Loss
 ---
 ---
 
-### **Illustrative Example: Hemlock Distribution Under Climate Change**
+## **Illustrative Example: Hemlock Distribution Under Climate Change**
 
 ---
 
@@ -530,7 +528,7 @@ Let’s walk through a practical application of Species Distribution Modeling (S
 
 ---
 
-#### **1. Conceptualization**
+### **1. Conceptualization**
 
 ::: {.rmdimportant}
 **Goal**: Understand how climate change might affect the distribution of *Tsuga canadensis*.
@@ -553,7 +551,7 @@ Key considerations:
 
 ---
 
-#### **2. Data Preparation**
+### **2. Data Preparation**
 
 ::: {.rmdcaution}
 **Objective**: Gather, clean, and align biological and environmental data.
@@ -583,7 +581,7 @@ Steps involved:
 
 ---
 
-#### **3. Model Fitting**
+### **3. Model Fitting**
 
 ::: {.rmdtip}
 **Objective**: Develop a model that accurately predicts suitable habitats for *Tsuga canadensis*.
@@ -609,7 +607,7 @@ Example:
 
 ---
 
-#### **4. Model Evaluation**
+### **4. Model Evaluation**
 
 ::: {.rmdnote}
 **Objective**: Validate the model to ensure it makes biologically and statistically sound predictions.
@@ -630,7 +628,7 @@ Steps:
 
 ---
 
-#### **5. Projection**
+### **5. Projection**
 
 ::: {.rmdimportant}
 **Objective**: Map current and future distributions to assess potential impacts of climate change.
@@ -655,7 +653,7 @@ Example:
 
 ---
 
-#### **Visualization**
+### **Visualization**
 
 **Current and Future Range Maps**:
 1. **Current Range**:
@@ -666,7 +664,7 @@ Example:
 
 ---
 
-### **Summary**
+## **Summary**
 
 By applying these steps to *Tsuga canadensis*, we can:
 - Understand its current habitat preferences.
@@ -680,4 +678,4 @@ Remember to:
 
 This framework can be adapted to study other species and ecological questions, making it a powerful tool for conservation planning and ecological research.
 
-------------------------------------------------------------------------
+---
