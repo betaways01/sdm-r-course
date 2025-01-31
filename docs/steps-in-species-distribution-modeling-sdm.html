@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 Steps in Species Distribution Modeling (SDM) | A Minimal Book Example</title>
+<meta name="author" content="Basim Alsaedi">
+<meta name="description" content="In this section, we break down the five critical steps in building a Species Distribution Model (SDM). Each step has unique goals, methodologies, and challenges that guide you through...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 6 Steps in Species Distribution Modeling (SDM) | A Minimal Book Example">
+<meta property="og:type" content="book">
+<meta property="og:description" content="In this section, we break down the five critical steps in building a Species Distribution Model (SDM). Each step has unique goals, methodologies, and challenges that guide you through...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 6 Steps in Species Distribution Modeling (SDM) | A Minimal Book Example">
+<meta name="twitter:description" content="In this section, we break down the five critical steps in building a Species Distribution Model (SDM). Each step has unique goals, methodologies, and challenges that guide you through...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0.9000/transition.js"></script><script src="libs/bs3compat-0.8.0.9000/tabs.js"></script><script src="libs/bs3compat-0.8.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">A Minimal Book Example</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Welcome!</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></li>
+<li><a class="" href="spartial-data-in-r.html"><span class="header-section-number">4</span> Spartial Data in R</a></li>
+<li><a class="" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
+<li><a class="active" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
+<li><a class="" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="steps-in-species-distribution-modeling-sdm" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)<a class="anchor" aria-label="anchor" href="#steps-in-species-distribution-modeling-sdm"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="images/Pic-5Steps.png" width="379"></div>
+<p>In this section, we break down the <strong>five critical steps</strong> in building a <strong>Species Distribution Model (SDM)</strong>. Each step has unique goals, methodologies, and challenges that guide you through understanding and predicting species distributions.</p>
+<p>— *****
+## <strong>Step 1: Conceptualization</strong>
+<strong>Objective</strong>: Define the research question and identify both biological and environmental data needs.</p>
+<div id="key-points-to-consider" class="section level3" number="6.0.1">
+<h3>
+<span class="header-section-number">6.0.1</span> <strong>Key Points to Consider</strong><a class="anchor" aria-label="anchor" href="#key-points-to-consider"><i class="fas fa-link"></i></a>
+</h3>
+<div id="research-design" class="section level4" number="6.0.1.1">
+<h4>
+<span class="header-section-number">6.0.1.1</span> <strong>1. Research Design</strong><a class="anchor" aria-label="anchor" href="#research-design"><i class="fas fa-link"></i></a>
+</h4>
+<p>A well-thought-out research design ensures your SDM focuses on the species and factors that matter most. Ask yourself:</p>
+<ul>
+<li>
+<strong>What species are you studying?</strong>
+<ul>
+<li>Are you focusing on a rare or endangered species?<br>
+</li>
+<li>Does the species have ecological or economic importance?<br>
+</li>
+<li>Are there known relationships between the species and specific environmental variables?</li>
+</ul>
+</li>
+<li>
+<strong>Which environmental factors (predictors) are likely to influence its distribution?</strong>
+<ul>
+<li>Consider variables that directly or indirectly affect the species:
+<ul>
+<li>
+<strong>Direct factors</strong>: Temperature, precipitation, soil type.<br>
+</li>
+<li>
+<strong>Indirect factors</strong>: Elevation, aspect, vegetation cover.<br>
+</li>
+</ul>
+</li>
+<li>Identify predictors based on ecological theory or prior studies.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="data-sources" class="section level4" number="6.0.1.2">
+<h4>
+<span class="header-section-number">6.0.1.2</span> <strong>2. Data Sources</strong><a class="anchor" aria-label="anchor" href="#data-sources"><i class="fas fa-link"></i></a>
+</h4>
+<p>To ensure data quality and relevance, rely on a combination of <strong>biological</strong> and <strong>environmental data sources</strong>:</p>
+<ul>
+<li>
+<strong>Biological Data Sources</strong>:
+<ul>
+<li>
+<strong>Field Observations</strong>:
+<ul>
+<li>Use surveys, citizen science data (e.g., iNaturalist, eBird), or camera trap records.</li>
+<li>Ensure data is georeferenced with accurate longitude and latitude.</li>
+</ul>
+</li>
+<li>
+<strong>Historical Records</strong>:
+<ul>
+<li>Extract data from herbarium specimens, museum records, or published literature.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Environmental Data Sources</strong>:
+<ul>
+<li>
+<strong>Remote Sensing Datasets</strong>:
+<ul>
+<li>Gather variables like land cover, vegetation indices (e.g., NDVI), and soil moisture from satellites like MODIS or Landsat.</li>
+</ul>
+</li>
+<li>
+<strong>Global Climate Datasets</strong>:
+<ul>
+<li>Use datasets like <strong>WorldClim</strong>, <strong>CHELSA</strong>, or <strong>CMIP6</strong> to extract temperature, precipitation, or bioclimatic variables.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="rmdnote">
+<p><strong>Example Sources</strong>:<br>
+- Biological data: GBIF for occurrence records.<br>
+- Environmental data: WorldClim for climate variables (e.g., annual mean temperature, precipitation).</p>
+</div>
+<hr>
+</div>
+<div id="assumptions" class="section level4" number="6.0.1.3">
+<h4>
+<span class="header-section-number">6.0.1.3</span> <strong>3. Assumptions</strong><a class="anchor" aria-label="anchor" href="#assumptions"><i class="fas fa-link"></i></a>
+</h4>
+<p>Every SDM is built on ecological and statistical assumptions. Identifying and addressing these assumptions ensures model reliability:</p>
+<ul>
+<li>
+<strong>Ecological Assumptions</strong>:
+<ul>
+<li>The species is in equilibrium with its environment (i.e., the distribution reflects its ecological preferences).<br>
+</li>
+<li>The environmental variables included in the model are sufficient to explain its distribution.</li>
+</ul>
+</li>
+<li>
+<strong>Data Assumptions</strong>:
+<ul>
+<li>Absence data (if available) reflects true absences rather than sampling gaps.<br>
+</li>
+<li>Presence-only data (p-o) is not overly biased by sampling effort or geographic bias.</li>
+</ul>
+</li>
+<li>
+<strong>Modeling Assumptions</strong>:
+<ul>
+<li>The chosen algorithm can capture the species-environment relationships effectively.<br>
+</li>
+<li>Predictors are independent of each other (e.g., no collinearity).</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="practical-example-eastern-hemlock-tsuga-canadensis" class="section level3" number="6.0.2">
+<h3>
+<span class="header-section-number">6.0.2</span> <strong>Practical Example: Eastern Hemlock (<em>Tsuga canadensis</em>)</strong><a class="anchor" aria-label="anchor" href="#practical-example-eastern-hemlock-tsuga-canadensis"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s conceptualize an SDM for <strong>eastern hemlock</strong>, a late-successional conifer in North America.</p>
+<ul>
+<li>
+<strong>Research Design</strong>:
+<ul>
+<li>Question: How will climate change affect the future distribution of <em>Tsuga canadensis</em>?<br>
+</li>
+<li>Predictors: Key variables might include:
+<ul>
+<li>
+<strong>Climate</strong>: Annual mean temperature (Bio1), precipitation seasonality (Bio15).<br>
+</li>
+<li>
+<strong>Topography</strong>: Elevation, slope, aspect.<br>
+</li>
+<li>
+<strong>Soil Characteristics</strong>: Drainage class, organic content.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Data Sources</strong>:
+<ul>
+<li>Biological data: Combine <strong>presence-absence data</strong> from field surveys with occurrence records from GBIF.<br>
+</li>
+<li>Environmental data: Use <strong>WorldClim bioclimatic variables</strong> and a digital elevation model (DEM).</li>
+</ul>
+</li>
+<li>
+<strong>Assumptions</strong>:
+<ul>
+<li>The distribution of <em>Tsuga canadensis</em> is primarily limited by climate and soil factors.<br>
+</li>
+<li>Presence records accurately represent locations where the species occurs under current climate conditions.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="why-conceptualization-matters" class="section level3" number="6.0.3">
+<h3>
+<span class="header-section-number">6.0.3</span> <strong>Why Conceptualization Matters</strong><a class="anchor" aria-label="anchor" href="#why-conceptualization-matters"><i class="fas fa-link"></i></a>
+</h3>
+<p>Proper conceptualization ensures the SDM focuses on biologically meaningful relationships and avoids common pitfalls like using irrelevant predictors or biased occurrence data. It lays the groundwork for robust, interpretable models that can inform conservation and management strategies.</p>
+<div class="rmdtip">
+<p><strong>Pro Tip</strong>: Use a literature review to identify relevant predictors and validate your assumptions. This saves time and ensures your model is grounded in existing ecological knowledge.</p>
+</div>
+</div>
+<div id="step-2-data-preparation" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> <strong>Step 2: Data Preparation</strong><a class="anchor" aria-label="anchor" href="#step-2-data-preparation"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdcaution">
+<p><strong>Objective</strong>: Gather, clean, and process both biological and environmental data to ensure they are ready for modeling.</p>
+</div>
+</div>
+<div id="data-preparation-is-a-critical-step-in-species-distribution-modeling-sdm.-the-quality-of-your-input-data-significantly-influences-the-accuracy-and-reliability-of-the-resulting-model.-this-step-involves-cleaning-and-processing-both-biological-species-occurrence-data-and-environmental-predictors." class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Data preparation is a critical step in Species Distribution Modeling (SDM). The quality of your input data significantly influences the accuracy and reliability of the resulting model. This step involves cleaning and processing both biological (species occurrence) data and environmental predictors.<a class="anchor" aria-label="anchor" href="#data-preparation-is-a-critical-step-in-species-distribution-modeling-sdm.-the-quality-of-your-input-data-significantly-influences-the-accuracy-and-reliability-of-the-resulting-model.-this-step-involves-cleaning-and-processing-both-biological-species-occurrence-data-and-environmental-predictors."><i class="fas fa-link"></i></a>
+</h2>
+<div id="key-tasks" class="section level3" number="6.2.1">
+<h3>
+<span class="header-section-number">6.2.1</span> <strong>Key Tasks</strong><a class="anchor" aria-label="anchor" href="#key-tasks"><i class="fas fa-link"></i></a>
+</h3>
+<div id="preparing-biological-data" class="section level4" number="6.2.1.1">
+<h4>
+<span class="header-section-number">6.2.1.1</span> <strong>1. Preparing Biological Data</strong><a class="anchor" aria-label="anchor" href="#preparing-biological-data"><i class="fas fa-link"></i></a>
+</h4>
+<p>Biological data forms the basis for understanding species distributions. It can come in two main formats:</p>
+<ul>
+<li>
+<strong>Presence-Only (p-o)</strong>: Records of where the species has been observed but with no information on absence (e.g., citizen science data from GBIF).<br>
+</li>
+<li>
+<strong>Presence-Absence (p-a)</strong>: Data explicitly indicating locations where the species is present or absent (e.g., survey data).</li>
+</ul>
+<p><strong>Steps for Cleaning Biological Data</strong>: - <strong>Remove Duplicates</strong>: - Ensure there are no duplicate records, especially for presence data.<br>
+- Duplicates can over-represent certain locations and bias the model. - <strong>Fix Erroneous Coordinates</strong>: - Check for invalid or missing latitude/longitude values. - Remove records with extreme outliers (e.g., points plotted in the ocean for terrestrial species). - <strong>Address Spatial Bias</strong>: - Sampling effort can vary across regions. Use techniques like <strong>spatial thinning</strong> to reduce over-representation of areas with high sampling intensity.</p>
+<div class="rmdtip">
+<p><strong>Tool Spotlight</strong>: Use packages like <strong><code>CoordinateCleaner</code></strong> in R to identify and clean problematic occurrence records, such as duplicates or points in impossible locations.</p>
+</div>
+<hr>
+</div>
+<div id="preparing-environmental-data" class="section level4" number="6.2.1.2">
+<h4>
+<span class="header-section-number">6.2.1.2</span> <strong>2. Preparing Environmental Data</strong><a class="anchor" aria-label="anchor" href="#preparing-environmental-data"><i class="fas fa-link"></i></a>
+</h4>
+<p>Environmental data consists of predictors that describe the abiotic and biotic conditions influencing species distributions. These predictors are typically derived from:</p>
+<ul>
+<li>
+<strong>Climate Variables</strong>: Temperature, precipitation, seasonality (e.g., from WorldClim or CMIP6).<br>
+</li>
+<li>
+<strong>Topographic Variables</strong>: Elevation, slope, aspect (e.g., from DEMs).<br>
+</li>
+<li>
+<strong>Land Cover</strong>: Vegetation type, NDVI (e.g., from MODIS or ESA datasets).</li>
+</ul>
+<p><strong>Key Considerations</strong>: - <strong>Alignment</strong>: - Ensure that all raster layers (predictors) have the same: - <strong>Resolution</strong>: Each raster cell should represent the same area (e.g., 10 km × 10 km).<br>
+- <strong>Extent</strong>: All rasters should cover the same geographic boundaries.<br>
+- <strong>CRS</strong>: Use the same coordinate reference system (e.g., WGS84).<br>
+- <strong>Quality Check</strong>: - Inspect rasters for missing or unrealistic values (e.g., negative precipitation).</p>
+<div class="rmdnote">
+<p><strong>Why Alignment Matters</strong>: Mismatched resolution, extent, or CRS can lead to errors during spatial analysis, such as misaligned layers or invalid predictions.</p>
+</div>
+<hr>
+</div>
+<div id="scaling-and-temporal-matching" class="section level4" number="6.2.1.3">
+<h4>
+<span class="header-section-number">6.2.1.3</span> <strong>3. Scaling and Temporal Matching</strong><a class="anchor" aria-label="anchor" href="#scaling-and-temporal-matching"><i class="fas fa-link"></i></a>
+</h4>
+<p>Temporal and spatial consistency between biological and environmental data is essential for robust modeling:</p>
+<ul>
+<li>
+<strong>Temporal Alignment</strong>:
+<ul>
+<li>Biological data (e.g., species occurrences) and environmental data (e.g., climate variables) should reflect the same time period.<br>
+</li>
+<li>Example: If occurrence data is from 2020, use climate data from the same year or a comparable period.</li>
+</ul>
+</li>
+<li>
+<strong>Scaling</strong>:
+<ul>
+<li>Standardize numerical predictors (e.g., z-scores or min-max scaling) to ensure all variables contribute equally to the model.</li>
+</ul>
+</li>
+</ul>
+<div class="rmdcaution">
+<p><strong>Watch Out For</strong>: - Predictors with different temporal scales (e.g., historical vs. future climate data).<br>
+- Variables with units that aren’t comparable (e.g., temperature in °C vs. precipitation in mm).</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="pro-tip-checking-multicollinearity" class="section level3" number="6.2.2">
+<h3>
+<span class="header-section-number">6.2.2</span> <strong>Pro Tip: Checking Multicollinearity</strong><a class="anchor" aria-label="anchor" href="#pro-tip-checking-multicollinearity"><i class="fas fa-link"></i></a>
+</h3>
+<p>Multicollinearity occurs when predictors are highly correlated, which can distort the model’s ability to attribute importance to variables. Common examples include: - Annual mean temperature (Bio1) and maximum temperature of the warmest month (Bio5). - Annual precipitation (Bio12) and precipitation seasonality (Bio15).</p>
+<p><strong>How to Address It</strong>: - Calculate a <strong>correlation matrix</strong> for your predictors and remove one variable from each highly correlated pair (e.g., correlation &gt; 0.7). - Use <strong>dimensionality reduction</strong> techniques like Principal Component Analysis (PCA) to summarize predictors into uncorrelated components.</p>
+<div class="rmdtip">
+<p><strong>Tool Spotlight</strong>: Use the <strong><code>vif()</code> function</strong> from the <code>car</code> package to identify predictors with high variance inflation factors (VIF), which indicate multicollinearity.</p>
+</div>
+<hr>
+</div>
+<div id="example-preparing-data-for-eastern-hemlock-sdm" class="section level3" number="6.2.3">
+<h3>
+<span class="header-section-number">6.2.3</span> <strong>Example: Preparing Data for Eastern Hemlock SDM</strong><a class="anchor" aria-label="anchor" href="#example-preparing-data-for-eastern-hemlock-sdm"><i class="fas fa-link"></i></a>
+</h3>
+<p>To model the distribution of eastern hemlock (<em>Tsuga canadensis</em>), you would:</p>
+<ul>
+<li>
+<strong>Biological Data</strong>:
+<ul>
+<li>Download occurrence records from GBIF.<br>
+</li>
+<li>Remove duplicates and points with missing or invalid coordinates.<br>
+</li>
+<li>Thin the data spatially to reduce sampling bias.</li>
+</ul>
+</li>
+<li>
+<strong>Environmental Data</strong>:
+<ul>
+<li>Download bioclimatic variables (e.g., Bio1: Annual Mean Temperature, Bio12: Annual Precipitation) from WorldClim.<br>
+</li>
+<li>Align rasters to a common resolution of 10 km × 10 km, with the WGS84 CRS.</li>
+</ul>
+</li>
+<li>
+<strong>Scaling and Matching</strong>:
+<ul>
+<li>Standardize climate variables (e.g., z-scores).<br>
+</li>
+<li>Ensure climate data corresponds to the same year as the occurrence data.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="why-data-preparation-matters" class="section level3" number="6.2.4">
+<h3>
+<span class="header-section-number">6.2.4</span> <strong>Why Data Preparation Matters</strong><a class="anchor" aria-label="anchor" href="#why-data-preparation-matters"><i class="fas fa-link"></i></a>
+</h3>
+<p>High-quality data is the backbone of any SDM. Poorly prepared data can lead to: - Biased or inaccurate predictions. - Overfitting, where the model learns noise rather than meaningful patterns. - Misleading conservation decisions based on faulty models.</p>
+<hr>
+<div class="rmdimportant">
+<p><strong>Checklist for Data Preparation</strong>: 1. Biological Data: - Remove duplicates and erroneous coordinates. - Address spatial bias in occurrence data. 2. Environmental Data: - Align predictors (resolution, extent, CRS). - Standardize numerical variables. 3. Temporal Matching: - Ensure biological and environmental data reflect the same time period. 4. Multicollinearity Check: - Remove or reduce highly correlated predictors.</p>
+</div>
+</div>
+</div>
+<div id="step-3-model-fitting" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> <strong>Step 3: Model Fitting</strong><a class="anchor" aria-label="anchor" href="#step-3-model-fitting"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdtip">
+<p><strong>Objective</strong>: Select and apply the most appropriate modeling algorithm to fit the SDM, ensuring the model captures meaningful species-environment relationships while avoiding overfitting.</p>
+</div>
+</div>
+<div id="model-fitting-is-the-core-step-in-sdm-where-the-relationship-between-species-occurrence-and-environmental-predictors-is-quantified.-the-choice-of-algorithm-and-careful-selection-of-predictors-are-critical-to-building-an-accurate-and-interpretable-model." class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> Model fitting is the core step in SDM, where the relationship between species occurrence and environmental predictors is quantified. The choice of algorithm and careful selection of predictors are critical to building an accurate and interpretable model.<a class="anchor" aria-label="anchor" href="#model-fitting-is-the-core-step-in-sdm-where-the-relationship-between-species-occurrence-and-environmental-predictors-is-quantified.-the-choice-of-algorithm-and-careful-selection-of-predictors-are-critical-to-building-an-accurate-and-interpretable-model."><i class="fas fa-link"></i></a>
+</h2>
+<div id="key-considerations" class="section level3" number="6.4.1">
+<h3>
+<span class="header-section-number">6.4.1</span> <strong>Key Considerations</strong><a class="anchor" aria-label="anchor" href="#key-considerations"><i class="fas fa-link"></i></a>
+</h3>
+<hr>
+<div id="algorithm-selection" class="section level4" number="6.4.1.1">
+<h4>
+<span class="header-section-number">6.4.1.1</span> <strong>1. Algorithm Selection</strong><a class="anchor" aria-label="anchor" href="#algorithm-selection"><i class="fas fa-link"></i></a>
+</h4>
+<p>Different algorithms are suitable for different data types and modeling goals. Choose an algorithm based on your biological data type (e.g., presence-only or presence-absence) and the complexity of the study.</p>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="20%">
+<col width="20%">
+<col width="28%">
+<col width="30%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Algorithm</strong></th>
+<th><strong>Data Type</strong></th>
+<th><strong>Strengths</strong></th>
+<th><strong>Example Use Case</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>MaxEnt</strong></td>
+<td>Presence-Only (p-o)</td>
+<td>Handles small sample sizes and generates robust results.</td>
+<td>Predicting distributions using citizen science data.</td>
+</tr>
+<tr class="even">
+<td><strong>Random Forest (RF)</strong></td>
+<td>Presence-Absence (p-a)</td>
+<td>Handles nonlinear relationships and interactions.</td>
+<td>Modeling habitat suitability with complex predictors.</td>
+</tr>
+<tr class="odd">
+<td><strong>GLMs/GAMs</strong></td>
+<td>Presence-Absence (p-a)</td>
+<td>Parametric models for interpretable relationships.</td>
+<td>Studying simple, linear species-environment responses.</td>
+</tr>
+<tr class="even">
+<td><strong>Boosted Regression Trees (BRT)</strong></td>
+<td>Presence-Absence (p-a)</td>
+<td>Handles missing data and identifies important variables.</td>
+<td>Predicting species presence in highly variable landscapes.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="rmdtip">
+<p><strong>Pro Tip</strong>: Start with a simple model (e.g., GLM) to establish baseline performance and then explore more complex algorithms like RF or BRT for improved accuracy.</p>
+</div>
+<hr>
+</div>
+<div id="variable-selection" class="section level4" number="6.4.1.2">
+<h4>
+<span class="header-section-number">6.4.1.2</span> <strong>2. Variable Selection</strong><a class="anchor" aria-label="anchor" href="#variable-selection"><i class="fas fa-link"></i></a>
+</h4>
+<p>Careful selection of predictors ensures your model captures meaningful relationships without overfitting. Multicollinearity (high correlation between predictors) can distort the model’s interpretation and reliability.</p>
+<p><strong>Steps for Variable Selection</strong>: 1. <strong>Check for Multicollinearity</strong>: - Calculate a <strong>correlation matrix</strong> or <strong>Variance Inflation Factor (VIF)</strong> for predictors. - Remove one variable from each pair with correlation &gt; 0.7 (e.g., Bio1 and Bio5 in climate data).</p>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<strong>Prioritize Ecological Relevance</strong>:
+<ul>
+<li>Retain variables that are biologically relevant to the species’ niche.</li>
+<li>Example: For eastern hemlock (<em>Tsuga canadensis</em>), focus on predictors like <strong>temperature seasonality</strong> (Bio4) and <strong>annual precipitation</strong> (Bio12).</li>
+</ul>
+</li>
+<li>
+<strong>Iterative Refinement</strong>:
+<ul>
+<li>Test the model’s performance with different sets of predictors.</li>
+<li>Use techniques like <strong>backward elimination</strong> or <strong>stepwise selection</strong> to identify the best set.</li>
+</ul>
+</li>
+</ol>
+<div class="rmdnote">
+<p><strong>Example</strong>: If you have 19 bioclimatic variables from WorldClim, select only a subset (e.g., 4–6 variables) based on their correlation and ecological significance.</p>
+</div>
+<hr>
+</div>
+<div id="overfitting-avoidance" class="section level4" number="6.4.1.3">
+<h4>
+<span class="header-section-number">6.4.1.3</span> <strong>3. Overfitting Avoidance</strong><a class="anchor" aria-label="anchor" href="#overfitting-avoidance"><i class="fas fa-link"></i></a>
+</h4>
+<p>Overfitting occurs when the model becomes too complex and performs well on training data but poorly on unseen data. Avoid overfitting using the following strategies:</p>
+<ul>
+<li>
+<strong>Regularization</strong>:
+<ul>
+<li>In MaxEnt, adjust the <strong>regularization multiplier</strong> to penalize overly complex models.</li>
+</ul>
+</li>
+<li>
+<strong>Cross-Validation</strong>:
+<ul>
+<li>Split the data into <strong>training</strong> and <strong>testing subsets</strong> (e.g., 70% training, 30% testing).</li>
+<li>Use <strong>k-fold cross-validation</strong> to evaluate the model on multiple splits of the data.</li>
+</ul>
+</li>
+<li>
+<strong>Simplify the Model</strong>:
+<ul>
+<li>Avoid using too many predictors, especially if sample size is small.</li>
+<li>Example: For a dataset with 100 species occurrence records, limit the predictors to ~5–6 variables.</li>
+</ul>
+</li>
+</ul>
+<div class="rmdcaution">
+<p><strong>Watch Out For</strong>: - Using all available predictors without assessing collinearity. - Relying solely on training accuracy without testing the model on independent data.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="example-fitting-a-model-for-eastern-hemlock" class="section level3" number="6.4.2">
+<h3>
+<span class="header-section-number">6.4.2</span> <strong>Example: Fitting a Model for Eastern Hemlock</strong><a class="anchor" aria-label="anchor" href="#example-fitting-a-model-for-eastern-hemlock"><i class="fas fa-link"></i></a>
+</h3>
+<p>For the eastern hemlock (<em>Tsuga canadensis</em>), we aim to understand how environmental factors influence its distribution:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Data</strong>:
+<ul>
+<li>Presence-absence records of the species across North America.</li>
+<li>Bioclimatic predictors (e.g., Bio4: Temperature Seasonality, Bio12: Annual Precipitation).</li>
+</ul>
+</li>
+<li>
+<strong>Algorithm</strong>:
+<ul>
+<li>Use <strong>Random Forest (RF)</strong> due to its ability to handle complex, nonlinear relationships.</li>
+</ul>
+</li>
+<li>
+<strong>Variable Selection</strong>:
+<ul>
+<li>Start with all 19 bioclimatic variables.</li>
+<li>Remove highly correlated variables (e.g., Bio1 and Bio5).</li>
+<li>Retain key predictors based on ecological knowledge.</li>
+</ul>
+</li>
+<li>
+<strong>Cross-Validation</strong>:
+<ul>
+<li>Perform 5-fold cross-validation to assess model performance.</li>
+<li>Evaluate metrics like AUC (Area Under the Curve) for discrimination ability.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</div>
+<div id="key-metrics-for-model-assessment" class="section level3" number="6.4.3">
+<h3>
+<span class="header-section-number">6.4.3</span> <strong>Key Metrics for Model Assessment</strong><a class="anchor" aria-label="anchor" href="#key-metrics-for-model-assessment"><i class="fas fa-link"></i></a>
+</h3>
+<p>During model fitting, evaluate performance using appropriate metrics:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="25%">
+<col width="75%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Metric</strong></th>
+<th><strong>Description</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>AUC (Area Under ROC Curve)</strong></td>
+<td>Measures the ability to distinguish presence from absence (0.5 = random, 1 = perfect).</td>
+</tr>
+<tr class="even">
+<td><strong>TSS (True Skill Statistic)</strong></td>
+<td>Balances sensitivity (true positives) and specificity (true negatives).</td>
+</tr>
+<tr class="odd">
+<td><strong>RMSE (Root Mean Square Error)</strong></td>
+<td>Quantifies the difference between predicted and observed values.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="rmdtip">
+<p><strong>Best Practice</strong>: Use a combination of metrics (e.g., AUC + TSS) to evaluate both the accuracy and ecological validity of your model.</p>
+</div>
+<hr>
+</div>
+<div id="final-thoughts-on-model-fitting" class="section level3" number="6.4.4">
+<h3>
+<span class="header-section-number">6.4.4</span> <strong>Final Thoughts on Model Fitting</strong><a class="anchor" aria-label="anchor" href="#final-thoughts-on-model-fitting"><i class="fas fa-link"></i></a>
+</h3>
+<p>The goal of model fitting is to create a balance between simplicity and accuracy. A good SDM: 1. Captures biologically meaningful relationships between the species and its environment. 2. Avoids overfitting while maintaining high predictive power. 3. Uses a well-documented and reproducible methodology for variable selection and model evaluation.</p>
+</div>
+</div>
+<div id="step-4-model-evaluation" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> <strong>Step 4: Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#step-4-model-evaluation"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdnote">
+<p><strong>Objective</strong>: Assess the model’s accuracy, predictive performance, and ecological validity to ensure robust and reliable species distribution predictions.</p>
+</div>
+<hr>
+<div id="why-evaluate-the-model" class="section level3" number="6.5.1">
+<h3>
+<span class="header-section-number">6.5.1</span> <strong>Why Evaluate the Model?</strong><a class="anchor" aria-label="anchor" href="#why-evaluate-the-model"><i class="fas fa-link"></i></a>
+</h3>
+<p>Model evaluation is a critical step to verify: 1. <strong>Predictive Power</strong>: How well does the model generalize to unseen data? 2. <strong>Ecological Relevance</strong>: Are the relationships between species and environment biologically meaningful? 3. <strong>Model Limitations</strong>: Identify overfitting or potential biases.</p>
+<hr>
+</div>
+<div id="evaluation-metrics" class="section level3" number="6.5.2">
+<h3>
+<span class="header-section-number">6.5.2</span> <strong>Evaluation Metrics</strong><a class="anchor" aria-label="anchor" href="#evaluation-metrics"><i class="fas fa-link"></i></a>
+</h3>
+<p>Model evaluation metrics help quantify the predictive performance of the SDM. Use a combination of metrics to assess both discrimination ability and agreement between predictions and observations.</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="25%">
+<col width="75%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Metric</strong></th>
+<th><strong>Description</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>AUC (Area Under ROC Curve)</strong></td>
+<td>Measures the model’s ability to distinguish presence from absence. Values range from 0.5 (random) to 1 (perfect discrimination).</td>
+</tr>
+<tr class="even">
+<td><strong>TSS (True Skill Statistic)</strong></td>
+<td>Combines <strong>sensitivity</strong> (true positives) and <strong>specificity</strong> (true negatives) into a single measure. Values range from -1 to 1, where 1 indicates perfect agreement.</td>
+</tr>
+<tr class="odd">
+<td><strong>Kappa</strong></td>
+<td>Compares predicted and observed values, accounting for random chance. Values range from 0 (no agreement) to 1 (perfect agreement).</td>
+</tr>
+<tr class="even">
+<td><strong>RMSE (Root Mean Square Error)</strong></td>
+<td>Quantifies the difference between predicted and observed probabilities. Lower values indicate better performance.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="validation-techniques" class="section level3" number="6.5.3">
+<h3>
+<span class="header-section-number">6.5.3</span> <strong>Validation Techniques</strong><a class="anchor" aria-label="anchor" href="#validation-techniques"><i class="fas fa-link"></i></a>
+</h3>
+<p>A good SDM should be validated using appropriate techniques to assess its performance on independent data and its ecological soundness.</p>
+<hr>
+<div id="traintest-split" class="section level4" number="6.5.3.1">
+<h4>
+<span class="header-section-number">6.5.3.1</span> <strong>1. Train/Test Split</strong><a class="anchor" aria-label="anchor" href="#traintest-split"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Method</strong>:
+<ul>
+<li>Split the data into <strong>training</strong> (e.g., 70%) and <strong>testing</strong> (e.g., 30%) subsets.</li>
+<li>Train the model on one subset and evaluate its performance on the other.</li>
+</ul>
+</li>
+<li>
+<strong>Purpose</strong>:
+<ul>
+<li>Ensures the model is not overfitting and can generalize to unseen data.</li>
+</ul>
+</li>
+</ul>
+<div class="rmdtip">
+<p><strong>Best Practice</strong>: Repeat the train/test split multiple times with different random seeds and average the evaluation metrics to reduce variability.</p>
+</div>
+<hr>
+</div>
+<div id="cross-validation" class="section level4" number="6.5.3.2">
+<h4>
+<span class="header-section-number">6.5.3.2</span> <strong>2. Cross-Validation</strong><a class="anchor" aria-label="anchor" href="#cross-validation"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Method</strong>:
+<ul>
+<li>Use <strong>k-fold cross-validation</strong>, where the dataset is split into <code>k</code> folds (e.g., 5 or 10).</li>
+<li>Train the model on <code>k-1</code> folds and evaluate it on the remaining fold. Repeat this process <code>k</code> times.</li>
+</ul>
+</li>
+<li>
+<strong>Purpose</strong>:
+<ul>
+<li>Provides a robust estimate of model accuracy, especially for small datasets.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="ecological-plausibility" class="section level4" number="6.5.3.3">
+<h4>
+<span class="header-section-number">6.5.3.3</span> <strong>3. Ecological Plausibility</strong><a class="anchor" aria-label="anchor" href="#ecological-plausibility"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Steps</strong>:
+<ul>
+<li>Examine the fitted relationships between environmental predictors and species presence.</li>
+<li>Validate whether the results align with biological knowledge of the species.</li>
+</ul>
+</li>
+<li>
+<strong>Example</strong>:
+<ul>
+<li>For <strong>eastern hemlock</strong>, ensure that higher probabilities of presence are associated with <strong>cool, damp climates</strong> and lower temperatures.</li>
+</ul>
+</li>
+</ul>
+<div class="rmdcaution">
+<p><strong>Watch Out For</strong>: - Counterintuitive relationships (e.g., predicting higher probabilities in unsuitable environments). - Over-reliance on predictors that lack ecological significance.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="example-evaluating-an-sdm-for-eastern-hemlock" class="section level3" number="6.5.4">
+<h3>
+<span class="header-section-number">6.5.4</span> <strong>Example: Evaluating an SDM for Eastern Hemlock</strong><a class="anchor" aria-label="anchor" href="#example-evaluating-an-sdm-for-eastern-hemlock"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s evaluate a fitted SDM for eastern hemlock:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Metrics</strong>:
+<ul>
+<li>Calculate <strong>AUC</strong> and <strong>TSS</strong> on the test dataset.</li>
+<li>Use <strong>Kappa</strong> to assess agreement between observed and predicted distributions.</li>
+</ul>
+</li>
+<li>
+<strong>Validation</strong>:
+<ul>
+<li>Visualize fitted response curves for key predictors (e.g., Bio1: Annual Mean Temperature).</li>
+<li>Check if areas predicted as suitable match known hemlock habitats.</li>
+</ul>
+</li>
+<li>
+<strong>Ecological Validation</strong>:
+<ul>
+<li>Verify if predicted distributions correspond to known locations in cool, damp regions.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</div>
+<div id="key-takeaways-6" class="section level3" number="6.5.5">
+<h3>
+<span class="header-section-number">6.5.5</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-6"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Use multiple metrics (e.g., AUC, TSS, Kappa) for a comprehensive evaluation.</li>
+<li>Train/test splits and cross-validation are essential for estimating predictive accuracy.</li>
+<li>Validate ecological plausibility to ensure biological relevance.</li>
+</ul>
+<div class="rmdtip">
+<p><strong>Pro Tip</strong>: Always interpret model results in the context of ecological knowledge. A high AUC score alone doesn’t guarantee a biologically meaningful model.</p>
+</div>
+</div>
+</div>
+<div id="step-5-model-prediction-and-projection" class="section level2" number="6.6">
+<h2>
+<span class="header-section-number">6.6</span> <strong>Step 5: Model Prediction and Projection</strong><a class="anchor" aria-label="anchor" href="#step-5-model-prediction-and-projection"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdimportant">
+<p><strong>Objective</strong>: Leverage the fitted model to predict species distributions under current conditions and project potential changes under future scenarios, including climate change.</p>
+</div>
+<hr>
+<div id="key-applications" class="section level3" number="6.6.1">
+<h3>
+<span class="header-section-number">6.6.1</span> <strong>Key Applications</strong><a class="anchor" aria-label="anchor" href="#key-applications"><i class="fas fa-link"></i></a>
+</h3>
+<p>Species Distribution Models (SDMs) can be used for various predictive and projection-based tasks:</p>
+<hr>
+<div id="current-range-prediction" class="section level4" number="6.6.1.1">
+<h4>
+<span class="header-section-number">6.6.1.1</span> <strong>1. Current Range Prediction</strong><a class="anchor" aria-label="anchor" href="#current-range-prediction"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Purpose</strong>:
+<ul>
+<li>Use environmental predictors to estimate the species’ potential distribution under current conditions.</li>
+<li>Generate suitability maps that highlight areas where the species is most likely to occur.</li>
+</ul>
+</li>
+<li>
+<strong>Example</strong>:
+<ul>
+<li>For <strong>eastern hemlock</strong> (<em>Tsuga canadensis</em>), map its current habitat suitability based on predictors like temperature, precipitation, and soil type.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="future-projections" class="section level4" number="6.6.1.2">
+<h4>
+<span class="header-section-number">6.6.1.2</span> <strong>2. Future Projections</strong><a class="anchor" aria-label="anchor" href="#future-projections"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Purpose</strong>:
+<ul>
+<li>Assess how species distributions might shift under future climate conditions.</li>
+<li>Use <strong>global climate models (GCMs)</strong> and future emission scenarios (e.g., <strong>Shared Socioeconomic Pathways (SSPs)</strong> in <strong>CMIP6</strong> datasets).</li>
+</ul>
+</li>
+<li>
+<strong>Method</strong>:
+<ul>
+<li>Replace current climate predictors with future climate layers (e.g., projected temperature and precipitation for 2050 or 2100).</li>
+<li>Explore multiple scenarios, such as <strong>low emissions (SSP1-2.6)</strong> or <strong>high emissions (SSP5-8.5)</strong>, to understand the range of possible outcomes.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="uncertainty-quantification" class="section level3" number="6.6.2">
+<h3>
+<span class="header-section-number">6.6.2</span> <strong>Uncertainty Quantification</strong><a class="anchor" aria-label="anchor" href="#uncertainty-quantification"><i class="fas fa-link"></i></a>
+</h3>
+<p>Predicting species distributions involves several sources of uncertainty. It’s essential to quantify and communicate these uncertainties for reliable decision-making.</p>
+<hr>
+<div id="ensemble-modeling" class="section level4" number="6.6.2.1">
+<h4>
+<span class="header-section-number">6.6.2.1</span> <strong>1. Ensemble Modeling</strong><a class="anchor" aria-label="anchor" href="#ensemble-modeling"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Approach</strong>:
+<ul>
+<li>Use projections from multiple models (e.g., several GCMs or SDM algorithms).</li>
+<li>Generate an ensemble prediction by averaging results across models.</li>
+</ul>
+</li>
+<li>
+<strong>Benefits</strong>:
+<ul>
+<li>Reduces reliance on a single model, accounting for variability in projections.</li>
+</ul>
+</li>
+<li>
+<strong>Example</strong>:
+<ul>
+<li>Combine habitat suitability maps for <strong>eastern hemlock</strong> from several GCMs to identify areas of high agreement.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="scenario-comparisons" class="section level4" number="6.6.2.2">
+<h4>
+<span class="header-section-number">6.6.2.2</span> <strong>2. Scenario Comparisons</strong><a class="anchor" aria-label="anchor" href="#scenario-comparisons"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Approach</strong>:
+<ul>
+<li>Compare projections across different future scenarios (e.g., SSP1-2.6 vs. SSP5-8.5).</li>
+<li>Highlight areas where predictions differ significantly.</li>
+</ul>
+</li>
+<li>
+<strong>Benefits</strong>:
+<ul>
+<li>Provides a range of possible outcomes, helping policymakers prepare for varying conditions.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="confidence-intervals-and-uncertainty-maps" class="section level4" number="6.6.2.3">
+<h4>
+<span class="header-section-number">6.6.2.3</span> <strong>3. Confidence Intervals and Uncertainty Maps</strong><a class="anchor" aria-label="anchor" href="#confidence-intervals-and-uncertainty-maps"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Approach</strong>:
+<ul>
+<li>Calculate confidence intervals for predicted suitability values.</li>
+<li>Generate uncertainty maps showing areas with higher prediction variability.</li>
+</ul>
+</li>
+<li>
+<strong>Benefits</strong>:
+<ul>
+<li>Identifies regions where predictions are less reliable, aiding in risk assessment.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="example-projecting-eastern-hemlock-distribution" class="section level3" number="6.6.3">
+<h3>
+<span class="header-section-number">6.6.3</span> <strong>Example: Projecting Eastern Hemlock Distribution</strong><a class="anchor" aria-label="anchor" href="#example-projecting-eastern-hemlock-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>For <strong>eastern hemlock</strong>, future climate warming might lead to: 1. <strong>Habitat Loss</strong>: - Warmer temperatures may reduce habitat suitability in southern regions.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<strong>Range Shifts</strong>:
+<ul>
+<li>Suitable habitats might shift to higher elevations or farther north as the climate changes.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Steps</strong>: - Replace current bioclimatic variables with projections for 2050 and 2100 from <strong>CMIP6</strong> datasets. - Run the model using different SSP scenarios (e.g., SSP1-2.6 and SSP5-8.5). - Map areas predicted to remain suitable, gain suitability, or lose suitability.</p>
+<hr>
+</div>
+<div id="key-considerations-for-projections" class="section level3" number="6.6.4">
+<h3>
+<span class="header-section-number">6.6.4</span> <strong>Key Considerations for Projections</strong><a class="anchor" aria-label="anchor" href="#key-considerations-for-projections"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="26%">
+<col width="73%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Aspect</strong></th>
+<th><strong>Details</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Future Climate Scenarios</strong></td>
+<td>Use datasets like <strong>CMIP6</strong> with multiple GCMs and SSP pathways.</td>
+</tr>
+<tr class="even">
+<td><strong>Model Generalization</strong></td>
+<td>Ensure the model is robust to novel environmental conditions (no extrapolation).</td>
+</tr>
+<tr class="odd">
+<td><strong>Ecological Plausibility</strong></td>
+<td>Verify predictions align with the species’ known biology and ecology.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="key-takeaways-7" class="section level3" number="6.6.5">
+<h3>
+<span class="header-section-number">6.6.5</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-7"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Predict Current Distributions</strong>:
+<ul>
+<li>Use current environmental data to identify suitable habitats.</li>
+</ul>
+</li>
+<li>
+<strong>Project Future Ranges</strong>:
+<ul>
+<li>Incorporate climate projections to assess potential impacts of climate change.</li>
+</ul>
+</li>
+<li>
+<strong>Quantify Uncertainty</strong>:
+<ul>
+<li>Adopt ensemble approaches and scenario comparisons to enhance prediction reliability.</li>
+</ul>
+</li>
+</ol>
+<div class="rmdnote">
+<p><strong>Pro Tip</strong>: Visualize current and future suitability maps side by side to clearly illustrate range shifts and areas at risk of habitat loss.</p>
+</div>
+</div>
+</div>
+<div id="illustrative-example-hemlock-distribution-under-climate-change" class="section level2" number="6.7">
+<h2>
+<span class="header-section-number">6.7</span> <strong>Illustrative Example: Hemlock Distribution Under Climate Change</strong><a class="anchor" aria-label="anchor" href="#illustrative-example-hemlock-distribution-under-climate-change"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<p>Let’s walk through a practical application of Species Distribution Modeling (SDM) using <strong>eastern hemlock</strong> (<em>Tsuga canadensis</em>). This example demonstrates how to apply the five steps of SDM to predict the species’ current distribution and project future ranges under changing climate conditions.</p>
+<hr>
+<div id="conceptualization" class="section level3" number="6.7.1">
+<h3>
+<span class="header-section-number">6.7.1</span> <strong>1. Conceptualization</strong><a class="anchor" aria-label="anchor" href="#conceptualization"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdimportant">
+<p><strong>Goal</strong>: Understand how climate change might affect the distribution of <em>Tsuga canadensis</em>.</p>
+</div>
+<p>Key considerations:</p>
+<ul>
+<li>
+<strong>Species Ecology</strong>:
+<ul>
+<li>Eastern hemlock thrives in <strong>cool, damp environments</strong>, often found in regions with high soil moisture and moderate temperatures.</li>
+</ul>
+</li>
+<li>
+<strong>Predictors</strong>:
+<ul>
+<li>Relevant environmental variables include:
+<ul>
+<li>
+<strong>Temperature</strong>: Annual mean temperature (Bio1).</li>
+<li>
+<strong>Soil Moisture</strong>: Precipitation during the driest quarter (Bio17).</li>
+<li>
+<strong>Topography</strong>: Elevation data from digital elevation models (DEMs).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Research Questions</strong>:
+<ul>
+<li>How will warming temperatures impact hemlock’s suitable habitat?</li>
+<li>Will the species shift to higher elevations or latitudes?</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="data-preparation" class="section level3" number="6.7.2">
+<h3>
+<span class="header-section-number">6.7.2</span> <strong>2. Data Preparation</strong><a class="anchor" aria-label="anchor" href="#data-preparation"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdcaution">
+<p><strong>Objective</strong>: Gather, clean, and align biological and environmental data.</p>
+</div>
+<p>Steps involved:</p>
+<ul>
+<li>
+<strong>Biological Data</strong>:
+<ul>
+<li>Use <strong>presence-absence data</strong> from field surveys or <strong>GBIF occurrence records</strong>.</li>
+<li>Clean the dataset:
+<ul>
+<li>Remove duplicates and outliers.</li>
+<li>Verify coordinate accuracy.</li>
+<li>Address spatial bias (e.g., oversampling near roads).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Environmental Data</strong>:
+<ul>
+<li>Download bioclimatic variables from <strong>WorldClim</strong> or <strong>CMIP6</strong>:
+<ul>
+<li>Current climate data for baseline predictions.</li>
+<li>Future climate projections for RCP 4.5 (moderate emissions) and RCP 8.5 (high emissions).</li>
+</ul>
+</li>
+<li>Ensure:
+<ul>
+<li>
+<strong>Resolution</strong>: Same cell size for all layers (e.g., 1 km).</li>
+<li>
+<strong>Extent</strong>: Cover the same geographic area as the biological data.</li>
+<li>
+<strong>CRS</strong>: Use a common coordinate reference system (e.g., WGS84).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Scaling</strong>:
+<ul>
+<li>Standardize predictors for comparability.</li>
+<li>Align temporal scales (e.g., match occurrence data with climate data for the same year).</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="model-fitting" class="section level3" number="6.7.3">
+<h3>
+<span class="header-section-number">6.7.3</span> <strong>3. Model Fitting</strong><a class="anchor" aria-label="anchor" href="#model-fitting"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdtip">
+<p><strong>Objective</strong>: Develop a model that accurately predicts suitable habitats for <em>Tsuga canadensis</em>.</p>
+</div>
+<p>Steps:</p>
+<ul>
+<li>
+<strong>Algorithm</strong>:
+<ul>
+<li>Use <strong>MaxEnt</strong> for presence-only data or <strong>Random Forest</strong> for presence-absence data.</li>
+</ul>
+</li>
+<li>
+<strong>Variable Selection</strong>:
+<ul>
+<li>Refine predictors iteratively by:
+<ul>
+<li>Calculating <strong>Variance Inflation Factor (VIF)</strong> to identify collinear variables.</li>
+<li>Prioritizing ecologically meaningful variables.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Model Tuning</strong>:
+<ul>
+<li>Adjust MaxEnt regularization to avoid overfitting.</li>
+<li>Use cross-validation to optimize model performance.</li>
+</ul>
+</li>
+</ul>
+<p>Example:
+- Fit the model using predictors like Bio1 (temperature) and Bio17 (precipitation during the driest quarter).
+- Visualize the suitability map for current conditions.</p>
+<hr>
+</div>
+<div id="model-evaluation" class="section level3" number="6.7.4">
+<h3>
+<span class="header-section-number">6.7.4</span> <strong>4. Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#model-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdnote">
+<p><strong>Objective</strong>: Validate the model to ensure it makes biologically and statistically sound predictions.</p>
+</div>
+<p>Steps:</p>
+<ul>
+<li>
+<strong>Metrics</strong>:
+<ul>
+<li>Use <strong>AUC</strong> to assess the model’s ability to distinguish between suitable and unsuitable areas.</li>
+<li>Use <strong>TSS</strong> and <strong>Kappa</strong> for additional validation.</li>
+</ul>
+</li>
+<li>
+<strong>Ecological Validation</strong>:
+<ul>
+<li>Check species-environment relationships.</li>
+<li>Ensure predictions align with known habitat preferences (e.g., cool, damp climates for hemlock).</li>
+</ul>
+</li>
+<li>
+<strong>Cross-Validation</strong>:
+<ul>
+<li>Split data into training and testing sets to evaluate predictive performance on unseen data.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+<div id="projection" class="section level3" number="6.7.5">
+<h3>
+<span class="header-section-number">6.7.5</span> <strong>5. Projection</strong><a class="anchor" aria-label="anchor" href="#projection"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdimportant">
+<p><strong>Objective</strong>: Map current and future distributions to assess potential impacts of climate change.</p>
+</div>
+<p>Steps:</p>
+<ul>
+<li>
+<strong>Current Distribution</strong>:
+<ul>
+<li>Predict hemlock’s habitat suitability under current climate conditions.</li>
+<li>Map the species’ potential range.</li>
+</ul>
+</li>
+<li>
+<strong>Future Projections</strong>:
+<ul>
+<li>Use <strong>RCP 4.5</strong> (moderate emissions) and <strong>RCP 8.5</strong> (high emissions) to project future ranges.</li>
+<li>Map potential range shifts due to warming temperatures.</li>
+</ul>
+</li>
+<li>
+<strong>Scenario Comparison</strong>:
+<ul>
+<li>Identify areas of habitat loss, persistence, and gain.</li>
+<li>Quantify uncertainty using ensemble models from multiple climate projections.</li>
+</ul>
+</li>
+</ul>
+<p>Example:
+- Under <strong>RCP 8.5</strong>, hemlock may lose low-altitude habitats and shift to higher elevations or northern regions.</p>
+<hr>
+</div>
+<div id="visualization" class="section level3" number="6.7.6">
+<h3>
+<span class="header-section-number">6.7.6</span> <strong>Visualization</strong><a class="anchor" aria-label="anchor" href="#visualization"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Current and Future Range Maps</strong>:
+1. <strong>Current Range</strong>:
+- Map areas with high habitat suitability under current conditions.
+2. <strong>Future Projections</strong>:
+- Create side-by-side maps for <strong>RCP 4.5</strong> and <strong>RCP 8.5</strong> scenarios.
+- Highlight regions of range expansion, contraction, or persistence.</p>
+<hr>
+</div>
+</div>
+<div id="summary-1" class="section level2" number="6.8">
+<h2>
+<span class="header-section-number">6.8</span> <strong>Summary</strong><a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>By applying these steps to <em>Tsuga canadensis</em>, we can:
+- Understand its current habitat preferences.
+- Predict how its range might shift under different climate change scenarios.
+- Inform conservation strategies to mitigate potential habitat loss.</p>
+<p>Remember to:
+1. Prioritize <strong>data quality</strong> and ensure alignment of predictors.
+2. Validate the model using appropriate metrics.
+3. Account for uncertainties in projections by using ensemble approaches.</p>
+<p>This framework can be adapted to study other species and ecological questions, making it a powerful tool for conservation planning and ecological research.</p>
+<hr>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></div>
+<div class="next"><a href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#steps-in-species-distribution-modeling-sdm"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#key-points-to-consider"><span class="header-section-number">6.0.1</span> Key Points to Consider</a></li>
+<li><a class="nav-link" href="#practical-example-eastern-hemlock-tsuga-canadensis"><span class="header-section-number">6.0.2</span> Practical Example: Eastern Hemlock (Tsuga canadensis)</a></li>
+<li><a class="nav-link" href="#why-conceptualization-matters"><span class="header-section-number">6.0.3</span> Why Conceptualization Matters</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#step-2-data-preparation"><span class="header-section-number">6.1</span> Step 2: Data Preparation</a></li>
+<li>
+<a class="nav-link" href="#data-preparation-is-a-critical-step-in-species-distribution-modeling-sdm.-the-quality-of-your-input-data-significantly-influences-the-accuracy-and-reliability-of-the-resulting-model.-this-step-involves-cleaning-and-processing-both-biological-species-occurrence-data-and-environmental-predictors."><span class="header-section-number">6.2</span> Data preparation is a critical step in Species Distribution Modeling (SDM). The quality of your input data significantly influences the accuracy and reliability of the resulting model. This step involves cleaning and processing both biological (species occurrence) data and environmental predictors.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#key-tasks"><span class="header-section-number">6.2.1</span> Key Tasks</a></li>
+<li><a class="nav-link" href="#pro-tip-checking-multicollinearity"><span class="header-section-number">6.2.2</span> Pro Tip: Checking Multicollinearity</a></li>
+<li><a class="nav-link" href="#example-preparing-data-for-eastern-hemlock-sdm"><span class="header-section-number">6.2.3</span> Example: Preparing Data for Eastern Hemlock SDM</a></li>
+<li><a class="nav-link" href="#why-data-preparation-matters"><span class="header-section-number">6.2.4</span> Why Data Preparation Matters</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#step-3-model-fitting"><span class="header-section-number">6.3</span> Step 3: Model Fitting</a></li>
+<li>
+<a class="nav-link" href="#model-fitting-is-the-core-step-in-sdm-where-the-relationship-between-species-occurrence-and-environmental-predictors-is-quantified.-the-choice-of-algorithm-and-careful-selection-of-predictors-are-critical-to-building-an-accurate-and-interpretable-model."><span class="header-section-number">6.4</span> Model fitting is the core step in SDM, where the relationship between species occurrence and environmental predictors is quantified. The choice of algorithm and careful selection of predictors are critical to building an accurate and interpretable model.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#key-considerations"><span class="header-section-number">6.4.1</span> Key Considerations</a></li>
+<li><a class="nav-link" href="#example-fitting-a-model-for-eastern-hemlock"><span class="header-section-number">6.4.2</span> Example: Fitting a Model for Eastern Hemlock</a></li>
+<li><a class="nav-link" href="#key-metrics-for-model-assessment"><span class="header-section-number">6.4.3</span> Key Metrics for Model Assessment</a></li>
+<li><a class="nav-link" href="#final-thoughts-on-model-fitting"><span class="header-section-number">6.4.4</span> Final Thoughts on Model Fitting</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#step-4-model-evaluation"><span class="header-section-number">6.5</span> Step 4: Model Evaluation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-evaluate-the-model"><span class="header-section-number">6.5.1</span> Why Evaluate the Model?</a></li>
+<li><a class="nav-link" href="#evaluation-metrics"><span class="header-section-number">6.5.2</span> Evaluation Metrics</a></li>
+<li><a class="nav-link" href="#validation-techniques"><span class="header-section-number">6.5.3</span> Validation Techniques</a></li>
+<li><a class="nav-link" href="#example-evaluating-an-sdm-for-eastern-hemlock"><span class="header-section-number">6.5.4</span> Example: Evaluating an SDM for Eastern Hemlock</a></li>
+<li><a class="nav-link" href="#key-takeaways-6"><span class="header-section-number">6.5.5</span> Key Takeaways</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#step-5-model-prediction-and-projection"><span class="header-section-number">6.6</span> Step 5: Model Prediction and Projection</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#key-applications"><span class="header-section-number">6.6.1</span> Key Applications</a></li>
+<li><a class="nav-link" href="#uncertainty-quantification"><span class="header-section-number">6.6.2</span> Uncertainty Quantification</a></li>
+<li><a class="nav-link" href="#example-projecting-eastern-hemlock-distribution"><span class="header-section-number">6.6.3</span> Example: Projecting Eastern Hemlock Distribution</a></li>
+<li><a class="nav-link" href="#key-considerations-for-projections"><span class="header-section-number">6.6.4</span> Key Considerations for Projections</a></li>
+<li><a class="nav-link" href="#key-takeaways-7"><span class="header-section-number">6.6.5</span> Key Takeaways</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#illustrative-example-hemlock-distribution-under-climate-change"><span class="header-section-number">6.7</span> Illustrative Example: Hemlock Distribution Under Climate Change</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#conceptualization"><span class="header-section-number">6.7.1</span> 1. Conceptualization</a></li>
+<li><a class="nav-link" href="#data-preparation"><span class="header-section-number">6.7.2</span> 2. Data Preparation</a></li>
+<li><a class="nav-link" href="#model-fitting"><span class="header-section-number">6.7.3</span> 3. Model Fitting</a></li>
+<li><a class="nav-link" href="#model-evaluation"><span class="header-section-number">6.7.4</span> 4. Model Evaluation</a></li>
+<li><a class="nav-link" href="#projection"><span class="header-section-number">6.7.5</span> 5. Projection</a></li>
+<li><a class="nav-link" href="#visualization"><span class="header-section-number">6.7.6</span> Visualization</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#summary-1"><span class="header-section-number">6.8</span> Summary</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/05-steps-sdm.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/05-steps-sdm.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-01-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

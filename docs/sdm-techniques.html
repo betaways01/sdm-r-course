@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 7 SDM Techniques | A Minimal Book Example</title>
+<meta name="author" content="Basim Alsaedi">
+<meta name="description" content="7.1 1. Introduction to SDM Techniques  What are SDM Techniques? Species Distribution Modeling (SDM) techniques are statistical or machine learning methods used to predict the distribution of...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 7 SDM Techniques | A Minimal Book Example">
+<meta property="og:type" content="book">
+<meta property="og:description" content="7.1 1. Introduction to SDM Techniques  What are SDM Techniques? Species Distribution Modeling (SDM) techniques are statistical or machine learning methods used to predict the distribution of...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 7 SDM Techniques | A Minimal Book Example">
+<meta name="twitter:description" content="7.1 1. Introduction to SDM Techniques  What are SDM Techniques? Species Distribution Modeling (SDM) techniques are statistical or machine learning methods used to predict the distribution of...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0.9000/transition.js"></script><script src="libs/bs3compat-0.8.0.9000/tabs.js"></script><script src="libs/bs3compat-0.8.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">A Minimal Book Example</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Welcome!</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></li>
+<li><a class="" href="spartial-data-in-r.html"><span class="header-section-number">4</span> Spartial Data in R</a></li>
+<li><a class="" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
+<li><a class="" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
+<li><a class="active" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="sdm-techniques" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> <strong>SDM Techniques</strong><a class="anchor" aria-label="anchor" href="#sdm-techniques"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<div id="introduction-to-sdm-techniques" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> <strong>1. Introduction to SDM Techniques</strong><a class="anchor" aria-label="anchor" href="#introduction-to-sdm-techniques"><i class="fas fa-link"></i></a>
+</h2>
+<div class="rmdimportant">
+<p><strong>What are SDM Techniques?</strong></p>
+<p>Species Distribution Modeling (SDM) techniques are statistical or machine learning methods used to predict the distribution of species based on environmental and biological data. These techniques analyze relationships between observed species occurrences and environmental predictors to create maps of potential distributions.</p>
+</div>
+<div id="why-are-sdm-techniques-important" class="section level3" number="7.1.1">
+<h3>
+<span class="header-section-number">7.1.1</span> <strong>Why Are SDM Techniques Important?</strong><a class="anchor" aria-label="anchor" href="#why-are-sdm-techniques-important"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p><strong>Understanding Species-Environment Interactions</strong>:<br>
+SDM techniques help ecologists identify the factors influencing where species thrive or struggle.</p></li>
+<li><p><strong>Conservation Planning</strong>:<br>
+They support decisions about habitat protection, restoration, and species reintroduction by highlighting critical areas for biodiversity.</p></li>
+<li><p><strong>Climate Change Adaptation</strong>:<br>
+Predict how species’ ranges might shift under future environmental scenarios, aiding proactive conservation strategies.</p></li>
+</ul>
+<hr>
+<div class="rmdtip">
+<p><strong>Choosing the Right Technique Matters!</strong></p>
+<p>Different SDM techniques are suited to specific types of data and research objectives. The success of your model depends on matching the right approach to your study goals and dataset characteristics.</p>
+</div>
+</div>
+<div id="how-sdm-techniques-work" class="section level3" number="7.1.2">
+<h3>
+<span class="header-section-number">7.1.2</span> <strong>How SDM Techniques Work</strong><a class="anchor" aria-label="anchor" href="#how-sdm-techniques-work"><i class="fas fa-link"></i></a>
+</h3>
+<p>At their core, SDM techniques rely on three main components:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Species Data</strong>:
+<ul>
+<li>
+<strong>Presence-only data</strong>: Where species are observed (e.g., herbarium records).</li>
+<li>
+<strong>Presence-absence data</strong>: Locations where a species is both present and absent (e.g., systematic surveys).</li>
+</ul>
+</li>
+<li>
+<strong>Environmental Predictors</strong>:
+<ul>
+<li>Variables like temperature, precipitation, soil type, or elevation, which influence species distributions.</li>
+</ul>
+</li>
+<li>
+<strong>Modeling Algorithms</strong>:
+<ul>
+<li>Statistical or computational methods used to analyze relationships and generate predictions.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</div>
+<div id="key-goals-of-sdm-techniques" class="section level3" number="7.1.3">
+<h3>
+<span class="header-section-number">7.1.3</span> <strong>Key Goals of SDM Techniques</strong><a class="anchor" aria-label="anchor" href="#key-goals-of-sdm-techniques"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="27%">
+<col width="72%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Goal</strong></th>
+<th><strong>Explanation</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Identify Key Predictors</strong></td>
+<td>Determine which environmental factors most influence species’ distributions.</td>
+</tr>
+<tr class="even">
+<td><strong>Predict Current Range</strong></td>
+<td>Map where species are likely to occur under current environmental conditions.</td>
+</tr>
+<tr class="odd">
+<td><strong>Forecast Future Scenarios</strong></td>
+<td>Project potential range shifts due to climate change or habitat alterations.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<div class="rmdnote">
+<p><strong>Example</strong>:<br>
+For the eastern hemlock (<em>Tsuga canadensis</em>), SDM techniques might explore how temperature, soil moisture, and elevation influence its distribution, providing insights into its response to climate change.</p>
+</div>
+</div>
+<div id="takeaway" class="section level3" number="7.1.4">
+<h3>
+<span class="header-section-number">7.1.4</span> <strong>Takeaway</strong><a class="anchor" aria-label="anchor" href="#takeaway"><i class="fas fa-link"></i></a>
+</h3>
+<p>SDM techniques are powerful tools for addressing ecological and conservation challenges. In the following sections, we will explore various SDM approaches, their strengths, and how to choose the best one for your research.</p>
+<hr>
+</div>
+</div>
+<div id="primary-categories-of-sdm-techniques" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> <strong>2. Primary Categories of SDM Techniques</strong><a class="anchor" aria-label="anchor" href="#primary-categories-of-sdm-techniques"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<p>Species Distribution Modeling (SDM) techniques are diverse, each tailored to specific types of data and research objectives. They can be broadly categorized into four main groups:</p>
+<hr>
+<div id="envelopes-and-distance-based-methods" class="section level3" number="7.2.1">
+<h3>
+<span class="header-section-number">7.2.1</span> <strong>2.1. Envelopes and Distance-Based Methods</strong><a class="anchor" aria-label="anchor" href="#envelopes-and-distance-based-methods"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdnote">
+<p><strong>Overview</strong>: These methods define the environmental conditions (or “envelopes”) suitable for a species or use similarity metrics to assess habitat suitability.</p>
+</div>
+<div id="bioclim" class="section level4" number="7.2.1.1">
+<h4>
+<span class="header-section-number">7.2.1.1</span> <strong>BIOCLIM</strong><a class="anchor" aria-label="anchor" href="#bioclim"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Identifies climatic envelopes by considering species occurrences within the range of environmental conditions.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Simple and intuitive.</li>
+<li>Effective for presence-only data.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Assumes all conditions within the envelope are equally suitable.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Mapping climatic suitability for plant species based on temperature and precipitation.</li>
+</ul>
+</div>
+<div id="domain" class="section level4" number="7.2.1.2">
+<h4>
+<span class="header-section-number">7.2.1.2</span> <strong>DOMAIN</strong><a class="anchor" aria-label="anchor" href="#domain"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Calculates environmental similarity using Gower’s distance to assess habitat suitability.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Easy to implement.</li>
+<li>Handles multi-dimensional environmental data well.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Sensitive to outliers.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Predicting the distribution of insect species based on microhabitat conditions.</li>
+</ul>
+</div>
+<div id="mahalanobis-distance" class="section level4" number="7.2.1.3">
+<h4>
+<span class="header-section-number">7.2.1.3</span> <strong>Mahalanobis Distance</strong><a class="anchor" aria-label="anchor" href="#mahalanobis-distance"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Measures multivariate similarity based on the covariance structure of the data.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Robust to multicollinearity among predictors.</li>
+<li>Suitable for continuous environmental data.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Assumes a linear relationship between variables.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Modeling habitat suitability for mammals in forested landscapes.</li>
+</ul>
+</div>
+<div id="ecological-niche-factor-analysis-enfa" class="section level4" number="7.2.1.4">
+<h4>
+<span class="header-section-number">7.2.1.4</span> <strong>Ecological Niche Factor Analysis (ENFA)</strong><a class="anchor" aria-label="anchor" href="#ecological-niche-factor-analysis-enfa"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Identifies the species’ ecological niche by comparing environmental conditions at presence locations to the overall study area.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Provides insights into ecological specialization.</li>
+<li>Useful for rare species with limited data.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Requires careful interpretation of niche parameters.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Studying niche shifts in invasive species.</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="regression-based-methods" class="section level3" number="7.2.2">
+<h3>
+<span class="header-section-number">7.2.2</span> <strong>2.2. Regression-Based Methods</strong><a class="anchor" aria-label="anchor" href="#regression-based-methods"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdtip">
+<p><strong>Overview</strong>: These methods analyze the relationship between species occurrences and environmental predictors, often providing interpretable models.</p>
+</div>
+<div id="generalized-linear-models-glms" class="section level4" number="7.2.2.1">
+<h4>
+<span class="header-section-number">7.2.2.1</span> <strong>Generalized Linear Models (GLMs)</strong><a class="anchor" aria-label="anchor" href="#generalized-linear-models-glms"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Models species-environment relationships using linear predictors and a link function.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Flexible and interpretable.</li>
+<li>Handles presence-absence data well.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Assumes linear or predefined relationships.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Analyzing the effect of temperature and precipitation on bird distributions.</li>
+</ul>
+</div>
+<div id="generalized-additive-models-gams" class="section level4" number="7.2.2.2">
+<h4>
+<span class="header-section-number">7.2.2.2</span> <strong>Generalized Additive Models (GAMs)</strong><a class="anchor" aria-label="anchor" href="#generalized-additive-models-gams"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Extends GLMs by allowing non-linear relationships through smooth functions.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Captures complex, non-linear relationships.</li>
+<li>Highly flexible.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Computationally intensive for large datasets.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Modeling species distribution along temperature gradients.</li>
+</ul>
+</div>
+<div id="multivariate-adaptive-regression-splines-mars" class="section level4" number="7.2.2.3">
+<h4>
+<span class="header-section-number">7.2.2.3</span> <strong>Multivariate Adaptive Regression Splines (MARS)</strong><a class="anchor" aria-label="anchor" href="#multivariate-adaptive-regression-splines-mars"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Breaks predictor relationships into piecewise linear segments.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Handles complex, non-linear interactions.</li>
+<li>Automatic feature selection.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Requires careful parameter tuning.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Predicting fish distributions in aquatic systems.</li>
+</ul>
+</div>
+<div id="bayesian-approaches" class="section level4" number="7.2.2.4">
+<h4>
+<span class="header-section-number">7.2.2.4</span> <strong>Bayesian Approaches</strong><a class="anchor" aria-label="anchor" href="#bayesian-approaches"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Incorporates prior knowledge and updates predictions with observed data.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Accounts for uncertainty.</li>
+<li>Ideal for sparse or noisy data.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Computationally demanding.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Modeling rare species distributions with limited occurrence data.</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="decision-tree-methods" class="section level3" number="7.2.3">
+<h3>
+<span class="header-section-number">7.2.3</span> <strong>2.3. Decision Tree Methods</strong><a class="anchor" aria-label="anchor" href="#decision-tree-methods"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdnote">
+<p><strong>Overview</strong>: Decision trees split data into hierarchical branches, providing interpretable models for species-environment relationships.</p>
+</div>
+<div id="classification-and-regression-trees-cart" class="section level4" number="7.2.3.1">
+<h4>
+<span class="header-section-number">7.2.3.1</span> <strong>Classification and Regression Trees (CART)</strong><a class="anchor" aria-label="anchor" href="#classification-and-regression-trees-cart"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Builds a decision tree to classify species presence or absence based on environmental thresholds.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Simple and intuitive.</li>
+<li>Handles non-linear relationships well.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Prone to overfitting without pruning.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Identifying habitat thresholds for amphibian species based on wetland characteristics.</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="machine-learning-approaches" class="section level3" number="7.2.4">
+<h3>
+<span class="header-section-number">7.2.4</span> <strong>2.4. Machine Learning Approaches</strong><a class="anchor" aria-label="anchor" href="#machine-learning-approaches"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdimportant">
+<p><strong>Overview</strong>: Advanced techniques that excel in handling complex data with high dimensionality and interactions.</p>
+</div>
+<div id="maximum-entropy-maxent" class="section level4" number="7.2.4.1">
+<h4>
+<span class="header-section-number">7.2.4.1</span> <strong>Maximum Entropy (MaxEnt)</strong><a class="anchor" aria-label="anchor" href="#maximum-entropy-maxent"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Predicts species distribution by maximizing entropy under environmental constraints.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Works well with presence-only data.</li>
+<li>Easy to interpret.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>May overfit with small datasets.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Mapping potential distributions of endangered plants.</li>
+</ul>
+</div>
+<div id="random-forests" class="section level4" number="7.2.4.2">
+<h4>
+<span class="header-section-number">7.2.4.2</span> <strong>Random Forests</strong><a class="anchor" aria-label="anchor" href="#random-forests"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Combines multiple decision trees to improve predictive accuracy.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Handles large datasets and complex interactions.</li>
+<li>Robust to overfitting.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Difficult to interpret compared to simpler models.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Predicting bird distributions across diverse habitats.</li>
+</ul>
+</div>
+<div id="boosted-regression-trees-brtgbm" class="section level4" number="7.2.4.3">
+<h4>
+<span class="header-section-number">7.2.4.3</span> <strong>Boosted Regression Trees (BRT/GBM)</strong><a class="anchor" aria-label="anchor" href="#boosted-regression-trees-brtgbm"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Sequentially builds decision trees to minimize prediction errors.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>High predictive accuracy.</li>
+<li>Handles non-linear relationships and interactions.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Computationally expensive.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Modeling shifts in species ranges under future climate scenarios.</li>
+</ul>
+</div>
+<div id="artificial-neural-networks-anns" class="section level4" number="7.2.4.4">
+<h4>
+<span class="header-section-number">7.2.4.4</span> <strong>Artificial Neural Networks (ANNs)</strong><a class="anchor" aria-label="anchor" href="#artificial-neural-networks-anns"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Mimics human brain processes to model complex relationships.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Highly flexible and powerful for large datasets.</li>
+<li>Captures non-linear relationships.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Requires large training datasets.</li>
+<li>Difficult to interpret.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Predicting aquatic species distributions based on multiple predictors.</li>
+</ul>
+</div>
+<div id="support-vector-machines-svms" class="section level4" number="7.2.4.5">
+<h4>
+<span class="header-section-number">7.2.4.5</span> <strong>Support Vector Machines (SVMs)</strong><a class="anchor" aria-label="anchor" href="#support-vector-machines-svms"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>What it does</strong>:<br>
+Separates species presence and absence data using hyperplanes in high-dimensional space.</li>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Effective for small datasets with complex boundaries.</li>
+<li>Handles high-dimensional data well.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Computationally intensive.</li>
+</ul>
+</li>
+<li>
+<strong>Use Case</strong>: Mapping species distributions in fragmented landscapes.</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="key-takeaways-8" class="section level3" number="7.2.5">
+<h3>
+<span class="header-section-number">7.2.5</span> <strong>Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-8"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Different SDM techniques cater to different types of data (e.g., presence-only, presence-absence) and study goals.</li>
+<li>
+<strong>Envelopes and Distance-Based Methods</strong> are simple and intuitive but limited in complexity.</li>
+<li>
+<strong>Regression-Based Methods</strong> balance interpretability and flexibility.</li>
+<li>
+<strong>Decision Tree Methods</strong> are easy to understand but can overfit.</li>
+<li>
+<strong>Machine Learning Approaches</strong> provide powerful tools for complex, high-dimensional data but require careful tuning and interpretation.</li>
+</ul>
+</div>
+</div>
+<div id="focus-on-mahalanobis-distance" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> <strong>3. Focus on Mahalanobis Distance</strong><a class="anchor" aria-label="anchor" href="#focus-on-mahalanobis-distance"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<div id="what-is-it" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> <strong>What is it?</strong><a class="anchor" aria-label="anchor" href="#what-is-it"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdnote">
+<p><strong>Mahalanobis Distance</strong>: A statistical measure of multivariate similarity that evaluates how similar a new observation is to a reference set based on multiple variables.</p>
+</div>
+<div id="key-characteristics" class="section level4" number="7.3.1.1">
+<h4>
+<span class="header-section-number">7.3.1.1</span> <strong>Key Characteristics</strong><a class="anchor" aria-label="anchor" href="#key-characteristics"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Accounts for Correlations</strong>: It considers correlations between variables and adjusts for differences in their scales.</li>
+<li>
+<strong>Presence-Only Method</strong>: Suitable for datasets where only species presence is recorded.</li>
+<li>
+<strong>Linear Assumptions</strong>: Assumes a linear relationship between predictors.</li>
+<li>
+<strong>Output</strong>: Provides a distance metric (D²), where smaller values indicate higher similarity to the reference conditions.</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="key-features" class="section level3" number="7.3.2">
+<h3>
+<span class="header-section-number">7.3.2</span> <strong>Key Features</strong><a class="anchor" aria-label="anchor" href="#key-features"><i class="fas fa-link"></i></a>
+</h3>
+<div id="advantages" class="section level4" number="7.3.2.1">
+<h4>
+<span class="header-section-number">7.3.2.1</span> <strong>Advantages</strong><a class="anchor" aria-label="anchor" href="#advantages"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Collinearity-Free Analysis</strong>: Handles correlated predictors effectively by considering their covariance structure.</li>
+<li>
+<strong>Continuous Predictors</strong>: Works seamlessly with continuous environmental data.</li>
+<li>
+<strong>Simple and Accessible</strong>: Easy to implement with minimal data preprocessing.</li>
+</ul>
+</div>
+<div id="limitations" class="section level4" number="7.3.2.2">
+<h4>
+<span class="header-section-number">7.3.2.2</span> <strong>Limitations</strong><a class="anchor" aria-label="anchor" href="#limitations"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Assumes Equal Weights</strong>: All predictors are treated as equally important unless modified.</li>
+<li>
+<strong>Linear Assumptions</strong>: May not perform well with non-linear relationships or categorical data.</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="implementation-in-r" class="section level3" number="7.3.3">
+<h3>
+<span class="header-section-number">7.3.3</span> <strong>Implementation in R</strong><a class="anchor" aria-label="anchor" href="#implementation-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdtip">
+<p>The <strong><code>mahal</code> function</strong> from the <strong><code>dismo</code></strong> package is commonly used to calculate Mahalanobis distances for SDM.</p>
+</div>
+<div id="steps-for-implementation" class="section level4" number="7.3.3.1">
+<h4>
+<span class="header-section-number">7.3.3.1</span> <strong>Steps for Implementation</strong><a class="anchor" aria-label="anchor" href="#steps-for-implementation"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>Prepare presence-only data and environmental variables.</li>
+<li>Compute the Mahalanobis distance for each cell in the study area.</li>
+<li>Map the resulting suitability values.</li>
+</ol>
+<hr>
+</div>
+</div>
+</div>
+<div id="comparing-sdm-techniques" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> <strong>4. Comparing SDM Techniques</strong><a class="anchor" aria-label="anchor" href="#comparing-sdm-techniques"><i class="fas fa-link"></i></a>
+</h2>
+<div id="summary-table-of-sdm-techniques" class="section level3" number="7.4.1">
+<h3>
+<span class="header-section-number">7.4.1</span> <strong>Summary Table of SDM Techniques</strong><a class="anchor" aria-label="anchor" href="#summary-table-of-sdm-techniques"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="15%">
+<col width="31%">
+<col width="31%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Technique</strong></th>
+<th><strong>Strengths</strong></th>
+<th><strong>Limitations</strong></th>
+<th><strong>When to Use</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>BIOCLIM</strong></td>
+<td>Simple and intuitive; requires minimal data</td>
+<td>Assumes equal suitability within climatic envelopes</td>
+<td>Quick assessments of climatic suitability</td>
+</tr>
+<tr class="even">
+<td><strong>Mahalanobis Distance</strong></td>
+<td>Handles correlated predictors; suitable for presence-only data</td>
+<td>Assumes linear relationships; continuous predictors only</td>
+<td>Presence-only data with multivariate traits</td>
+</tr>
+<tr class="odd">
+<td><strong>GLMs/GAMs</strong></td>
+<td>Flexible and interpretable</td>
+<td>Sensitive to multicollinearity; assumes predefined functions</td>
+<td>Parametric analyses of species relationships</td>
+</tr>
+<tr class="even">
+<td><strong>MaxEnt</strong></td>
+<td>Robust for presence-only data</td>
+<td>Risk of overfitting with small datasets</td>
+<td>Predictive modeling with limited presence data</td>
+</tr>
+<tr class="odd">
+<td><strong>Random Forests</strong></td>
+<td>Handles complex interactions and high-dimensional data</td>
+<td>Computationally intensive; less interpretable</td>
+<td>Complex ecological interactions</td>
+</tr>
+<tr class="even">
+<td><strong>Boosted Regression Trees</strong></td>
+<td>High predictive accuracy</td>
+<td>Requires tuning; computationally expensive</td>
+<td>Predicting range shifts under climate change</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="guidance-on-technique-selection" class="section level3" number="7.4.2">
+<h3>
+<span class="header-section-number">7.4.2</span> <strong>Guidance on Technique Selection</strong><a class="anchor" aria-label="anchor" href="#guidance-on-technique-selection"><i class="fas fa-link"></i></a>
+</h3>
+<div id="data-type" class="section level4" number="7.4.2.1">
+<h4>
+<span class="header-section-number">7.4.2.1</span> <strong>Data Type</strong><a class="anchor" aria-label="anchor" href="#data-type"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Presence-Only</strong>: Consider <strong>MaxEnt</strong>, <strong>BIOCLIM</strong>, or <strong>Mahalanobis Distance</strong>.</li>
+<li>
+<strong>Presence-Absence</strong>: Use <strong>GLMs</strong>, <strong>GAMs</strong>, or <strong>Random Forests</strong>.</li>
+</ul>
+</div>
+<div id="study-goals" class="section level4" number="7.4.2.2">
+<h4>
+<span class="header-section-number">7.4.2.2</span> <strong>Study Goals</strong><a class="anchor" aria-label="anchor" href="#study-goals"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Ecological Insights</strong>: Choose interpretable models like <strong>GLMs</strong> or <strong>BIOCLIM</strong>.</li>
+<li>
+<strong>Predictive Accuracy</strong>: Opt for machine learning approaches like <strong>MaxEnt</strong> or <strong>BRT</strong>.</li>
+</ul>
+<hr>
+</div>
+</div>
+</div>
+<div id="key-considerations-for-choosing-an-sdm-technique" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> <strong>5. Key Considerations for Choosing an SDM Technique</strong><a class="anchor" aria-label="anchor" href="#key-considerations-for-choosing-an-sdm-technique"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<div id="data-availability" class="section level3" number="7.5.1">
+<h3>
+<span class="header-section-number">7.5.1</span> <strong>1. Data Availability</strong><a class="anchor" aria-label="anchor" href="#data-availability"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Presence-Only vs. Presence-Absence</strong>:
+<ul>
+<li>Presence-only data limits the choice of models but is common in ecological datasets.</li>
+<li>Presence-absence data allows for more complex algorithms and better evaluation metrics.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="predictor-selection" class="section level3" number="7.5.2">
+<h3>
+<span class="header-section-number">7.5.2</span> <strong>2. Predictor Selection</strong><a class="anchor" aria-label="anchor" href="#predictor-selection"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Choose variables that are ecologically relevant to the species.</li>
+<li>Avoid multicollinearity to prevent misleading results.</li>
+</ul>
+<div class="rmdcaution">
+<p><strong>Pro Tip</strong>: Use techniques like <strong>Variance Inflation Factor (VIF)</strong> to identify and remove highly correlated predictors.</p>
+</div>
+</div>
+<div id="computational-resources" class="section level3" number="7.5.3">
+<h3>
+<span class="header-section-number">7.5.3</span> <strong>3. Computational Resources</strong><a class="anchor" aria-label="anchor" href="#computational-resources"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Simpler Methods</strong>: Use regression-based or distance-based models for quick analyses.</li>
+<li>
+<strong>Machine Learning</strong>: Requires more resources but provides higher predictive accuracy.</li>
+</ul>
+</div>
+<div id="study-objectives" class="section level3" number="7.5.4">
+<h3>
+<span class="header-section-number">7.5.4</span> <strong>4. Study Objectives</strong><a class="anchor" aria-label="anchor" href="#study-objectives"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Align the model choice with the research question. For example:
+<ul>
+<li>Use <strong>MaxEnt</strong> for endangered species with sparse data.</li>
+<li>Opt for <strong>BRT</strong> to model complex interactions and project future distributions.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="summary-and-key-takeaways-2" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> <strong>6. Summary and Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#summary-and-key-takeaways-2"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<div id="key-points" class="section level3" number="7.6.1">
+<h3>
+<span class="header-section-number">7.6.1</span> <strong>Key Points</strong><a class="anchor" aria-label="anchor" href="#key-points"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>SDM techniques vary in complexity, data requirements, and predictive capabilities.</li>
+<li>
+<strong>Mahalanobis Distance</strong> is a versatile method for presence-only data, particularly when predictors are continuous and correlated.</li>
+<li>Machine learning approaches like <strong>Random Forests</strong> and <strong>MaxEnt</strong> excel in predictive accuracy but require careful tuning and validation.</li>
+</ul>
+</div>
+<div id="next-steps-1" class="section level3" number="7.6.2">
+<h3>
+<span class="header-section-number">7.6.2</span> <strong>Next Steps</strong><a class="anchor" aria-label="anchor" href="#next-steps-1"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Explore hybrid models that combine the strengths of different SDM techniques.</li>
+<li>Delve into advanced topics like ensemble modeling and integrating ecological processes.</li>
+</ul>
+<p>By choosing the right SDM technique, researchers can effectively address ecological questions and inform conservation strategies with robust predictions.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 1: Load Required Libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span>  <span class="co"># For species distribution modeling</span></span>
+<span><span class="co">#&gt; Loading required package: raster</span></span>
+<span><span class="co">#&gt; Loading required package: sp</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span> <span class="co"># For raster data manipulation</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">maps</span><span class="op">)</span>   <span class="co"># For base map visualization</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span>   <span class="co"># For model evaluation (ROC curve)</span></span>
+<span><span class="co">#&gt; Type 'citation("pROC")' for a citation.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'pROC'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     cov, smooth, var</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 2: Load Example Occurrence Data</span></span>
+<span><span class="co"># Using Bradypus (sloth) occurrence data included in the `dismo` package</span></span>
+<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"ex"</span>, package <span class="op">=</span> <span class="st">"dismo"</span><span class="op">)</span>, <span class="st">"/bradypus.csv"</span><span class="op">)</span></span>
+<span><span class="va">bradypus</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Keep only longitude and latitude columns</span></span>
+<span><span class="va">bradypus</span> <span class="op">&lt;-</span> <span class="va">bradypus</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="va">bradypus</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize the occurrence data on a world map</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/maps/man/map.html">map</a></span><span class="op">(</span><span class="st">"world"</span>, col <span class="op">=</span> <span class="st">"gray90"</span>, fill <span class="op">=</span> <span class="cn">TRUE</span>, bg <span class="op">=</span> <span class="st">"lightblue"</span>, lwd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/lines.html">points</a></span><span class="op">(</span><span class="va">bradypus</span>, col <span class="op">=</span> <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-sdm-algorithms-mahaldist_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 3: Load Environmental Data</span></span>
+<span><span class="co"># Load environmental predictors provided in the `dismo` package</span></span>
+<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"ex"</span>, package <span class="op">=</span> <span class="st">"dismo"</span><span class="op">)</span></span>
+<span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="va">path</span>, pattern <span class="op">=</span> <span class="st">"grd$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">predictors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="va">files</span><span class="op">)</span>  <span class="co"># Stack all raster layers</span></span>
+<span></span>
+<span><span class="co"># Ensure predictors have a valid CRS and check their structure</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html">crs</a></span><span class="op">(</span><span class="va">predictors</span><span class="op">)</span>  <span class="co"># Verify CRS</span></span>
+<span><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span><span class="co">#&gt; Deprecated Proj.4 representation:</span></span>
+<span><span class="co">#&gt;  +proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0</span></span>
+<span><span class="co">#&gt; +no_defs </span></span>
+<span><span class="co">#&gt; WKT2 2019 representation:</span></span>
+<span><span class="co">#&gt; BOUNDCRS[</span></span>
+<span><span class="co">#&gt;     SOURCECRS[</span></span>
+<span><span class="co">#&gt;         GEOGCRS["unknown",</span></span>
+<span><span class="co">#&gt;             DATUM["World Geodetic System 1984",</span></span>
+<span><span class="co">#&gt;                 ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
+<span><span class="co">#&gt;                     LENGTHUNIT["metre",1]],</span></span>
+<span><span class="co">#&gt;                 ID["EPSG",6326]],</span></span>
+<span><span class="co">#&gt;             PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">#&gt;                 ANGLEUNIT["degree",0.0174532925199433],</span></span>
+<span><span class="co">#&gt;                 ID["EPSG",8901]],</span></span>
+<span><span class="co">#&gt;             CS[ellipsoidal,2],</span></span>
+<span><span class="co">#&gt;                 AXIS["longitude",east,</span></span>
+<span><span class="co">#&gt;                     ORDER[1],</span></span>
+<span><span class="co">#&gt;                     ANGLEUNIT["degree",0.0174532925199433,</span></span>
+<span><span class="co">#&gt;                         ID["EPSG",9122]]],</span></span>
+<span><span class="co">#&gt;                 AXIS["latitude",north,</span></span>
+<span><span class="co">#&gt;                     ORDER[2],</span></span>
+<span><span class="co">#&gt;                     ANGLEUNIT["degree",0.0174532925199433,</span></span>
+<span><span class="co">#&gt;                         ID["EPSG",9122]]]]],</span></span>
+<span><span class="co">#&gt;     TARGETCRS[</span></span>
+<span><span class="co">#&gt;         GEOGCRS["WGS 84",</span></span>
+<span><span class="co">#&gt;             DATUM["World Geodetic System 1984",</span></span>
+<span><span class="co">#&gt;                 ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
+<span><span class="co">#&gt;                     LENGTHUNIT["metre",1]]],</span></span>
+<span><span class="co">#&gt;             PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">#&gt;                 ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;             CS[ellipsoidal,2],</span></span>
+<span><span class="co">#&gt;                 AXIS["geodetic latitude (Lat)",north,</span></span>
+<span><span class="co">#&gt;                     ORDER[1],</span></span>
+<span><span class="co">#&gt;                     ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;                 AXIS["geodetic longitude (Lon)",east,</span></span>
+<span><span class="co">#&gt;                     ORDER[2],</span></span>
+<span><span class="co">#&gt;                     ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#&gt;             ID["EPSG",4326]]],</span></span>
+<span><span class="co">#&gt;     ABRIDGEDTRANSFORMATION["Transformation from unknown to WGS84",</span></span>
+<span><span class="co">#&gt;         METHOD["Geocentric translations (geog2D domain)",</span></span>
+<span><span class="co">#&gt;             ID["EPSG",9603]],</span></span>
+<span><span class="co">#&gt;         PARAMETER["X-axis translation",0,</span></span>
+<span><span class="co">#&gt;             ID["EPSG",8605]],</span></span>
+<span><span class="co">#&gt;         PARAMETER["Y-axis translation",0,</span></span>
+<span><span class="co">#&gt;             ID["EPSG",8606]],</span></span>
+<span><span class="co">#&gt;         PARAMETER["Z-axis translation",0,</span></span>
+<span><span class="co">#&gt;             ID["EPSG",8607]]]]</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html">names</a></span><span class="op">(</span><span class="va">predictors</span><span class="op">)</span>  <span class="co"># View predictor names</span></span>
+<span><span class="co">#&gt; [1] "bio1"  "bio12" "bio16" "bio17" "bio5"  "bio6"  "bio7" </span></span>
+<span><span class="co">#&gt; [8] "bio8"  "biome"</span></span>
+<span></span>
+<span><span class="co"># Visualize one of the predictors</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">predictors</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Environmental Predictor: Layer 1"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-sdm-algorithms-mahaldist_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 4: Extract Environmental Values at Occurrence Points</span></span>
+<span><span class="co"># Get the environmental values corresponding to the occurrence locations</span></span>
+<span><span class="va">presvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">bradypus</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">presvals</span><span class="op">)</span>  <span class="co"># This contains environmental values, not coordinates</span></span>
+<span><span class="co">#&gt;      bio1 bio12 bio16 bio17 bio5 bio6 bio7 bio8 biome</span></span>
+<span><span class="co">#&gt; [1,]  263  1639   724    62  338  191  147  261     1</span></span>
+<span><span class="co">#&gt; [2,]  263  1639   724    62  338  191  147  261     1</span></span>
+<span><span class="co">#&gt; [3,]  253  3624  1547   373  329  150  179  271     1</span></span>
+<span><span class="co">#&gt; [4,]  243  1693   775   186  318  150  168  264     1</span></span>
+<span><span class="co">#&gt; [5,]  243  1693   775   186  318  150  168  264     1</span></span>
+<span><span class="co">#&gt; [6,]  252  2501  1081   280  326  154  172  270     1</span></span>
+<span></span>
+<span><span class="co"># Combine spatial coordinates with environmental values for Mahalanobis</span></span>
+<span><span class="va">presence_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">bradypus</span>, <span class="va">presvals</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 5: Generate Background Points</span></span>
+<span><span class="co"># Generate random points (pseudo-absences) within the raster extent</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>  <span class="co"># For reproducibility</span></span>
+<span><span class="va">bg_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/randomPoints.html">randomPoints</a></span><span class="op">(</span><span class="va">predictors</span>, n <span class="op">=</span> <span class="fl">500</span><span class="op">)</span>  <span class="co"># Generate 500 points</span></span>
+<span></span>
+<span><span class="co"># Extract environmental values at the background points</span></span>
+<span><span class="va">bgvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">bg_points</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine presence and background data for modeling</span></span>
+<span><span class="va">presence_absence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">presvals</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">bgvals</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">sdmData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pa <span class="op">=</span> <span class="va">presence_absence</span>, <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">presvals</span>, <span class="va">bgvals</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 6: Mahalanobis Distance Model</span></span>
+<span><span class="co"># Fit the Mahalanobis model using presence locations and environmental values</span></span>
+<span><span class="va">mahal_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/mahal.html">mahal</a></span><span class="op">(</span><span class="va">presence_points</span><span class="op">[</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>  <span class="co"># Exclude coordinates, use predictors</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">mahal_model</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      Length       Class        Mode </span></span>
+<span><span class="co">#&gt;           1 Mahalanobis          S4</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 7: Create a Prediction Map</span></span>
+<span><span class="co"># Predict Mahalanobis distances across the raster extent</span></span>
+<span><span class="va">mahal_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">mahal_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize the prediction map</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">mahal_map</span>, main <span class="op">=</span> <span class="st">"Mahalanobis Distance Map"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/maps/man/map.html">map</a></span><span class="op">(</span><span class="st">"world"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"gray"</span>, lwd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-sdm-algorithms-mahaldist_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 8: Evaluate the Model</span></span>
+<span><span class="co"># Evaluate predictions using presence and background points</span></span>
+<span><span class="va">presence_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">mahal_map</span>, <span class="va">bradypus</span><span class="op">)</span></span>
+<span><span class="va">background_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">mahal_map</span>, <span class="va">bg_points</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine predictions into one vector</span></span>
+<span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">presence_pred</span>, <span class="va">background_pred</span><span class="op">)</span></span>
+<span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">presence_pred</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">background_pred</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate a simple performance summary</span></span>
+<span><span class="va">roc_curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">labels</span>, <span class="va">predictions</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Setting levels: control = 0, case = 1</span></span>
+<span><span class="co">#&gt; Setting direction: controls &lt; cases</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">roc_curve</span>, main <span class="op">=</span> <span class="st">"ROC Curve for Mahalanobis Model"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-sdm-algorithms-mahaldist_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">auc_value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="va">roc_curve</span><span class="op">)</span>  <span class="co"># Area Under the Curve (AUC)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"AUC:"</span>, <span class="va">auc_value</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "AUC: 0.997"</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></div>
+<div class="next"><a href="references.html">References</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sdm-techniques"><span class="header-section-number">7</span> SDM Techniques</a></li>
+<li>
+<a class="nav-link" href="#introduction-to-sdm-techniques"><span class="header-section-number">7.1</span> 1. Introduction to SDM Techniques</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-are-sdm-techniques-important"><span class="header-section-number">7.1.1</span> Why Are SDM Techniques Important?</a></li>
+<li><a class="nav-link" href="#how-sdm-techniques-work"><span class="header-section-number">7.1.2</span> How SDM Techniques Work</a></li>
+<li><a class="nav-link" href="#key-goals-of-sdm-techniques"><span class="header-section-number">7.1.3</span> Key Goals of SDM Techniques</a></li>
+<li><a class="nav-link" href="#takeaway"><span class="header-section-number">7.1.4</span> Takeaway</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#primary-categories-of-sdm-techniques"><span class="header-section-number">7.2</span> 2. Primary Categories of SDM Techniques</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#envelopes-and-distance-based-methods"><span class="header-section-number">7.2.1</span> 2.1. Envelopes and Distance-Based Methods</a></li>
+<li><a class="nav-link" href="#regression-based-methods"><span class="header-section-number">7.2.2</span> 2.2. Regression-Based Methods</a></li>
+<li><a class="nav-link" href="#decision-tree-methods"><span class="header-section-number">7.2.3</span> 2.3. Decision Tree Methods</a></li>
+<li><a class="nav-link" href="#machine-learning-approaches"><span class="header-section-number">7.2.4</span> 2.4. Machine Learning Approaches</a></li>
+<li><a class="nav-link" href="#key-takeaways-8"><span class="header-section-number">7.2.5</span> Key Takeaways</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#focus-on-mahalanobis-distance"><span class="header-section-number">7.3</span> 3. Focus on Mahalanobis Distance</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#what-is-it"><span class="header-section-number">7.3.1</span> What is it?</a></li>
+<li><a class="nav-link" href="#key-features"><span class="header-section-number">7.3.2</span> Key Features</a></li>
+<li><a class="nav-link" href="#implementation-in-r"><span class="header-section-number">7.3.3</span> Implementation in R</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#comparing-sdm-techniques"><span class="header-section-number">7.4</span> 4. Comparing SDM Techniques</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summary-table-of-sdm-techniques"><span class="header-section-number">7.4.1</span> Summary Table of SDM Techniques</a></li>
+<li><a class="nav-link" href="#guidance-on-technique-selection"><span class="header-section-number">7.4.2</span> Guidance on Technique Selection</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#key-considerations-for-choosing-an-sdm-technique"><span class="header-section-number">7.5</span> 5. Key Considerations for Choosing an SDM Technique</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-availability"><span class="header-section-number">7.5.1</span> 1. Data Availability</a></li>
+<li><a class="nav-link" href="#predictor-selection"><span class="header-section-number">7.5.2</span> 2. Predictor Selection</a></li>
+<li><a class="nav-link" href="#computational-resources"><span class="header-section-number">7.5.3</span> 3. Computational Resources</a></li>
+<li><a class="nav-link" href="#study-objectives"><span class="header-section-number">7.5.4</span> 4. Study Objectives</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#summary-and-key-takeaways-2"><span class="header-section-number">7.6</span> 6. Summary and Key Takeaways</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#key-points"><span class="header-section-number">7.6.1</span> Key Points</a></li>
+<li><a class="nav-link" href="#next-steps-1"><span class="header-section-number">7.6.2</span> Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/06-sdm-algorithms-mahaldist.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/06-sdm-algorithms-mahaldist.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-01-31.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
