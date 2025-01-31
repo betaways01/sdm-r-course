@@ -3164,7 +3164,7 @@ This framework can be adapted to study other species and ecological questions, m
 
 ------------------------------------------------------------------------
 
-<!--chapter:end:05-5-steps-sdm.Rmd-->
+<!--chapter:end:05-steps-sdm.Rmd-->
 
 
 <!--chapter:end:06-sdm-algorithms-mahaldist.Rmd-->
