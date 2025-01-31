@@ -1,6 +1,6 @@
 # Introduction
 
-![World Distribution of Plants and Animals](images/World.png)
+![World Distribution of Plants and Animals](images/World.png){width="550"}
 
 ------------------------------------------------------------------------
 
