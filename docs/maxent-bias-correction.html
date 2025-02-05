@@ -4,22 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 9 Maxent Bias Correction | A Minimal Book Example</title>
+<title>Chapter 10 Maxent Bias Correction | A Minimal Book Example</title>
 <meta name="author" content="Basim Alsaedi">
-<meta name="description" content="&lt;p&gt;This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::bs4_book,
-set in the _output.yml file.&lt;/p&gt;">
+<meta name="description" content="10.0.1 1. Introduction to Bias in MaxEnt Models  10.0.1.1 What is Bias? Bias in MaxEnt models refers to errors or distortions that arise during data collection or modeling, leading to inaccurate...">
 <meta name="generator" content="bookdown 0.41 with bs4_book()">
-<meta property="og:title" content="Chapter 9 Maxent Bias Correction | A Minimal Book Example">
+<meta property="og:title" content="Chapter 10 Maxent Bias Correction | A Minimal Book Example">
 <meta property="og:type" content="book">
-<meta property="og:description" content="&lt;p&gt;This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::bs4_book,
-set in the _output.yml file.&lt;/p&gt;">
+<meta property="og:description" content="10.0.1 1. Introduction to Bias in MaxEnt Models  10.0.1.1 What is Bias? Bias in MaxEnt models refers to errors or distortions that arise during data collection or modeling, leading to inaccurate...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 9 Maxent Bias Correction | A Minimal Book Example">
-<meta name="twitter:description" content="&lt;p&gt;This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::bs4_book,
-set in the _output.yml file.&lt;/p&gt;">
+<meta name="twitter:title" content="Chapter 10 Maxent Bias Correction | A Minimal Book Example">
+<meta name="twitter:description" content="10.0.1 1. Introduction to Bias in MaxEnt Models  10.0.1.1 What is Bias? Bias in MaxEnt models refers to errors or distortions that arise during data collection or modeling, leading to inaccurate...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0.9000/transition.js"></script><script src="libs/bs3compat-0.8.0.9000/tabs.js"></script><script src="libs/bs3compat-0.8.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -56,14 +50,12 @@ set in the _output.yml file.&lt;/p&gt;">
 <li><a class="" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
 <li><a class="" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
 <li><a class="" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
-<li><a class="" href="references.html">References</a></li>
-<li><a class="" href="maxent.html"><span class="header-section-number">8</span> Maxent</a></li>
-<li><a class="active" href="maxent-bias-correction.html"><span class="header-section-number">9</span> Maxent Bias Correction</a></li>
-<li><a class="" href="cart-rf-gbm.html"><span class="header-section-number">10</span> Cart RF GBM</a></li>
-<li><a class="" href="model-evaluation-1.html"><span class="header-section-number">11</span> Model Evaluation</a></li>
-<li><a class="" href="more-sdm-theory.html"><span class="header-section-number">12</span> More SDM Theory</a></li>
-<li><a class="" href="more-sdm-theory-part-2.html"><span class="header-section-number">13</span> More SDM Theory Part 2</a></li>
-<li><a class="" href="ensemble-models.html"><span class="header-section-number">14</span> Ensemble Models</a></li>
+<li><a class="" href="maxent-algorithm.html"><span class="header-section-number">8</span> Maxent Algorithm</a></li>
+<li><a class="" href="exercise.html"><span class="header-section-number">9</span> Exercise</a></li>
+<li><a class="active" href="maxent-bias-correction.html"><span class="header-section-number">10</span> Maxent Bias Correction</a></li>
+<li><a class="" href="cart-rf-and-gbm.html"><span class="header-section-number">11</span> Cart, RF, and GBM</a></li>
+<li><a class="" href="gbm-variable-selection.html"><span class="header-section-number">12</span> GBM Variable Selection</a></li>
+<li><a class="" href="model-evaluation-in-sdm.html"><span class="header-section-number">13</span> Model Evaluation in SDM</a></li>
 </ul>
 
         <div class="book-extra">
@@ -71,18 +63,602 @@ set in the _output.yml file.&lt;/p&gt;">
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="maxent-bias-correction" class="section level1" number="9">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="maxent-bias-correction" class="section level1" number="10">
 <h1>
-<span class="header-section-number">9</span> Maxent Bias Correction<a class="anchor" aria-label="anchor" href="#maxent-bias-correction"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10</span> Maxent Bias Correction<a class="anchor" aria-label="anchor" href="#maxent-bias-correction"><i class="fas fa-link"></i></a>
 </h1>
+<hr>
+<div id="introduction-to-bias-in-maxent-models" class="section level3" number="10.0.1">
+<h3>
+<span class="header-section-number">10.0.1</span> <strong>1. Introduction to Bias in MaxEnt Models</strong><a class="anchor" aria-label="anchor" href="#introduction-to-bias-in-maxent-models"><i class="fas fa-link"></i></a>
+</h3>
+<hr>
+<div id="what-is-bias" class="section level4" number="10.0.1.1">
+<h4>
+<span class="header-section-number">10.0.1.1</span> <strong>What is Bias?</strong><a class="anchor" aria-label="anchor" href="#what-is-bias"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bias in MaxEnt models refers to <strong>errors or distortions</strong> that arise during data collection or modeling, leading to <strong>inaccurate predictions</strong> about species distributions. Bias can occur due to several reasons, such as <strong>uneven sampling efforts</strong> or environmental conditions that are not uniformly represented.</p>
+<hr>
+</div>
+<div id="impact-of-bias" class="section level4" number="10.0.1.2">
+<h4>
+<span class="header-section-number">10.0.1.2</span> <strong>Impact of Bias</strong><a class="anchor" aria-label="anchor" href="#impact-of-bias"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bias can significantly affect your model’s predictions:</p>
+<ul>
+<li>
+<strong>Over-representation of specific areas</strong>: If most species occurrence points are from easily accessible areas (e.g., near roads), the model may predict those areas as highly suitable even when they are not.</li>
+<li>
+<strong>Under-representation of important habitats</strong>: Regions that are rarely sampled may be overlooked, even if they are critical for the species.</li>
+<li>
+<strong>Incorrect response curves</strong>: The relationships between species and environmental variables may not reflect their true ecological preferences.</li>
+</ul>
+<hr>
+</div>
+<div id="why-is-bias-correction-important" class="section level4" number="10.0.1.3">
+<h4>
+<span class="header-section-number">10.0.1.3</span> <strong>Why Is Bias Correction Important?</strong><a class="anchor" aria-label="anchor" href="#why-is-bias-correction-important"><i class="fas fa-link"></i></a>
+</h4>
+<p>Correcting bias is essential for <strong>reliable and meaningful predictions</strong>. Without addressing bias:</p>
+<ul>
+<li>The model may overfit to areas with more data, reducing its ability to generalize to other regions.</li>
+<li>Conservation efforts could be misdirected, focusing on areas that are not genuinely suitable for the species.</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="callout-blocks-to-clarify-key-points" class="section level3" number="10.0.2">
+<h3>
+<span class="header-section-number">10.0.2</span> <strong>Callout Blocks to Clarify Key Points</strong><a class="anchor" aria-label="anchor" href="#callout-blocks-to-clarify-key-points"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdnote">
+<p><strong>Key Insight</strong>: Bias can distort suitability maps, making areas with more occurrence points seem more favorable for the species.</p>
+</div>
+<div class="rmdtip">
+<p><strong>Pro Tip</strong>: Always examine your occurrence data for patterns that suggest bias, such as clustering near roads or urban centers.</p>
+</div>
+<hr>
+<div id="real-life-example" class="section level4" number="10.0.2.1">
+<h4>
+<span class="header-section-number">10.0.2.1</span> <strong>Real-Life Example</strong><a class="anchor" aria-label="anchor" href="#real-life-example"><i class="fas fa-link"></i></a>
+</h4>
+<p>Imagine you’re modeling the habitat of a bird species using occurrence data. Most sightings are reported near cities because they are easier to access. Without correcting for this sampling bias, your model might predict that urban areas are more suitable for the species, even if the bird prefers forests.</p>
+<hr>
+</div>
+<div id="simple-visualization" class="section level4" number="10.0.2.2">
+<h4>
+<span class="header-section-number">10.0.2.2</span> <strong>Simple Visualization</strong><a class="anchor" aria-label="anchor" href="#simple-visualization"><i class="fas fa-link"></i></a>
+</h4>
+<p>To demonstrate the impact of bias, you can create a <strong>scatter plot</strong> of occurrence points overlaid on environmental predictors (e.g., temperature or elevation). This plot can highlight clustering in specific areas, indicating sampling bias.</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example Visualization in R</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">maps</span><span class="op">)</span>  <span class="co"># Built-in map data</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/borders.html">borders</a></span><span class="op">(</span><span class="st">"world"</span>, colour <span class="op">=</span> <span class="st">"gray85"</span>, fill <span class="op">=</span> <span class="st">"gray80"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">occurrence_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Distribution of Occurrence Points"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Longitude"</span>, y <span class="op">=</span> <span class="st">"Latitude"</span><span class="op">)</span></span></code></pre></div>
+<p>This simple plot helps visualize if occurrence points are evenly distributed or biased toward specific regions.</p>
+<hr>
+</div>
+<div id="summary-2" class="section level4" number="10.0.2.3">
+<h4>
+<span class="header-section-number">10.0.2.3</span> <strong>Summary</strong><a class="anchor" aria-label="anchor" href="#summary-2"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bias in MaxEnt models is a common challenge but can be addressed effectively with proper techniques. Recognizing and correcting sampling and spatial biases ensures that your models produce reliable predictions and support informed conservation decisions.</p>
+<hr>
+</div>
+</div>
+<div id="types-of-bias" class="section level3" number="10.0.3">
+<h3>
+<span class="header-section-number">10.0.3</span> <strong>2. Types of Bias</strong><a class="anchor" aria-label="anchor" href="#types-of-bias"><i class="fas fa-link"></i></a>
+</h3>
+<hr>
+<div id="sampling-bias" class="section level4" number="10.0.3.1">
+<h4>
+<span class="header-section-number">10.0.3.1</span> <strong>1. Sampling Bias</strong><a class="anchor" aria-label="anchor" href="#sampling-bias"><i class="fas fa-link"></i></a>
+</h4>
+<p>Sampling bias occurs when species occurrence data is collected unevenly across the study area. This can happen due to practical constraints, such as accessibility or survey effort.</p>
+<p><strong>Causes</strong>:
+- Easier access to some areas (e.g., near roads, urban centers).
+- Survey focus on specific regions or habitats.</p>
+<p><strong>Examples</strong>:
+- Most occurrence points for a species are clustered near cities or along well-traveled paths.
+- Remote areas with potentially suitable habitats are underrepresented.</p>
+<div class="rmdnote">
+<p><strong>Key Insight</strong>: Sampling bias makes it seem like the species is more abundant in accessible areas, even if it prefers remote habitats.</p>
+</div>
+<p><strong>Visualization Example</strong>:
+You can visualize sampling bias by plotting occurrence points over a map and identifying clusters.</p>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/borders.html">borders</a></span><span class="op">(</span><span class="st">"world"</span>, colour <span class="op">=</span> <span class="st">"gray85"</span>, fill <span class="op">=</span> <span class="st">"gray80"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">occurrence_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Sampling Bias in Occurrence Data"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Longitude"</span>, y <span class="op">=</span> <span class="st">"Latitude"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="spatial-bias" class="section level4" number="10.0.3.2">
+<h4>
+<span class="header-section-number">10.0.3.2</span> <strong>2. Spatial Bias</strong><a class="anchor" aria-label="anchor" href="#spatial-bias"><i class="fas fa-link"></i></a>
+</h4>
+<p>Spatial bias happens when specific environmental conditions are over- or under-represented in the occurrence data.</p>
+<p><strong>Causes</strong>:
+- The species is primarily recorded in habitats that are easier to identify.
+- Some environmental conditions are not sampled thoroughly.</p>
+<p><strong>Examples</strong>:
+- Over-representation of lowland areas while mountain habitats are overlooked.
+- Sampling effort focused on one biome (e.g., forests), ignoring other potential habitats (e.g., grasslands).</p>
+<div class="rmdcaution">
+<p><strong>Watch Out</strong>: Spatial bias can lead to misleading response curves, where the model falsely associates the species with specific conditions.</p>
+</div>
+<p><strong>How to Detect Spatial Bias</strong>:
+- Overlay occurrence points on environmental variables (e.g., elevation, precipitation) to check for uneven representation.</p>
+<hr>
+</div>
+<div id="data-bias" class="section level4" number="10.0.3.3">
+<h4>
+<span class="header-section-number">10.0.3.3</span> <strong>3. Data Bias</strong><a class="anchor" aria-label="anchor" href="#data-bias"><i class="fas fa-link"></i></a>
+</h4>
+<p>Data bias results from errors or inconsistencies in the occurrence or environmental datasets.</p>
+<p><strong>Causes</strong>:
+- Misidentified species in occurrence records.
+- Environmental predictors with low resolution or missing values.
+- Temporal mismatch between occurrence and environmental data.</p>
+<p><strong>Examples</strong>:
+- Occurrence data collected decades ago may not reflect current distributions.
+- Predictors like temperature and precipitation may have gaps or inconsistencies.</p>
+<div class="rmdtip">
+<p><strong>Pro Tip</strong>: Check for errors in both occurrence and environmental data before modeling. Use functions like <code>CoordinateCleaner</code> in R to remove problematic records.</p>
+</div>
+<p><strong>Tools to Address Data Bias</strong>:
+- Use <strong>GBIF</strong> or similar platforms to clean occurrence data.
+- Validate environmental layers by inspecting resolution, extent, and coordinate systems.</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example of checking predictor quality in R</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">predictor_layer</span>, main <span class="op">=</span> <span class="st">"Inspecting Environmental Data Quality"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="summary-3" class="section level4" number="10.0.3.4">
+<h4>
+<span class="header-section-number">10.0.3.4</span> <strong>Summary</strong><a class="anchor" aria-label="anchor" href="#summary-3"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="14%">
+<col width="24%">
+<col width="29%">
+<col width="31%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Type of Bias</strong></th>
+<th><strong>Cause</strong></th>
+<th><strong>Impact</strong></th>
+<th><strong>Example</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sampling Bias</strong></td>
+<td>Uneven survey effort, accessibility</td>
+<td>Over-representation of easily accessed areas</td>
+<td>Occurrence points clustered near roads</td>
+</tr>
+<tr class="even">
+<td><strong>Spatial Bias</strong></td>
+<td>Non-uniform environmental conditions</td>
+<td>Skewed species-environment relationships</td>
+<td>More data from lowland areas than mountainous regions</td>
+</tr>
+<tr class="odd">
+<td><strong>Data Bias</strong></td>
+<td>Errors in occurrence/environmental data</td>
+<td>Misleading predictions or unsuitable habitats</td>
+<td>Misidentified species or outdated environmental data</td>
+</tr>
+</tbody>
+</table></div>
+<p>Recognizing these biases early allows for effective correction methods, ensuring your models provide accurate and ecologically meaningful predictions.</p>
+</div>
+<div id="spatial-thinning" class="section level4" number="10.0.3.5">
+<h4>
+<span class="header-section-number">10.0.3.5</span> <strong>1. Spatial Thinning</strong><a class="anchor" aria-label="anchor" href="#spatial-thinning"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Definition</strong>: Spatial thinning is the process of reducing occurrence points to ensure a more uniform spatial distribution, minimizing over-representation of certain areas.</p>
+<p><strong>How it works</strong>:
+- Removes closely clustered occurrence points within a specified distance threshold.
+- Ensures occurrences are more evenly spaced.</p>
+<p><strong>Tools</strong>:
+- <strong><code>spThin</code></strong>: For thinning occurrence data spatially.
+- <strong><code>CoordinateCleaner</code></strong>: For removing duplicate or erroneous coordinates.</p>
+<p><strong>Code Example</strong>:</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">spThin</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Thin occurrence data to a minimum distance of 10 km</span></span>
+<span><span class="va">thinned_data</span> <span class="op">&lt;-</span> <span class="fu">thin</span><span class="op">(</span>loc.data <span class="op">=</span> <span class="va">occurrence_data</span>,</span>
+<span>                     lat.col <span class="op">=</span> <span class="st">"lat"</span>, lon.col <span class="op">=</span> <span class="st">"lon"</span>,</span>
+<span>                     spec.col <span class="op">=</span> <span class="st">"species"</span>, thin.par <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                     reps <span class="op">=</span> <span class="fl">1</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View the thinned dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">thinned_data</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="target-group-background-sampling" class="section level4" number="10.0.3.6">
+<h4>
+<span class="header-section-number">10.0.3.6</span> <strong>2. Target-Group Background Sampling</strong><a class="anchor" aria-label="anchor" href="#target-group-background-sampling"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Definition</strong>: Selects background points based on species with similar sampling biases to ensure realistic comparisons.</p>
+<p><strong>How it works</strong>:
+- Identifies areas where similar species were sampled and selects background points within those regions.
+- Improves the ecological relevance of background points.</p>
+<p><strong>Implementation in MaxEnt</strong>:
+- Use a set of occurrence records from ecologically similar species to define the sampling area for background points.</p>
+<p><strong>Code Example</strong>:</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate target-group background points</span></span>
+<span><span class="va">bg_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/randomPoints.html">randomPoints</a></span><span class="op">(</span><span class="va">predictors</span>, n <span class="op">=</span> <span class="fl">500</span>, ext <span class="op">=</span> <span class="va">target_extent</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize background points</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">predictors</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Target-Group Background Points"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/lines.html">points</a></span><span class="op">(</span><span class="va">bg_points</span>, col <span class="op">=</span> <span class="st">"blue"</span>, pch <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="bias-files" class="section level4" number="10.0.3.7">
+<h4>
+<span class="header-section-number">10.0.3.7</span> <strong>3. Bias Files</strong><a class="anchor" aria-label="anchor" href="#bias-files"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Definition</strong>: Raster layers that weight the likelihood of background points, based on known sampling intensity or bias patterns.</p>
+<p><strong>How it works</strong>:
+- Kernel density estimation is used to create a bias layer.
+- The bias file is included in MaxEnt modeling to guide background selection.</p>
+<p><strong>Steps to Create a Bias File</strong>:
+1. Generate a kernel density raster using occurrence data.
+2. Normalize the raster values to a scale of 0–1.
+3. Use the bias raster as input in MaxEnt.</p>
+<p><strong>Code Example</strong>:</p>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">adehabitatHR</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a kernel density estimate</span></span>
+<span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="va">occurrence_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">bias_layer</span> <span class="op">&lt;-</span> <span class="fu">kernelUD</span><span class="op">(</span><span class="va">coords</span>, h <span class="op">=</span> <span class="st">"href"</span>, grid <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert to raster and normalize</span></span>
+<span><span class="va">bias_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="va">bias_layer</span><span class="op">)</span></span>
+<span><span class="va">bias_raster</span> <span class="op">&lt;-</span> <span class="va">bias_raster</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/values.html">values</a></span><span class="op">(</span><span class="va">bias_raster</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize the bias file</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">bias_raster</span>, main <span class="op">=</span> <span class="st">"Bias File"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="environmental-filters" class="section level4" number="10.0.3.8">
+<h4>
+<span class="header-section-number">10.0.3.8</span> <strong>4. Environmental Filters</strong><a class="anchor" aria-label="anchor" href="#environmental-filters"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Definition</strong>: Reducing the extent of environmental predictors to focus on areas that are biologically relevant to the species.</p>
+<p><strong>How it works</strong>:
+- Crops predictor layers to specific geographic extents or regions of interest.
+- Avoids including irrelevant or outlier areas in modeling.</p>
+<p><strong>Code Example</strong>:</p>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Crop environmental layers to a specific extent</span></span>
+<span><span class="va">extent_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html">extent</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="op">-</span><span class="fl">50</span>, <span class="op">-</span><span class="fl">30</span>, <span class="fl">20</span><span class="op">)</span>  <span class="co"># Define the geographic region</span></span>
+<span><span class="va">filtered_predictors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">extent_filter</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize filtered layers</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">filtered_predictors</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Filtered Environmental Layer"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="practical-application-bias-correction-in-r" class="section level3" number="10.0.4">
+<h3>
+<span class="header-section-number">10.0.4</span> <strong>4. Practical Application: Bias Correction in R</strong><a class="anchor" aria-label="anchor" href="#practical-application-bias-correction-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<div id="step-1-spatial-thinning" class="section level4" number="10.0.4.1">
+<h4>
+<span class="header-section-number">10.0.4.1</span> <strong>Step 1: Spatial Thinning</strong><a class="anchor" aria-label="anchor" href="#step-1-spatial-thinning"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>Load the occurrence data.</li>
+<li>Use the <strong><code>spThin</code></strong> package to thin data spatially.</li>
+</ol>
+</div>
+<div id="step-2-generate-a-bias-file" class="section level4" number="10.0.4.2">
+<h4>
+<span class="header-section-number">10.0.4.2</span> <strong>Step 2: Generate a Bias File</strong><a class="anchor" aria-label="anchor" href="#step-2-generate-a-bias-file"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>Create a kernel density raster using occurrence points.</li>
+<li>Normalize the raster to scale it from 0–1.</li>
+<li>Use this raster as a bias file in MaxEnt.</li>
+</ol>
+</div>
+<div id="step-3-apply-target-group-background-sampling" class="section level4" number="10.0.4.3">
+<h4>
+<span class="header-section-number">10.0.4.3</span> <strong>Step 3: Apply Target-Group Background Sampling</strong><a class="anchor" aria-label="anchor" href="#step-3-apply-target-group-background-sampling"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>Generate background points constrained by regions with similar species occurrence.</li>
+<li>Incorporate the background points into the MaxEnt model.</li>
+</ol>
+</div>
+<div id="step-4-filter-environmental-predictors" class="section level4" number="10.0.4.4">
+<h4>
+<span class="header-section-number">10.0.4.4</span> <strong>Step 4: Filter Environmental Predictors</strong><a class="anchor" aria-label="anchor" href="#step-4-filter-environmental-predictors"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>Define a geographic extent based on the species’ range or study area.</li>
+<li>Crop environmental layers to the defined extent.</li>
+</ol>
+<hr>
+</div>
+<div id="code-workflow-example" class="section level4" number="10.0.4.5">
+<h4>
+<span class="header-section-number">10.0.4.5</span> <strong>Code Workflow Example</strong>:<a class="anchor" aria-label="anchor" href="#code-workflow-example"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 1: Spatial Thinning</span></span>
+<span><span class="va">thinned_data</span> <span class="op">&lt;-</span> <span class="fu">thin</span><span class="op">(</span>loc.data <span class="op">=</span> <span class="va">occurrence_data</span>, lat.col <span class="op">=</span> <span class="st">"lat"</span>, lon.col <span class="op">=</span> <span class="st">"lon"</span>,</span>
+<span>                     spec.col <span class="op">=</span> <span class="st">"species"</span>, thin.par <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 2: Create Bias File</span></span>
+<span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="va">occurrence_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">bias_layer</span> <span class="op">&lt;-</span> <span class="fu">kernelUD</span><span class="op">(</span><span class="va">coords</span>, h <span class="op">=</span> <span class="st">"href"</span>, grid <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">bias_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="va">bias_layer</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/values.html">values</a></span><span class="op">(</span><span class="va">bias_layer</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 3: Generate Target-Group Background Points</span></span>
+<span><span class="va">bg_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/randomPoints.html">randomPoints</a></span><span class="op">(</span><span class="va">predictors</span>, n <span class="op">=</span> <span class="fl">500</span>, ext <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html">extent</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="op">-</span><span class="fl">60</span>, <span class="op">-</span><span class="fl">40</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 4: Filter Predictors</span></span>
+<span><span class="va">filtered_predictors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crop.html">crop</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html">extent</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span>, <span class="op">-</span><span class="fl">60</span>, <span class="op">-</span><span class="fl">40</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>After applying bias correction techniques, it is essential to evaluate how the model has improved and whether the changes align with ecological expectations.</p>
+<hr>
+</div>
+<div id="comparison-of-metrics" class="section level4" number="10.0.4.6">
+<h4>
+<span class="header-section-number">10.0.4.6</span> <strong>1. Comparison of Metrics</strong><a class="anchor" aria-label="anchor" href="#comparison-of-metrics"><i class="fas fa-link"></i></a>
+</h4>
+<p>Metrics allow us to assess whether bias correction has led to <strong>better model performance</strong>. The key metrics to compare <strong>before and after bias correction</strong> include:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="15%">
+<col width="43%">
+<col width="40%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Metric</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Interpretation</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>AUC (Area Under Curve)</strong></td>
+<td>Measures the ability to distinguish presence from background.</td>
+<td>Higher values (0.7–1.0) indicate better discrimination.</td>
+</tr>
+<tr class="even">
+<td><strong>TSS (True Skill Statistic)</strong></td>
+<td>Balances sensitivity (true positives) and specificity (true negatives).</td>
+<td>Values closer to 1 indicate better performance.</td>
+</tr>
+<tr class="odd">
+<td><strong>Response Curves</strong></td>
+<td>Show how environmental variables influence predictions.</td>
+<td>Smoother, ecologically meaningful curves indicate a good model.</td>
+</tr>
+</tbody>
+</table></div>
+<div id="code-example-compare-auc-before-and-after-bias-correction" class="section level5" number="10.0.4.6.1">
+<h5>
+<span class="header-section-number">10.0.4.6.1</span> <strong>Code Example: Compare AUC Before and After Bias Correction</strong><a class="anchor" aria-label="anchor" href="#code-example-compare-auc-before-and-after-bias-correction"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Evaluate the model BEFORE bias correction</span></span>
+<span><span class="va">auc_before</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">labels_before</span>, <span class="va">predictions_before</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Evaluate the model AFTER bias correction</span></span>
+<span><span class="va">auc_after</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">labels_after</span>, <span class="va">predictions_after</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print the AUC scores for comparison</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"AUC Before Correction:"</span>, <span class="va">auc_before</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"AUC After Correction:"</span>, <span class="va">auc_after</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="rmdtip">
+<p><strong>What to Look For?</strong>
+- If AUC and TSS increase after bias correction, the model has improved.
+- If response curves are biologically meaningful, the correction was effective.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="visual-inspection" class="section level4" number="10.0.4.7">
+<h4>
+<span class="header-section-number">10.0.4.7</span> <strong>2. Visual Inspection</strong><a class="anchor" aria-label="anchor" href="#visual-inspection"><i class="fas fa-link"></i></a>
+</h4>
+<p>Suitability maps allow for a <strong>side-by-side comparison</strong> to identify changes in predicted distributions.</p>
+<div id="code-example-compare-suitability-maps-before-and-after-bias-correction" class="section level5" number="10.0.4.7.1">
+<h5>
+<span class="header-section-number">10.0.4.7.1</span> <strong>Code Example: Compare Suitability Maps Before and After Bias Correction</strong><a class="anchor" aria-label="anchor" href="#code-example-compare-suitability-maps-before-and-after-bias-correction"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot suitability maps before and after correction</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Arrange plots side-by-side</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">suitability_map_before</span>, main <span class="op">=</span> <span class="st">"Before Bias Correction"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">suitability_map_after</span>, main <span class="op">=</span> <span class="st">"After Bias Correction"</span><span class="op">)</span></span></code></pre></div>
+<div class="rmdcaution">
+<p><strong>Common Observations:</strong>
+- If the bias-corrected map <strong>removes artificial clustering</strong>, the correction was successful.
+- If high-suitability areas shift <strong>toward biologically realistic regions</strong>, the model has improved.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="ecological-plausibility-1" class="section level4" number="10.0.4.8">
+<h4>
+<span class="header-section-number">10.0.4.8</span> <strong>3. Ecological Plausibility</strong><a class="anchor" aria-label="anchor" href="#ecological-plausibility-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>A final check is to <strong>compare the model’s predictions with known habitat preferences</strong> of the species.</p>
+<p><strong>Questions to Ask:</strong>
+- Does the model predict suitable habitats where the species is known to occur?
+- Has it removed artificial hotspots caused by sampling bias?
+- Are predictions ecologically reasonable (e.g., not placing a freshwater species in deserts)?</p>
+<hr>
+</div>
+</div>
+<div id="common-pitfalls-in-bias-correction" class="section level3" number="10.0.5">
+<h3>
+<span class="header-section-number">10.0.5</span> <strong>6. Common Pitfalls in Bias Correction</strong><a class="anchor" aria-label="anchor" href="#common-pitfalls-in-bias-correction"><i class="fas fa-link"></i></a>
+</h3>
+<p>While bias correction improves models, mistakes can lead to <strong>worse predictions</strong>. Below are some common pitfalls and how to avoid them.</p>
+<hr>
+<div id="over-thinning-leading-to-loss-of-valuable-data" class="section level4" number="10.0.5.1">
+<h4>
+<span class="header-section-number">10.0.5.1</span> <strong>1. Over-Thinning Leading to Loss of Valuable Data</strong><a class="anchor" aria-label="anchor" href="#over-thinning-leading-to-loss-of-valuable-data"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Problem</strong>: If thinning reduces occurrence points too much, important information is lost.</li>
+<li>
+<strong>Solution</strong>: Use an appropriate threshold (e.g., <strong>10 km</strong> rather than extreme distances like 50 km).</li>
+</ul>
+<div id="code-example-adjust-thinning-distance" class="section level5" number="10.0.5.1.1">
+<h5>
+<span class="header-section-number">10.0.5.1.1</span> <strong>Code Example: Adjust Thinning Distance</strong><a class="anchor" aria-label="anchor" href="#code-example-adjust-thinning-distance"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">thinned_data</span> <span class="op">&lt;-</span> <span class="fu">thin</span><span class="op">(</span><span class="va">occurrence_data</span>, lat.col <span class="op">=</span> <span class="st">"lat"</span>, lon.col <span class="op">=</span> <span class="st">"lon"</span>,</span>
+<span>                     spec.col <span class="op">=</span> <span class="st">"species"</span>, thin.par <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>  <span class="co"># Use a reasonable 10 km threshold</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="inappropriate-use-of-bias-layers" class="section level4" number="10.0.5.2">
+<h4>
+<span class="header-section-number">10.0.5.2</span> <strong>2. Inappropriate Use of Bias Layers</strong><a class="anchor" aria-label="anchor" href="#inappropriate-use-of-bias-layers"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Problem</strong>: A poorly constructed bias layer may over-correct and <strong>remove real ecological signals</strong>.</li>
+<li>
+<strong>Solution</strong>: Ensure bias layers <strong>reflect actual sampling effort</strong>, not just presence density.</li>
+</ul>
+<div id="code-example-normalize-bias-raster-properly" class="section level5" number="10.0.5.2.1">
+<h5>
+<span class="header-section-number">10.0.5.2.1</span> <strong>Code Example: Normalize Bias Raster Properly</strong><a class="anchor" aria-label="anchor" href="#code-example-normalize-bias-raster-properly"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bias_raster</span> <span class="op">&lt;-</span> <span class="va">bias_raster</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/values.html">values</a></span><span class="op">(</span><span class="va">bias_raster</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># Normalize to 0-1 scale</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="neglecting-ecological-relevance-during-correction" class="section level4" number="10.0.5.3">
+<h4>
+<span class="header-section-number">10.0.5.3</span> <strong>3. Neglecting Ecological Relevance During Correction</strong><a class="anchor" aria-label="anchor" href="#neglecting-ecological-relevance-during-correction"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Problem</strong>: Removing bias without considering <strong>species ecology</strong> can lead to misleading results.</li>
+<li>
+<strong>Solution</strong>: Always compare corrected predictions with <strong>known habitat preferences</strong>.</li>
+</ul>
+<div class="rmdtip">
+<p><strong>Best Practice:</strong> Use literature and expert knowledge to verify if bias-corrected predictions make <strong>biological sense</strong>.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="summary-and-best-practices" class="section level3" number="10.0.6">
+<h3>
+<span class="header-section-number">10.0.6</span> <strong>7. Summary and Best Practices</strong><a class="anchor" aria-label="anchor" href="#summary-and-best-practices"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bias correction is a crucial step in ensuring <strong>accurate and ecologically valid species distribution models</strong>.</p>
+<hr>
+<div id="key-takeaways-for-bias-correction" class="section level4" number="10.0.6.1">
+<h4>
+<span class="header-section-number">10.0.6.1</span> <strong>Key Takeaways for Bias Correction</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-for-bias-correction"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="30%">
+<col width="69%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Step</strong></th>
+<th><strong>Best Practice</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Check for Bias</strong></td>
+<td>Plot occurrence points over environmental layers.</td>
+</tr>
+<tr class="even">
+<td><strong>Apply Thinning</strong></td>
+<td>Use <strong>moderate</strong> distances (e.g., 10 km).</td>
+</tr>
+<tr class="odd">
+<td><strong>Use Bias Layers</strong></td>
+<td>Generate kernel density maps of sampling effort.</td>
+</tr>
+<tr class="even">
+<td><strong>Evaluate Models</strong></td>
+<td>Compare AUC, TSS, and response curves.</td>
+</tr>
+<tr class="odd">
+<td><strong>Visual Inspection</strong></td>
+<td>Ensure corrected maps align with habitat preferences.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="checklist-for-implementing-bias-correction-in-maxent" class="section level4" number="10.0.6.2">
+<h4>
+<span class="header-section-number">10.0.6.2</span> <strong>Checklist for Implementing Bias Correction in MaxEnt</strong><a class="anchor" aria-label="anchor" href="#checklist-for-implementing-bias-correction-in-maxent"><i class="fas fa-link"></i></a>
+</h4>
+<p>✅ <strong>Check for clustering in occurrence points.</strong><br>
+✅ <strong>Apply spatial thinning to remove over-represented areas.</strong><br>
+✅ <strong>Generate a bias file to weight background selection.</strong><br>
+✅ <strong>Compare suitability maps before and after correction.</strong><br>
+✅ <strong>Ensure ecological validity of corrected predictions.</strong></p>
+</div>
+</div>
+<div id="by-following-these-best-practices-you-can-ensure-your-maxent-model-provides-realistic-unbiased-predictions-that-contribute-meaningfully-to-ecological-research-and-conservation." class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> By following these best practices, you can ensure <strong>your MaxEnt model provides realistic, unbiased predictions</strong> that contribute meaningfully to ecological research and conservation. 🚀<a class="anchor" aria-label="anchor" href="#by-following-these-best-practices-you-can-ensure-your-maxent-model-provides-realistic-unbiased-predictions-that-contribute-meaningfully-to-ecological-research-and-conservation."><i class="fas fa-link"></i></a>
+</h2>
 
 </div>
+</div>
   <div class="chapter-nav">
-<div class="prev"><a href="maxent.html"><span class="header-section-number">8</span> Maxent</a></div>
-<div class="next"><a href="cart-rf-gbm.html"><span class="header-section-number">10</span> Cart RF GBM</a></div>
+<div class="prev"><a href="exercise.html"><span class="header-section-number">9</span> Exercise</a></div>
+<div class="next"><a href="cart-rf-and-gbm.html"><span class="header-section-number">11</span> Cart, RF, and GBM</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#maxent-bias-correction"><span class="header-section-number">9</span> Maxent Bias Correction</a></li></ul>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#maxent-bias-correction"><span class="header-section-number">10</span> Maxent Bias Correction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-bias-in-maxent-models"><span class="header-section-number">10.0.1</span> 1. Introduction to Bias in MaxEnt Models</a></li>
+<li><a class="nav-link" href="#callout-blocks-to-clarify-key-points"><span class="header-section-number">10.0.2</span> Callout Blocks to Clarify Key Points</a></li>
+<li><a class="nav-link" href="#types-of-bias"><span class="header-section-number">10.0.3</span> 2. Types of Bias</a></li>
+<li><a class="nav-link" href="#practical-application-bias-correction-in-r"><span class="header-section-number">10.0.4</span> 4. Practical Application: Bias Correction in R</a></li>
+<li><a class="nav-link" href="#common-pitfalls-in-bias-correction"><span class="header-section-number">10.0.5</span> 6. Common Pitfalls in Bias Correction</a></li>
+<li><a class="nav-link" href="#summary-and-best-practices"><span class="header-section-number">10.0.6</span> 7. Summary and Best Practices</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#by-following-these-best-practices-you-can-ensure-your-maxent-model-provides-realistic-unbiased-predictions-that-contribute-meaningfully-to-ecological-research-and-conservation."><span class="header-section-number">10.1</span> By following these best practices, you can ensure your MaxEnt model provides realistic, unbiased predictions that contribute meaningfully to ecological research and conservation. 🚀</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -99,7 +675,7 @@ set in the _output.yml file.&lt;/p&gt;">
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-01-31.</p>
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-02-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -107,6 +683,34 @@ set in the _output.yml file.&lt;/p&gt;">
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

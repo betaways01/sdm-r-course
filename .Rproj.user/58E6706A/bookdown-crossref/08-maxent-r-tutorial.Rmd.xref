@@ -1,2 +1,12 @@
-h1:maxent Maxent
+h1:exercise Exercise
+h2:exercise-building-and-interpreting-a-maxent-model 
+h3:objectives 
+h3:step-1-load-required-libraries 
+h3:step-2-load-occurrence-data 
+h3:step-3-load-environmental-predictors 
+h3:step-4-fit-a-maxent-model 
+h3:step-5-generate-a-habitat-suitability-map 
+h3:step-6-evaluate-the-model 
+h2:questions 
+h2:challenge-optional 
 

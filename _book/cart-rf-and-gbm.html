@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 11 Cart, RF, and GBM | A Minimal Book Example</title>
+<meta name="author" content="Basim Alsaedi">
+<meta name="description" content="11.1 1. Introduction to Tree-Based Models  11.1.1 Overview of Tree-Based Machine Learning Models in SDM Tree-based models are widely used in Species Distribution Modeling (SDM) due to their...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 11 Cart, RF, and GBM | A Minimal Book Example">
+<meta property="og:type" content="book">
+<meta property="og:description" content="11.1 1. Introduction to Tree-Based Models  11.1.1 Overview of Tree-Based Machine Learning Models in SDM Tree-based models are widely used in Species Distribution Modeling (SDM) due to their...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 11 Cart, RF, and GBM | A Minimal Book Example">
+<meta name="twitter:description" content="11.1 1. Introduction to Tree-Based Models  11.1.1 Overview of Tree-Based Machine Learning Models in SDM Tree-based models are widely used in Species Distribution Modeling (SDM) due to their...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0.9000/transition.js"></script><script src="libs/bs3compat-0.8.0.9000/tabs.js"></script><script src="libs/bs3compat-0.8.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">A Minimal Book Example</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Welcome!</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></li>
+<li><a class="" href="spartial-data-in-r.html"><span class="header-section-number">4</span> Spartial Data in R</a></li>
+<li><a class="" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
+<li><a class="" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
+<li><a class="" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
+<li><a class="" href="maxent-algorithm.html"><span class="header-section-number">8</span> Maxent Algorithm</a></li>
+<li><a class="" href="exercise.html"><span class="header-section-number">9</span> Exercise</a></li>
+<li><a class="" href="maxent-bias-correction.html"><span class="header-section-number">10</span> Maxent Bias Correction</a></li>
+<li><a class="active" href="cart-rf-and-gbm.html"><span class="header-section-number">11</span> Cart, RF, and GBM</a></li>
+<li><a class="" href="gbm-variable-selection.html"><span class="header-section-number">12</span> GBM Variable Selection</a></li>
+<li><a class="" href="model-evaluation-in-sdm.html"><span class="header-section-number">13</span> Model Evaluation in SDM</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="cart-rf-and-gbm" class="section level1" number="11">
+<h1>
+<span class="header-section-number">11</span> Cart, RF, and GBM<a class="anchor" aria-label="anchor" href="#cart-rf-and-gbm"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<div id="introduction-to-tree-based-models" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> <strong>1. Introduction to Tree-Based Models</strong><a class="anchor" aria-label="anchor" href="#introduction-to-tree-based-models"><i class="fas fa-link"></i></a>
+</h2>
+<div id="overview-of-tree-based-machine-learning-models-in-sdm" class="section level3" number="11.1.1">
+<h3>
+<span class="header-section-number">11.1.1</span> <strong>Overview of Tree-Based Machine Learning Models in SDM</strong><a class="anchor" aria-label="anchor" href="#overview-of-tree-based-machine-learning-models-in-sdm"><i class="fas fa-link"></i></a>
+</h3>
+<p>Tree-based models are widely used in <strong>Species Distribution Modeling (SDM)</strong> due to their ability to handle <strong>complex, non-linear relationships</strong> between species occurrences and environmental variables. These models split data into hierarchical structures, making predictions based on decision rules.</p>
+<p>The three most commonly used tree-based models in SDM are:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>CART (Classification and Regression Trees)</strong> – A simple decision tree model.<br>
+</li>
+<li>
+<strong>Random Forest (RF)</strong> – An ensemble of multiple decision trees.<br>
+</li>
+<li>
+<strong>Gradient Boosting Machine (GBM)</strong> – A boosting technique that builds trees sequentially.</li>
+</ol>
+<p>These models help answer key ecological questions like:<br>
+- <strong>Which environmental factors</strong> are most important in determining a species’ distribution?<br>
+- <strong>Where is the species likely to occur</strong> given the environmental conditions?<br>
+- <strong>How do environmental changes impact species distributions?</strong></p>
+<hr>
+</div>
+<div id="when-to-use-cart-rf-and-gbm" class="section level3" number="11.1.2">
+<h3>
+<span class="header-section-number">11.1.2</span> <strong>When to Use CART, RF, and GBM?</strong><a class="anchor" aria-label="anchor" href="#when-to-use-cart-rf-and-gbm"><i class="fas fa-link"></i></a>
+</h3>
+<p>Each model has <strong>unique advantages and trade-offs</strong>, making them useful in different scenarios:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="30%">
+<col width="30%">
+<col width="38%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Model</strong></th>
+<th><strong>When to Use</strong></th>
+<th><strong>Best Use Cases</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>CART</strong></td>
+<td>When interpretability is the priority.</td>
+<td>Identifying key environmental thresholds affecting species presence.</td>
+</tr>
+<tr class="even">
+<td><strong>Random Forest (RF)</strong></td>
+<td>When accuracy and robustness are important.</td>
+<td>Large datasets with complex species-environment relationships.</td>
+</tr>
+<tr class="odd">
+<td><strong>Gradient Boosting Machine (GBM)</strong></td>
+<td>When high predictive performance is needed.</td>
+<td>Climate change projections and highly non-linear relationships.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="strengths-and-weaknesses-of-each-model" class="section level3" number="11.1.3">
+<h3>
+<span class="header-section-number">11.1.3</span> <strong>Strengths and Weaknesses of Each Model</strong><a class="anchor" aria-label="anchor" href="#strengths-and-weaknesses-of-each-model"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="35%">
+<col width="31%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Model</strong></th>
+<th><strong>Strengths</strong></th>
+<th><strong>Weaknesses</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>CART</strong></td>
+<td>Simple and interpretable.</td>
+<td>Prone to overfitting.</td>
+</tr>
+<tr class="even">
+<td><strong>RF</strong></td>
+<td>Handles large datasets well; reduces overfitting.</td>
+<td>Less interpretable than CART.</td>
+</tr>
+<tr class="odd">
+<td><strong>GBM</strong></td>
+<td>High predictive accuracy; handles missing data well.</td>
+<td>Computationally intensive and requires tuning.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<div class="rmdtip">
+<p><strong>Pro Tip</strong>: If you need a simple, explainable model, start with <strong>CART</strong>. If you need better accuracy, use <strong>Random Forest</strong>. For the best predictive power, go with <strong>GBM</strong>.</p>
+</div>
+<hr>
+</div>
+<div id="next-steps-2" class="section level3" number="11.1.4">
+<h3>
+<span class="header-section-number">11.1.4</span> <strong>Next Steps</strong><a class="anchor" aria-label="anchor" href="#next-steps-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the following sections, we will explore <strong>CART, RF, and GBM</strong> in detail, covering:<br>
+- <strong>Theoretical foundations</strong> (how they work).<br>
+- <strong>Coding demonstrations</strong> (practical implementation in R using real datasets).</p>
+</div>
+<div id="a.-theory-explanation" class="section level3" number="11.1.5">
+<h3>
+<span class="header-section-number">11.1.5</span> <strong>A. Theory Explanation</strong><a class="anchor" aria-label="anchor" href="#a.-theory-explanation"><i class="fas fa-link"></i></a>
+</h3>
+<div id="what-is-cart" class="section level4" number="11.1.5.1">
+<h4>
+<span class="header-section-number">11.1.5.1</span> <strong>What is CART?</strong><a class="anchor" aria-label="anchor" href="#what-is-cart"><i class="fas fa-link"></i></a>
+</h4>
+<p>CART (<strong>Classification and Regression Trees</strong>) is a simple yet powerful machine learning algorithm that makes predictions by <strong>splitting the data into smaller subsets</strong> based on decision rules. The model is structured like a tree:</p>
+<ul>
+<li>
+<strong>Nodes</strong> represent decision points based on predictor variables.<br>
+</li>
+<li>
+<strong>Branches</strong> connect decision points to possible outcomes.<br>
+</li>
+<li>
+<strong>Leaves</strong> represent final predictions (species presence/absence or suitability scores).</li>
+</ul>
+</div>
+<div id="how-does-cart-work" class="section level4" number="11.1.5.2">
+<h4>
+<span class="header-section-number">11.1.5.2</span> <strong>How Does CART Work?</strong><a class="anchor" aria-label="anchor" href="#how-does-cart-work"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Recursive Partitioning</strong>:
+<ul>
+<li>The algorithm selects a predictor variable and a <strong>splitting threshold</strong> (e.g., temperature &gt; 15°C).<br>
+</li>
+<li>It divides the data into two groups: one that meets the condition and one that doesn’t.<br>
+</li>
+<li>The process repeats for each group until a stopping rule is met (e.g., minimum number of observations per node).</li>
+</ul>
+</li>
+<li>
+<strong>Prediction</strong>:
+<ul>
+<li>If modeling <strong>presence/absence</strong>, the tree assigns a class (0 or 1).<br>
+</li>
+<li>If modeling <strong>species suitability</strong>, the tree assigns a probability or numerical score.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</div>
+<div id="advantages-of-cart" class="section level4" number="11.1.5.3">
+<h4>
+<span class="header-section-number">11.1.5.3</span> <strong>Advantages of CART</strong><a class="anchor" aria-label="anchor" href="#advantages-of-cart"><i class="fas fa-link"></i></a>
+</h4>
+<p>✅ <strong>Simple and Interpretable</strong> – Easy to understand and visualize.<br>
+✅ <strong>Handles Categorical and Continuous Data</strong> – Works with both numerical and factor variables.<br>
+✅ <strong>Captures Nonlinear Relationships</strong> – Unlike traditional regression, it can model complex relationships.</p>
+<hr>
+</div>
+<div id="limitations-of-cart" class="section level4" number="11.1.5.4">
+<h4>
+<span class="header-section-number">11.1.5.4</span> <strong>Limitations of CART</strong><a class="anchor" aria-label="anchor" href="#limitations-of-cart"><i class="fas fa-link"></i></a>
+</h4>
+<p>⚠️ <strong>Prone to Overfitting</strong> – Trees may grow too complex and fit noise in the data.<br>
+⚠️ <strong>Lower Accuracy Compared to RF &amp; GBM</strong> – Ensemble methods like <strong>Random Forest</strong> and <strong>Gradient Boosting</strong> often outperform single decision trees.<br>
+⚠️ <strong>Sensitive to Small Data Changes</strong> – Slight variations in data can lead to a different tree structure.</p>
+<hr>
+<div class="rmdnote">
+<p><strong>Key Takeaway</strong>:<br>
+CART is great for quick insights but can be <strong>unstable and prone to overfitting</strong>. Random Forest (RF) and Gradient Boosting (GBM) improve upon CART by combining multiple trees.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="b.-coding-demonstration-cart-in-r" class="section level3" number="11.1.6">
+<h3>
+<span class="header-section-number">11.1.6</span> <strong>B. Coding Demonstration: CART in R</strong><a class="anchor" aria-label="anchor" href="#b.-coding-demonstration-cart-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s fit a <strong>CART model</strong> using the <code>rpart</code> package and visualize the tree.</p>
+<hr>
+<div id="step-1-load-libraries" class="section level4" number="11.1.6.1">
+<h4>
+<span class="header-section-number">11.1.6.1</span> <strong>Step 1: Load Libraries</strong><a class="anchor" aria-label="anchor" href="#step-1-load-libraries"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span>      <span class="co"># CART model</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span> <span class="co"># Visualizing trees</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span>      <span class="co"># SDM-related datasets</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span>      <span class="co"># Model evaluation</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-2-load-a-built-in-dataset" class="section level4" number="11.1.6.2">
+<h4>
+<span class="header-section-number">11.1.6.2</span> <strong>Step 2: Load a Built-in Dataset</strong><a class="anchor" aria-label="anchor" href="#step-2-load-a-built-in-dataset"><i class="fas fa-link"></i></a>
+</h4>
+<p>We will use the <code>bioclim</code> dataset from the <code>dismo</code> package, which contains species presence-absence data along with environmental predictors.</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load example SDM dataset</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">dismo</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dismo/man/bioclim.html">bioclim</a></span></span>
+<span></span>
+<span><span class="co"># View structure of the dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Define presence/absence variable</span></span>
+<span><span class="va">data</span><span class="op">$</span><span class="va">presence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span>  <span class="co"># Convert to factor for classification</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-3-split-data-into-training-and-testing-sets" class="section level4" number="11.1.6.3">
+<h4>
+<span class="header-section-number">11.1.6.3</span> <strong>Step 3: Split Data into Training and Testing Sets</strong><a class="anchor" aria-label="anchor" href="#step-3-split-data-into-training-and-testing-sets"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set seed for reproducibility</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Split data into training (70%) and testing (30%)</span></span>
+<span><span class="va">trainIndex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span>, p <span class="op">=</span> <span class="fl">0.7</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">trainIndex</span>, <span class="op">]</span></span>
+<span><span class="va">test_data</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="op">-</span><span class="va">trainIndex</span>, <span class="op">]</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-4-fit-a-cart-model" class="section level4" number="11.1.6.4">
+<h4>
+<span class="header-section-number">11.1.6.4</span> <strong>Step 4: Fit a CART Model</strong><a class="anchor" aria-label="anchor" href="#step-4-fit-a-cart-model"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Train a CART model</span></span>
+<span><span class="va">cart_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">bio1</span> <span class="op">+</span> <span class="va">bio12</span> <span class="op">+</span> <span class="va">bio5</span> <span class="op">+</span> <span class="va">bio6</span>, </span>
+<span>                     data <span class="op">=</span> <span class="va">train_data</span>, </span>
+<span>                     method <span class="op">=</span> <span class="st">"class"</span>,  <span class="co"># Classification task</span></span>
+<span>                     control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.control.html">rpart.control</a></span><span class="op">(</span>minsplit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print tree summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">cart_model</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-5-visualize-the-decision-tree" class="section level4" number="11.1.6.5">
+<h4>
+<span class="header-section-number">11.1.6.5</span> <strong>Step 5: Visualize the Decision Tree</strong><a class="anchor" aria-label="anchor" href="#step-5-visualize-the-decision-tree"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot the decision tree</span></span>
+<span><span class="fu">rpart.plot</span><span class="op">(</span><span class="va">cart_model</span>, main <span class="op">=</span> <span class="st">"CART Decision Tree for Species Presence"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-6-evaluate-model-performance-1" class="section level4" number="11.1.6.6">
+<h4>
+<span class="header-section-number">11.1.6.6</span> <strong>Step 6: Evaluate Model Performance</strong><a class="anchor" aria-label="anchor" href="#step-6-evaluate-model-performance-1"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Make predictions on test data</span></span>
+<span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">cart_model</span>, <span class="va">test_data</span>, type <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate confusion matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">predictions</span>, <span class="va">test_data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="key-observations" class="section level3" number="11.1.7">
+<h3>
+<span class="header-section-number">11.1.7</span> <strong>Key Observations</strong><a class="anchor" aria-label="anchor" href="#key-observations"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>The decision tree <strong>identifies key environmental thresholds</strong> that influence species presence.</li>
+<li>The confusion matrix evaluates <strong>accuracy, sensitivity, and specificity</strong>.</li>
+<li>
+<strong>Next Step</strong>: Improve model accuracy by using <strong>Random Forest (RF)</strong> to reduce overfitting.</li>
+</ul>
+<hr>
+</div>
+<div id="summary-4" class="section level3" number="11.1.8">
+<h3>
+<span class="header-section-number">11.1.8</span> <strong>Summary</strong><a class="anchor" aria-label="anchor" href="#summary-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>✅ <strong>CART is simple and interpretable</strong> but can overfit the data.<br>
+✅ <strong>It helps identify key environmental factors affecting species presence.</strong><br>
+✅ <strong>For better accuracy, ensemble methods like RF and GBM are preferred.</strong></p>
+</div>
+<div id="a.-theory-explanation-1" class="section level3" number="11.1.9">
+<h3>
+<span class="header-section-number">11.1.9</span> <strong>A. Theory Explanation</strong><a class="anchor" aria-label="anchor" href="#a.-theory-explanation-1"><i class="fas fa-link"></i></a>
+</h3>
+<div id="what-is-random-forest" class="section level4" number="11.1.9.1">
+<h4>
+<span class="header-section-number">11.1.9.1</span> <strong>What is Random Forest?</strong><a class="anchor" aria-label="anchor" href="#what-is-random-forest"><i class="fas fa-link"></i></a>
+</h4>
+<p>Random Forest (<strong>RF</strong>) is an <strong>ensemble learning</strong> method that builds <strong>multiple decision trees</strong> and combines their predictions to improve accuracy. Unlike a single decision tree (<strong>CART</strong>), Random Forest:</p>
+<ul>
+<li>
+<strong>Reduces overfitting</strong> by averaging multiple tree predictions.<br>
+</li>
+<li>
+<strong>Randomly selects features</strong> at each split, preventing any single predictor from dominating the model.</li>
+</ul>
+<p>Think of it as a <strong>team of decision trees</strong>, where each tree gives its own “vote,” and the forest decides based on the majority vote.</p>
+<hr>
+</div>
+</div>
+<div id="how-does-random-forest-work" class="section level3" number="11.1.10">
+<h3>
+<span class="header-section-number">11.1.10</span> <strong>How Does Random Forest Work?</strong><a class="anchor" aria-label="anchor" href="#how-does-random-forest-work"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Bootstrap Sampling</strong>:
+<ul>
+<li>The model randomly selects <strong>subsets of the data</strong> (with replacement) to train each tree.</li>
+</ul>
+</li>
+<li>
+<strong>Feature Randomization</strong>:
+<ul>
+<li>At each tree split, <strong>only a random subset of predictors</strong> is considered to prevent overfitting.</li>
+</ul>
+</li>
+<li>
+<strong>Voting for Final Prediction</strong>:
+<ul>
+<li>Each tree makes a prediction, and the <strong>majority vote</strong> determines the final output.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</div>
+<div id="advantages-of-random-forest" class="section level3" number="11.1.11">
+<h3>
+<span class="header-section-number">11.1.11</span> <strong>Advantages of Random Forest</strong><a class="anchor" aria-label="anchor" href="#advantages-of-random-forest"><i class="fas fa-link"></i></a>
+</h3>
+<p>✅ <strong>Higher accuracy than CART</strong> – Reduces overfitting by averaging multiple trees.<br>
+✅ <strong>Handles large datasets well</strong> – Works with many predictors and interactions.<br>
+✅ <strong>Captures complex relationships</strong> – Suitable for non-linear species-environment relationships.</p>
+<hr>
+</div>
+<div id="limitations-of-random-forest" class="section level3" number="11.1.12">
+<h3>
+<span class="header-section-number">11.1.12</span> <strong>Limitations of Random Forest</strong><a class="anchor" aria-label="anchor" href="#limitations-of-random-forest"><i class="fas fa-link"></i></a>
+</h3>
+<p>⚠️ <strong>Computationally expensive</strong> – Requires more processing power than a single decision tree.<br>
+⚠️ <strong>Less interpretable than CART</strong> – Harder to visualize decision rules.<br>
+⚠️ <strong>Tuning is needed</strong> – The number of trees and feature selection must be optimized.</p>
+<div class="rmdnote">
+<p><strong>When to Use RF?</strong><br>
+- When CART is overfitting and needs more generalization.<br>
+- When working with large datasets with <strong>many predictors</strong>.<br>
+- When interactions between variables are complex.</p>
+</div>
+<hr>
+</div>
+<div id="b.-coding-demonstration-random-forest-in-r" class="section level3" number="11.1.13">
+<h3>
+<span class="header-section-number">11.1.13</span> <strong>B. Coding Demonstration: Random Forest in R</strong><a class="anchor" aria-label="anchor" href="#b.-coding-demonstration-random-forest-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s build a <strong>Random Forest model</strong> using the <code>randomForest</code> package.</p>
+<hr>
+<div id="step-1-load-libraries-1" class="section level4" number="11.1.13.1">
+<h4>
+<span class="header-section-number">11.1.13.1</span> <strong>Step 1: Load Libraries</strong><a class="anchor" aria-label="anchor" href="#step-1-load-libraries-1"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stat.berkeley.edu/~breiman/RandomForests/">randomForest</a></span><span class="op">)</span>  <span class="co"># For building RF models</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span>         <span class="co"># For SDM datasets</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span>         <span class="co"># For model evaluation</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-2-load-and-prepare-data" class="section level4" number="11.1.13.2">
+<h4>
+<span class="header-section-number">11.1.13.2</span> <strong>Step 2: Load and Prepare Data</strong><a class="anchor" aria-label="anchor" href="#step-2-load-and-prepare-data"><i class="fas fa-link"></i></a>
+</h4>
+<p>We will use the <strong>bioclim</strong> dataset from <code>dismo</code>, which contains species presence-absence data and environmental predictors.</p>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load example dataset</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">dismo</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dismo/man/bioclim.html">bioclim</a></span></span>
+<span></span>
+<span><span class="co"># Convert species presence into a factor (classification task)</span></span>
+<span><span class="va">data</span><span class="op">$</span><span class="va">presence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View dataset structure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-3-split-data-into-training-and-testing-sets-1" class="section level4" number="11.1.13.3">
+<h4>
+<span class="header-section-number">11.1.13.3</span> <strong>Step 3: Split Data into Training and Testing Sets</strong><a class="anchor" aria-label="anchor" href="#step-3-split-data-into-training-and-testing-sets-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>We split the data <strong>70% for training</strong> and <strong>30% for testing</strong>.</p>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set seed for reproducibility</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create training and testing sets</span></span>
+<span><span class="va">trainIndex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span>, p <span class="op">=</span> <span class="fl">0.7</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">trainIndex</span>, <span class="op">]</span></span>
+<span><span class="va">test_data</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="op">-</span><span class="va">trainIndex</span>, <span class="op">]</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-4-fit-a-random-forest-model" class="section level4" number="11.1.13.4">
+<h4>
+<span class="header-section-number">11.1.13.4</span> <strong>Step 4: Fit a Random Forest Model</strong><a class="anchor" aria-label="anchor" href="#step-4-fit-a-random-forest-model"><i class="fas fa-link"></i></a>
+</h4>
+<p>Now, we train a <strong>Random Forest model</strong> to predict species presence.</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Train a Random Forest model</span></span>
+<span><span class="va">rf_model</span> <span class="op">&lt;-</span> <span class="fu">randomForest</span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">bio1</span> <span class="op">+</span> <span class="va">bio12</span> <span class="op">+</span> <span class="va">bio5</span> <span class="op">+</span> <span class="va">bio6</span>, </span>
+<span>                         data <span class="op">=</span> <span class="va">train_data</span>, ntree <span class="op">=</span> <span class="fl">500</span>, </span>
+<span>                         importance <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View model summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">rf_model</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-5-evaluate-feature-importance" class="section level4" number="11.1.13.5">
+<h4>
+<span class="header-section-number">11.1.13.5</span> <strong>Step 5: Evaluate Feature Importance</strong><a class="anchor" aria-label="anchor" href="#step-5-evaluate-feature-importance"><i class="fas fa-link"></i></a>
+</h4>
+<p>Random Forest provides <strong>feature importance scores</strong>, showing which environmental variables influence predictions the most.</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot variable importance</span></span>
+<span><span class="fu">varImpPlot</span><span class="op">(</span><span class="va">rf_model</span>, main <span class="op">=</span> <span class="st">"Variable Importance in Random Forest"</span><span class="op">)</span></span></code></pre></div>
+<div class="rmdtip">
+<p><strong>Interpretation</strong>:<br>
+- Higher values indicate stronger predictors.<br>
+- <strong>Temperature and precipitation</strong> are often key factors in species distribution models.</p>
+</div>
+<hr>
+</div>
+<div id="step-6-compare-rf-accuracy-with-cart" class="section level4" number="11.1.13.6">
+<h4>
+<span class="header-section-number">11.1.13.6</span> <strong>Step 6: Compare RF Accuracy with CART</strong><a class="anchor" aria-label="anchor" href="#step-6-compare-rf-accuracy-with-cart"><i class="fas fa-link"></i></a>
+</h4>
+<p>Now, we compare the accuracy of <strong>CART vs. Random Forest</strong>.</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Predict species presence on test data</span></span>
+<span><span class="va">rf_predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_model</span>, <span class="va">test_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute confusion matrix</span></span>
+<span><span class="va">conf_matrix_rf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">rf_predictions</span>, <span class="va">test_data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print accuracy</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_rf</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p>If you also trained a <strong>CART model</strong>, compare the accuracy scores:</p>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_cart</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span>  <span class="co"># Accuracy of CART</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_rf</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span>    <span class="co"># Accuracy of Random Forest</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="key-observations-1" class="section level3" number="11.1.14">
+<h3>
+<span class="header-section-number">11.1.14</span> <strong>Key Observations</strong><a class="anchor" aria-label="anchor" href="#key-observations-1"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>RF should have higher accuracy</strong> than CART.<br>
+</li>
+<li>
+<strong>Important predictors</strong> are ranked based on contribution to the model.<br>
+</li>
+<li>
+<strong>More trees (ntree = 500)</strong> generally improve model performance.</li>
+</ul>
+<hr>
+</div>
+<div id="summary-5" class="section level3" number="11.1.15">
+<h3>
+<span class="header-section-number">11.1.15</span> <strong>Summary</strong><a class="anchor" aria-label="anchor" href="#summary-5"><i class="fas fa-link"></i></a>
+</h3>
+<p>✅ <strong>Random Forest is more accurate and robust than CART</strong>.<br>
+✅ <strong>Feature importance helps explain which environmental factors matter</strong>.<br>
+✅ <strong>Works well for SDM but is less interpretable than a single decision tree</strong>.</p>
+</div>
+<div id="a.-theory-explanation-2" class="section level3" number="11.1.16">
+<h3>
+<span class="header-section-number">11.1.16</span> <strong>A. Theory Explanation</strong><a class="anchor" aria-label="anchor" href="#a.-theory-explanation-2"><i class="fas fa-link"></i></a>
+</h3>
+<div id="what-is-gbm" class="section level4" number="11.1.16.1">
+<h4>
+<span class="header-section-number">11.1.16.1</span> <strong>What is GBM?</strong><a class="anchor" aria-label="anchor" href="#what-is-gbm"><i class="fas fa-link"></i></a>
+</h4>
+<p>Gradient Boosting Machine (<strong>GBM</strong>) is an <strong>ensemble learning technique</strong> that builds a series of decision trees <strong>sequentially</strong>. Unlike <strong>Random Forest (RF)</strong>, which builds trees independently, GBM focuses on <strong>reducing errors iteratively</strong> by learning from mistakes made by previous trees.</p>
+</div>
+<div id="how-gbm-works" class="section level4" number="11.1.16.2">
+<h4>
+<span class="header-section-number">11.1.16.2</span> <strong>How GBM Works</strong><a class="anchor" aria-label="anchor" href="#how-gbm-works"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Starts with a weak model</strong> (e.g., a small decision tree).<br>
+</li>
+<li>
+<strong>Builds new trees step by step</strong>, each one improving the previous model by focusing on <strong>hard-to-predict</strong> cases.<br>
+</li>
+<li>
+<strong>Combines all trees</strong> into a final model that reduces overall errors.</li>
+</ol>
+<p>GBM <strong>optimizes predictions</strong> by minimizing a loss function (e.g., classification error, mean squared error).</p>
+<hr>
+</div>
+</div>
+<div id="advantages-of-gbm" class="section level3" number="11.1.17">
+<h3>
+<span class="header-section-number">11.1.17</span> <strong>Advantages of GBM</strong><a class="anchor" aria-label="anchor" href="#advantages-of-gbm"><i class="fas fa-link"></i></a>
+</h3>
+<p>✅ <strong>Higher predictive accuracy than CART and RF</strong> – Learns from past mistakes and adjusts iteratively.<br>
+✅ <strong>Handles missing data well</strong> – Can work with incomplete datasets without imputation.<br>
+✅ <strong>Works well with small datasets</strong> – Unlike RF, it does not require large amounts of data.</p>
+<hr>
+</div>
+<div id="limitations-of-gbm" class="section level3" number="11.1.18">
+<h3>
+<span class="header-section-number">11.1.18</span> <strong>Limitations of GBM</strong><a class="anchor" aria-label="anchor" href="#limitations-of-gbm"><i class="fas fa-link"></i></a>
+</h3>
+<p>⚠️ <strong>Requires careful tuning</strong> – Parameters like the <strong>learning rate</strong> and <strong>number of trees</strong> must be optimized.<br>
+⚠️ <strong>Computationally expensive</strong> – Slower training compared to RF, especially with large datasets.<br>
+⚠️ <strong>Can overfit</strong> – If too many trees are added without regularization, it may learn noise.</p>
+<div class="rmdnote">
+<p><strong>When to Use GBM?</strong><br>
+- When <strong>higher accuracy</strong> is needed than what RF or CART can provide.<br>
+- When working with <strong>small datasets</strong> where RF might not perform well.<br>
+- When you are okay with tuning model hyperparameters for better results.</p>
+</div>
+<hr>
+</div>
+<div id="b.-coding-demonstration-gbm-in-r" class="section level3" number="11.1.19">
+<h3>
+<span class="header-section-number">11.1.19</span> <strong>B. Coding Demonstration: GBM in R</strong><a class="anchor" aria-label="anchor" href="#b.-coding-demonstration-gbm-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>We will now train a <strong>GBM model</strong> using the <code>gbm</code> package and compare its accuracy with <strong>CART and RF</strong>.</p>
+<hr>
+<div id="step-1-load-libraries-2" class="section level4" number="11.1.19.1">
+<h4>
+<span class="header-section-number">11.1.19.1</span> <strong>Step 1: Load Libraries</strong><a class="anchor" aria-label="anchor" href="#step-1-load-libraries-2"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gbm-developers/gbm">gbm</a></span><span class="op">)</span>          <span class="co"># For Gradient Boosting Machine</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span>        <span class="co"># For SDM datasets</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span>        <span class="co"># For model evaluation</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-2-load-and-prepare-data-1" class="section level4" number="11.1.19.2">
+<h4>
+<span class="header-section-number">11.1.19.2</span> <strong>Step 2: Load and Prepare Data</strong><a class="anchor" aria-label="anchor" href="#step-2-load-and-prepare-data-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>We use the <code>bioclim</code> dataset, which contains <strong>species presence-absence data</strong> and <strong>environmental predictors</strong>.</p>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load example dataset</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">dismo</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dismo/man/bioclim.html">bioclim</a></span></span>
+<span></span>
+<span><span class="co"># Convert species presence to a factor (classification task)</span></span>
+<span><span class="va">data</span><span class="op">$</span><span class="va">presence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View dataset structure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-3-split-data-into-training-and-testing-sets-2" class="section level4" number="11.1.19.3">
+<h4>
+<span class="header-section-number">11.1.19.3</span> <strong>Step 3: Split Data into Training and Testing Sets</strong><a class="anchor" aria-label="anchor" href="#step-3-split-data-into-training-and-testing-sets-2"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set seed for reproducibility</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create training (70%) and testing (30%) sets</span></span>
+<span><span class="va">trainIndex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span>, p <span class="op">=</span> <span class="fl">0.7</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">trainIndex</span>, <span class="op">]</span></span>
+<span><span class="va">test_data</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="op">-</span><span class="va">trainIndex</span>, <span class="op">]</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-4-train-a-gbm-model" class="section level4" number="11.1.19.4">
+<h4>
+<span class="header-section-number">11.1.19.4</span> <strong>Step 4: Train a GBM Model</strong><a class="anchor" aria-label="anchor" href="#step-4-train-a-gbm-model"><i class="fas fa-link"></i></a>
+</h4>
+<p>GBM requires setting <strong>hyperparameters</strong>, including:<br>
+- <strong>Number of trees (<code>n.trees</code>)</strong> – More trees improve performance but increase computation.<br>
+- <strong>Learning rate (<code>shrinkage</code>)</strong> – Controls how much each tree contributes to the final prediction.<br>
+- <strong>Tree depth (<code>interaction.depth</code>)</strong> – Controls complexity of individual trees.</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Train a GBM model</span></span>
+<span><span class="va">gbm_model</span> <span class="op">&lt;-</span> <span class="fu">gbm</span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">bio1</span> <span class="op">+</span> <span class="va">bio12</span> <span class="op">+</span> <span class="va">bio5</span> <span class="op">+</span> <span class="va">bio6</span>, </span>
+<span>                 data <span class="op">=</span> <span class="va">train_data</span>,</span>
+<span>                 distribution <span class="op">=</span> <span class="st">"bernoulli"</span>,  <span class="co"># For classification</span></span>
+<span>                 n.trees <span class="op">=</span> <span class="fl">500</span>,  </span>
+<span>                 shrinkage <span class="op">=</span> <span class="fl">0.01</span>,  </span>
+<span>                 interaction.depth <span class="op">=</span> <span class="fl">3</span>,  </span>
+<span>                 cv.folds <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>  <span class="co"># Cross-validation to prevent overfitting</span></span>
+<span></span>
+<span><span class="co"># Print model summary</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gbm_model</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-5-tune-hyperparameters-for-optimal-performance" class="section level4" number="11.1.19.5">
+<h4>
+<span class="header-section-number">11.1.19.5</span> <strong>Step 5: Tune Hyperparameters for Optimal Performance</strong><a class="anchor" aria-label="anchor" href="#step-5-tune-hyperparameters-for-optimal-performance"><i class="fas fa-link"></i></a>
+</h4>
+<p>We can <strong>optimize hyperparameters</strong> using <strong>cross-validation</strong> to select the best combination of <code>n.trees</code> and <code>shrinkage</code>.</p>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Tune the GBM model by selecting the best number of trees</span></span>
+<span><span class="va">best_trees</span> <span class="op">&lt;-</span> <span class="fu">gbm.perf</span><span class="op">(</span><span class="va">gbm_model</span>, method <span class="op">=</span> <span class="st">"cv"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Optimal number of trees:"</span>, <span class="va">best_trees</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-6-compare-gbm-with-rf-and-cart" class="section level4" number="11.1.19.6">
+<h4>
+<span class="header-section-number">11.1.19.6</span> <strong>Step 6: Compare GBM with RF and CART</strong><a class="anchor" aria-label="anchor" href="#step-6-compare-gbm-with-rf-and-cart"><i class="fas fa-link"></i></a>
+</h4>
+<p>We will <strong>evaluate the accuracy of all models</strong> and compare their performance.</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Make predictions on test data</span></span>
+<span><span class="va">gbm_predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm_model</span>, <span class="va">test_data</span>, n.trees <span class="op">=</span> <span class="va">best_trees</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="va">gbm_predictions_class</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">gbm_predictions</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"1"</span>, <span class="st">"0"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate confusion matrix for GBM</span></span>
+<span><span class="va">conf_matrix_gbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">gbm_predictions_class</span><span class="op">)</span>, <span class="va">test_data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print accuracy</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_gbm</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="final-model-comparison" class="section level4" number="11.1.19.7">
+<h4>
+<span class="header-section-number">11.1.19.7</span> <strong>Final Model Comparison</strong><a class="anchor" aria-label="anchor" href="#final-model-comparison"><i class="fas fa-link"></i></a>
+</h4>
+<p>Let’s compare <strong>CART, RF, and GBM</strong> by checking their accuracy scores.</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_cart</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span>  <span class="co"># Accuracy of CART</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_rf</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span>    <span class="co"># Accuracy of Random Forest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_gbm</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span>   <span class="co"># Accuracy of GBM</span></span></code></pre></div>
+<p><strong>Expected Outcome:</strong><br>
+- <strong>CART</strong>: Lowest accuracy but easy to interpret.<br>
+- <strong>RF</strong>: Better than CART, but not as optimized as GBM.<br>
+- <strong>GBM</strong>: Highest accuracy after tuning hyperparameters.</p>
+<hr>
+</div>
+</div>
+<div id="key-observations-2" class="section level3" number="11.1.20">
+<h3>
+<span class="header-section-number">11.1.20</span> <strong>Key Observations</strong><a class="anchor" aria-label="anchor" href="#key-observations-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>✅ <strong>GBM is the most accurate</strong> of the three models.<br>
+✅ <strong>It requires tuning</strong>, but results improve with optimized settings.<br>
+✅ <strong>Random Forest is a good balance</strong> between accuracy and computation.<br>
+✅ <strong>CART is useful when interpretability is more important than accuracy.</strong></p>
+<hr>
+</div>
+<div id="summary-6" class="section level3" number="11.1.21">
+<h3>
+<span class="header-section-number">11.1.21</span> <strong>Summary</strong><a class="anchor" aria-label="anchor" href="#summary-6"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="35%">
+<col width="31%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Model</strong></th>
+<th><strong>Strengths</strong></th>
+<th><strong>Weaknesses</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>CART</strong></td>
+<td>Simple and interpretable.</td>
+<td>Overfits and has lower accuracy.</td>
+</tr>
+<tr class="even">
+<td><strong>RF</strong></td>
+<td>More accurate and robust.</td>
+<td>Computationally expensive.</td>
+</tr>
+<tr class="odd">
+<td><strong>GBM</strong></td>
+<td>Highest predictive power.</td>
+<td>Slower and requires tuning.</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>Use CART</strong> when you need explainable decision rules.<br>
+✅ <strong>Use Random Forest</strong> when you need high accuracy with minimal tuning.<br>
+✅ <strong>Use GBM</strong> when you need <strong>maximum predictive power</strong> and can afford tuning.</p>
+<p>Next, we <strong>compare all three models using real-world SDM applications! 🚀</strong></p>
+</div>
+<div id="how-do-cart-rf-and-gbm-compare" class="section level3" number="11.1.22">
+<h3>
+<span class="header-section-number">11.1.22</span> <strong>How Do CART, RF, and GBM Compare?</strong><a class="anchor" aria-label="anchor" href="#how-do-cart-rf-and-gbm-compare"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that we’ve trained <strong>Classification and Regression Trees (CART)</strong>, <strong>Random Forest (RF)</strong>, and <strong>Gradient Boosting Machine (GBM)</strong>, it’s time to evaluate their performance using <strong>AUC (Area Under the Curve), accuracy, and feature importance</strong>.</p>
+<p>Each model has its strengths and weaknesses, and we will determine the best one for different <strong>Species Distribution Modeling (SDM)</strong> scenarios.</p>
+<hr>
+</div>
+<div id="step-1-evaluate-model-performance-with-auc-and-accuracy" class="section level3" number="11.1.23">
+<h3>
+<span class="header-section-number">11.1.23</span> <strong>Step 1: Evaluate Model Performance with AUC and Accuracy</strong><a class="anchor" aria-label="anchor" href="#step-1-evaluate-model-performance-with-auc-and-accuracy"><i class="fas fa-link"></i></a>
+</h3>
+<div id="calculate-auc-for-each-model" class="section level4" number="11.1.23.1">
+<h4>
+<span class="header-section-number">11.1.23.1</span> <strong>Calculate AUC for Each Model</strong><a class="anchor" aria-label="anchor" href="#calculate-auc-for-each-model"><i class="fas fa-link"></i></a>
+</h4>
+<p>AUC (<strong>Area Under the Curve</strong>) is a metric that tells us how well the model <strong>distinguishes presence vs. absence points</strong>. A higher AUC means better performance.</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute AUC for CART</span></span>
+<span><span class="va">cart_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">cart_model</span>, <span class="va">test_data</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
+<span><span class="va">cart_auc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">cart_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute AUC for Random Forest</span></span>
+<span><span class="va">rf_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_model</span>, <span class="va">test_data</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
+<span><span class="va">rf_auc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">rf_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute AUC for GBM</span></span>
+<span><span class="va">gbm_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm_model</span>, <span class="va">test_data</span>, n.trees <span class="op">=</span> <span class="va">best_trees</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="va">gbm_auc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">gbm_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print AUC Scores</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"CART AUC:"</span>, <span class="va">cart_auc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Random Forest AUC:"</span>, <span class="va">rf_auc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"GBM AUC:"</span>, <span class="va">gbm_auc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>Expected Results</strong>:<br>
+- <strong>CART</strong> → <strong>Lowest AUC</strong> (simpler model, more overfitting).<br>
+- <strong>RF</strong> → <strong>Better AUC</strong> (reduces overfitting with multiple trees).<br>
+- <strong>GBM</strong> → <strong>Best AUC</strong> (iterative learning improves accuracy).</p>
+<hr>
+</div>
+<div id="compare-accuracy-across-models" class="section level4" number="11.1.23.2">
+<h4>
+<span class="header-section-number">11.1.23.2</span> <strong>Compare Accuracy Across Models</strong><a class="anchor" aria-label="anchor" href="#compare-accuracy-across-models"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Print accuracy for CART, RF, and GBM</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_cart</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span>  <span class="co"># CART</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_rf</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span>    <span class="co"># Random Forest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">conf_matrix_gbm</span><span class="op">$</span><span class="va">overall</span><span class="op">[</span><span class="st">"Accuracy"</span><span class="op">]</span><span class="op">)</span>   <span class="co"># GBM</span></span></code></pre></div>
+<p>✅ <strong>Expected Outcome</strong>: GBM <strong>should have the highest accuracy</strong>, followed by <strong>Random Forest</strong>, with <strong>CART having the lowest accuracy</strong>.</p>
+<hr>
+</div>
+</div>
+<div id="step-2-compare-feature-importance" class="section level3" number="11.1.24">
+<h3>
+<span class="header-section-number">11.1.24</span> <strong>Step 2: Compare Feature Importance</strong><a class="anchor" aria-label="anchor" href="#step-2-compare-feature-importance"><i class="fas fa-link"></i></a>
+</h3>
+<p>Feature importance helps us <strong>understand which environmental variables are most influential</strong> in predicting species presence.</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot feature importance for Random Forest</span></span>
+<span><span class="fu">varImpPlot</span><span class="op">(</span><span class="va">rf_model</span>, main <span class="op">=</span> <span class="st">"Feature Importance - Random Forest"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Feature importance for GBM</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gbm_model</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>What to Look For?</strong><br>
+- If <strong>temperature (bio1)</strong> is highly important, it suggests the species’ distribution is temperature-sensitive.<br>
+- If <strong>precipitation (bio12)</strong> is important, it indicates a reliance on moisture.<br>
+- <strong>GBM and RF should rank similar variables highly</strong>, but CART may have fewer features.</p>
+<hr>
+</div>
+<div id="step-3-visualizing-model-performance" class="section level3" number="11.1.25">
+<h3>
+<span class="header-section-number">11.1.25</span> <strong>Step 3: Visualizing Model Performance</strong><a class="anchor" aria-label="anchor" href="#step-3-visualizing-model-performance"><i class="fas fa-link"></i></a>
+</h3>
+<p>To compare model outputs, we can <strong>plot ROC curves</strong> for all three models.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot ROC curves</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">cart_pred</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"ROC Curve Comparison"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">rf_pred</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">gbm_pred</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CART"</span>, <span class="st">"Random Forest"</span>, <span class="st">"GBM"</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green"</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>Expected Observations</strong>:<br>
+- The <strong>green line (GBM)</strong> should have the highest curve (best performance).<br>
+- The <strong>blue line (RF)</strong> should be better than <strong>CART (red)</strong>.</p>
+<hr>
+</div>
+<div id="step-4-selecting-the-best-model-for-different-sdm-scenarios" class="section level3" number="11.1.26">
+<h3>
+<span class="header-section-number">11.1.26</span> <strong>Step 4: Selecting the Best Model for Different SDM Scenarios</strong><a class="anchor" aria-label="anchor" href="#step-4-selecting-the-best-model-for-different-sdm-scenarios"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="58%">
+<col width="23%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Scenario</strong></th>
+<th><strong>Best Model</strong></th>
+<th><strong>Reason</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Quick, explainable rules</strong></td>
+<td><strong>CART</strong></td>
+<td>Simple, interpretable</td>
+</tr>
+<tr class="even">
+<td><strong>General purpose SDM</strong></td>
+<td><strong>RF</strong></td>
+<td>Good balance of accuracy &amp; stability</td>
+</tr>
+<tr class="odd">
+<td><strong>Highest predictive power needed</strong></td>
+<td><strong>GBM</strong></td>
+<td>Best accuracy but needs tuning</td>
+</tr>
+<tr class="even">
+<td><strong>Large datasets with many predictors</strong></td>
+<td>
+<strong>RF</strong> or <strong>GBM</strong>
+</td>
+<td>Handles many variables well</td>
+</tr>
+<tr class="odd">
+<td><strong>Limited computation resources</strong></td>
+<td><strong>CART</strong></td>
+<td>Runs faster than RF/GBM</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>Takeaway</strong>:<br>
+- Use <strong>CART for interpretation</strong>.<br>
+- Use <strong>Random Forest for accuracy with minimal tuning</strong>.<br>
+- Use <strong>GBM for the best performance</strong> (if computational resources allow).</p>
+<hr>
+</div>
+<div id="final-thoughts" class="section level3" number="11.1.27">
+<h3>
+<span class="header-section-number">11.1.27</span> <strong>Final Thoughts</strong><a class="anchor" aria-label="anchor" href="#final-thoughts"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>CART</strong> is simple but prone to <strong>overfitting</strong> and lower accuracy.<br>
+</li>
+<li>
+<strong>Random Forest</strong> reduces overfitting, improves accuracy, and is a <strong>great general-purpose SDM model</strong>.<br>
+</li>
+<li>
+<strong>GBM</strong> provides <strong>the best accuracy</strong> but requires <strong>more tuning</strong> and computational power.</li>
+</ul>
+<hr>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="maxent-bias-correction.html"><span class="header-section-number">10</span> Maxent Bias Correction</a></div>
+<div class="next"><a href="gbm-variable-selection.html"><span class="header-section-number">12</span> GBM Variable Selection</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#cart-rf-and-gbm"><span class="header-section-number">11</span> Cart, RF, and GBM</a></li>
+<li>
+<a class="nav-link" href="#introduction-to-tree-based-models"><span class="header-section-number">11.1</span> 1. Introduction to Tree-Based Models</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#overview-of-tree-based-machine-learning-models-in-sdm"><span class="header-section-number">11.1.1</span> Overview of Tree-Based Machine Learning Models in SDM</a></li>
+<li><a class="nav-link" href="#when-to-use-cart-rf-and-gbm"><span class="header-section-number">11.1.2</span> When to Use CART, RF, and GBM?</a></li>
+<li><a class="nav-link" href="#strengths-and-weaknesses-of-each-model"><span class="header-section-number">11.1.3</span> Strengths and Weaknesses of Each Model</a></li>
+<li><a class="nav-link" href="#next-steps-2"><span class="header-section-number">11.1.4</span> Next Steps</a></li>
+<li><a class="nav-link" href="#a.-theory-explanation"><span class="header-section-number">11.1.5</span> A. Theory Explanation</a></li>
+<li><a class="nav-link" href="#b.-coding-demonstration-cart-in-r"><span class="header-section-number">11.1.6</span> B. Coding Demonstration: CART in R</a></li>
+<li><a class="nav-link" href="#key-observations"><span class="header-section-number">11.1.7</span> Key Observations</a></li>
+<li><a class="nav-link" href="#summary-4"><span class="header-section-number">11.1.8</span> Summary</a></li>
+<li><a class="nav-link" href="#a.-theory-explanation-1"><span class="header-section-number">11.1.9</span> A. Theory Explanation</a></li>
+<li><a class="nav-link" href="#how-does-random-forest-work"><span class="header-section-number">11.1.10</span> How Does Random Forest Work?</a></li>
+<li><a class="nav-link" href="#advantages-of-random-forest"><span class="header-section-number">11.1.11</span> Advantages of Random Forest</a></li>
+<li><a class="nav-link" href="#limitations-of-random-forest"><span class="header-section-number">11.1.12</span> Limitations of Random Forest</a></li>
+<li><a class="nav-link" href="#b.-coding-demonstration-random-forest-in-r"><span class="header-section-number">11.1.13</span> B. Coding Demonstration: Random Forest in R</a></li>
+<li><a class="nav-link" href="#key-observations-1"><span class="header-section-number">11.1.14</span> Key Observations</a></li>
+<li><a class="nav-link" href="#summary-5"><span class="header-section-number">11.1.15</span> Summary</a></li>
+<li><a class="nav-link" href="#a.-theory-explanation-2"><span class="header-section-number">11.1.16</span> A. Theory Explanation</a></li>
+<li><a class="nav-link" href="#advantages-of-gbm"><span class="header-section-number">11.1.17</span> Advantages of GBM</a></li>
+<li><a class="nav-link" href="#limitations-of-gbm"><span class="header-section-number">11.1.18</span> Limitations of GBM</a></li>
+<li><a class="nav-link" href="#b.-coding-demonstration-gbm-in-r"><span class="header-section-number">11.1.19</span> B. Coding Demonstration: GBM in R</a></li>
+<li><a class="nav-link" href="#key-observations-2"><span class="header-section-number">11.1.20</span> Key Observations</a></li>
+<li><a class="nav-link" href="#summary-6"><span class="header-section-number">11.1.21</span> Summary</a></li>
+<li><a class="nav-link" href="#how-do-cart-rf-and-gbm-compare"><span class="header-section-number">11.1.22</span> How Do CART, RF, and GBM Compare?</a></li>
+<li><a class="nav-link" href="#step-1-evaluate-model-performance-with-auc-and-accuracy"><span class="header-section-number">11.1.23</span> Step 1: Evaluate Model Performance with AUC and Accuracy</a></li>
+<li><a class="nav-link" href="#step-2-compare-feature-importance"><span class="header-section-number">11.1.24</span> Step 2: Compare Feature Importance</a></li>
+<li><a class="nav-link" href="#step-3-visualizing-model-performance"><span class="header-section-number">11.1.25</span> Step 3: Visualizing Model Performance</a></li>
+<li><a class="nav-link" href="#step-4-selecting-the-best-model-for-different-sdm-scenarios"><span class="header-section-number">11.1.26</span> Step 4: Selecting the Best Model for Different SDM Scenarios</a></li>
+<li><a class="nav-link" href="#final-thoughts"><span class="header-section-number">11.1.27</span> Final Thoughts</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/10-sdm-algorithms-cart-rf-gbm.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/10-sdm-algorithms-cart-rf-gbm.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-02-05.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

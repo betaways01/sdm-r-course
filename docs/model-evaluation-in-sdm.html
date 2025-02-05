@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 13 Model Evaluation in SDM | A Minimal Book Example</title>
+<meta name="author" content="Basim Alsaedi">
+<meta name="description" content="13.1 1. Introduction to Model Evaluation  13.1.1 Why Model Evaluation is Important in SDM Model evaluation is a critical step in Species Distribution Modeling (SDM) because it determines how well...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 13 Model Evaluation in SDM | A Minimal Book Example">
+<meta property="og:type" content="book">
+<meta property="og:description" content="13.1 1. Introduction to Model Evaluation  13.1.1 Why Model Evaluation is Important in SDM Model evaluation is a critical step in Species Distribution Modeling (SDM) because it determines how well...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 13 Model Evaluation in SDM | A Minimal Book Example">
+<meta name="twitter:description" content="13.1 1. Introduction to Model Evaluation  13.1.1 Why Model Evaluation is Important in SDM Model evaluation is a critical step in Species Distribution Modeling (SDM) because it determines how well...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0.9000/transition.js"></script><script src="libs/bs3compat-0.8.0.9000/tabs.js"></script><script src="libs/bs3compat-0.8.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">A Minimal Book Example</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Welcome!</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></li>
+<li><a class="" href="spartial-data-in-r.html"><span class="header-section-number">4</span> Spartial Data in R</a></li>
+<li><a class="" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
+<li><a class="" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
+<li><a class="" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
+<li><a class="" href="maxent-algorithm.html"><span class="header-section-number">8</span> Maxent Algorithm</a></li>
+<li><a class="" href="exercise.html"><span class="header-section-number">9</span> Exercise</a></li>
+<li><a class="" href="maxent-bias-correction.html"><span class="header-section-number">10</span> Maxent Bias Correction</a></li>
+<li><a class="" href="cart-rf-and-gbm.html"><span class="header-section-number">11</span> Cart, RF, and GBM</a></li>
+<li><a class="" href="gbm-variable-selection.html"><span class="header-section-number">12</span> GBM Variable Selection</a></li>
+<li><a class="active" href="model-evaluation-in-sdm.html"><span class="header-section-number">13</span> Model Evaluation in SDM</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="model-evaluation-in-sdm" class="section level1" number="13">
+<h1>
+<span class="header-section-number">13</span> Model Evaluation in SDM<a class="anchor" aria-label="anchor" href="#model-evaluation-in-sdm"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<div id="introduction-to-model-evaluation" class="section level2" number="13.1">
+<h2>
+<span class="header-section-number">13.1</span> <strong>1. Introduction to Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#introduction-to-model-evaluation"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<div id="why-model-evaluation-is-important-in-sdm" class="section level3" number="13.1.1">
+<h3>
+<span class="header-section-number">13.1.1</span> <strong>Why Model Evaluation is Important in SDM</strong><a class="anchor" aria-label="anchor" href="#why-model-evaluation-is-important-in-sdm"><i class="fas fa-link"></i></a>
+</h3>
+<p>Model evaluation is a <strong>critical step</strong> in <strong>Species Distribution Modeling (SDM)</strong> because it determines how well a model predicts the distribution of species in different environmental conditions. <strong>Without proper evaluation, predictions may be misleading and lead to incorrect conservation decisions.</strong></p>
+<p>Model evaluation ensures that:</p>
+<p>✅ <strong>The model is accurate</strong> – Predictions match real-world observations.<br>
+✅ <strong>The model generalizes well</strong> – Works on new/unseen data, not just the training set.<br>
+✅ <strong>Ecological validity is maintained</strong> – Predictions align with biological knowledge.</p>
+<hr>
+</div>
+<div id="key-objectives-of-model-evaluation" class="section level3" number="13.1.2">
+<h3>
+<span class="header-section-number">13.1.2</span> <strong>Key Objectives of Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#key-objectives-of-model-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<p>1️⃣ <strong>Assessing Accuracy</strong> – How well does the model predict species presence/absence?<br>
+2️⃣ <strong>Avoiding Overfitting</strong> – Does the model generalize to unseen data?<br>
+3️⃣ <strong>Ecological Relevance</strong> – Are predictions biologically meaningful?<br>
+4️⃣ <strong>Comparing Multiple Models</strong> – Which algorithm (CART, RF, GBM, MaxEnt) performs best for the dataset?</p>
+<hr>
+</div>
+<div id="common-pitfalls-in-model-evaluation" class="section level3" number="13.1.3">
+<h3>
+<span class="header-section-number">13.1.3</span> <strong>Common Pitfalls in Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#common-pitfalls-in-model-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<p>⚠️ <strong>Overfitting</strong><br>
+- The model memorizes training data instead of learning true species-environment relationships.<br>
+- <strong>Fix</strong>: Use cross-validation and limit model complexity.</p>
+<p>⚠️ <strong>Biased Datasets</strong><br>
+- If presence records are clustered in sampled areas (e.g., near roads), the model may falsely predict that species prefer those areas.<br>
+- <strong>Fix</strong>: Use <strong>spatially explicit validation</strong> and account for sampling bias.</p>
+<p>⚠️ <strong>Improper Thresholding</strong><br>
+- Using the wrong threshold for presence/absence conversion can <strong>skew accuracy metrics</strong>.<br>
+- <strong>Fix</strong>: Experiment with different <strong>thresholding methods</strong> (e.g., maximum sensitivity-specificity, 10th percentile).</p>
+<div class="rmdtip">
+<p><strong>Pro Tip:</strong> Always check the <strong>ecological plausibility</strong> of the model. A high accuracy score does not mean the model makes biologically realistic predictions!</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="performance-metrics-for-model-evaluation" class="section level2" number="13.2">
+<h2>
+<span class="header-section-number">13.2</span> <strong>2. Performance Metrics for Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#performance-metrics-for-model-evaluation"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<div id="classification-metrics-for-presenceabsence-models" class="section level3" number="13.2.1">
+<h3>
+<span class="header-section-number">13.2.1</span> <strong>1. Classification Metrics (For Presence/Absence Models)</strong><a class="anchor" aria-label="anchor" href="#classification-metrics-for-presenceabsence-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>When species data is <strong>binary (presence = 1, absence = 0)</strong>, we use classification metrics to measure how well the model differentiates between the two.</p>
+<div id="accuracy-overall-correctness-of-predictions" class="section level4" number="13.2.1.1">
+<h4>
+<span class="header-section-number">13.2.1.1</span> <strong>Accuracy</strong> – Overall correctness of predictions<a class="anchor" aria-label="anchor" href="#accuracy-overall-correctness-of-predictions"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Formula:</strong><br><span class="math display">\[
+Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+\]</span>
+✅ <strong>Good for balanced datasets</strong> but <strong>misleading for imbalanced data</strong> (e.g., when species are rare).</p>
+<hr>
+</div>
+<div id="sensitivity-recall-ability-to-correctly-predict-species-presence" class="section level4" number="13.2.1.2">
+<h4>
+<span class="header-section-number">13.2.1.2</span> <strong>Sensitivity (Recall)</strong> – Ability to correctly predict species presence<a class="anchor" aria-label="anchor" href="#sensitivity-recall-ability-to-correctly-predict-species-presence"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Formula:</strong><br><span class="math display">\[
+Sensitivity = \frac{TP}{TP + FN}
+\]</span>
+✅ <strong>Important for conservation</strong> because false negatives (FN) may ignore suitable habitats.</p>
+<hr>
+</div>
+<div id="specificity-ability-to-correctly-predict-absence" class="section level4" number="13.2.1.3">
+<h4>
+<span class="header-section-number">13.2.1.3</span> <strong>Specificity</strong> – Ability to correctly predict absence<a class="anchor" aria-label="anchor" href="#specificity-ability-to-correctly-predict-absence"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Formula:</strong><br><span class="math display">\[
+Specificity = \frac{TN}{TN + FP}
+\]</span>
+✅ <strong>Useful in understanding over-predictions</strong> of species presence.</p>
+<hr>
+</div>
+<div id="kappa-statistic-agreement-beyond-random-chance" class="section level4" number="13.2.1.4">
+<h4>
+<span class="header-section-number">13.2.1.4</span> <strong>Kappa Statistic</strong> – Agreement Beyond Random Chance<a class="anchor" aria-label="anchor" href="#kappa-statistic-agreement-beyond-random-chance"><i class="fas fa-link"></i></a>
+</h4>
+<p>Kappa adjusts accuracy to account for <strong>random chance agreement</strong>.</p>
+<p><strong>Formula:</strong><br><span class="math display">\[
+Kappa = \frac{Accuracy - Expected Accuracy}{1 - Expected Accuracy}
+\]</span>
+✅ <strong>More reliable than accuracy</strong> for imbalanced datasets.</p>
+<hr>
+</div>
+</div>
+<div id="area-under-the-curve-auc-roc-auc-pr" class="section level3" number="13.2.2">
+<h3>
+<span class="header-section-number">13.2.2</span> <strong>2. Area Under the Curve (AUC-ROC &amp; AUC-PR)</strong><a class="anchor" aria-label="anchor" href="#area-under-the-curve-auc-roc-auc-pr"><i class="fas fa-link"></i></a>
+</h3>
+<p>AUC is one of the most common evaluation metrics in <strong>species distribution models</strong>.</p>
+<div id="roc-curve-receiver-operating-characteristic-curve" class="section level4" number="13.2.2.1">
+<h4>
+<span class="header-section-number">13.2.2.1</span> <strong>ROC Curve (Receiver Operating Characteristic Curve)</strong><a class="anchor" aria-label="anchor" href="#roc-curve-receiver-operating-characteristic-curve"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>Plots <strong>True Positive Rate (Sensitivity)</strong> vs. <strong>False Positive Rate (1 - Specificity)</strong><br>
+</li>
+<li>
+<strong>Higher AUC = Better ability to distinguish presence from absence</strong>.</li>
+</ul>
+<p>✅ <strong>Works well for most classification tasks.</strong></p>
+<p><strong>Interpreting AUC Scores:</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th><strong>AUC Score</strong></th>
+<th><strong>Model Performance</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>0.5</td>
+<td>Random Guessing</td>
+</tr>
+<tr class="even">
+<td>0.7 - 0.8</td>
+<td>Fair</td>
+</tr>
+<tr class="odd">
+<td>0.8 - 0.9</td>
+<td>Good</td>
+</tr>
+<tr class="even">
+<td>0.9 - 1.0</td>
+<td>Excellent</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="precision-recall-pr-curve-best-for-rare-species" class="section level4" number="13.2.2.2">
+<h4>
+<span class="header-section-number">13.2.2.2</span> <strong>Precision-Recall (PR) Curve – Best for Rare Species</strong><a class="anchor" aria-label="anchor" href="#precision-recall-pr-curve-best-for-rare-species"><i class="fas fa-link"></i></a>
+</h4>
+<p>When species are <strong>rare</strong>, AUC-ROC may be misleading. Instead, use the <strong>Precision-Recall Curve</strong>, which evaluates model performance when <strong>absences outnumber presences</strong>.</p>
+<ul>
+<li>
+<strong>Precision</strong> = How many predicted presences were actually correct?<br>
+</li>
+<li>
+<strong>Recall</strong> = Sensitivity (ability to detect all presences).</li>
+</ul>
+<p>✅ <strong>Best when species presence is rare (e.g., endangered species).</strong></p>
+<hr>
+</div>
+</div>
+<div id="true-skill-statistic-tss" class="section level3" number="13.2.3">
+<h3>
+<span class="header-section-number">13.2.3</span> <strong>3. True Skill Statistic (TSS)</strong><a class="anchor" aria-label="anchor" href="#true-skill-statistic-tss"><i class="fas fa-link"></i></a>
+</h3>
+<p>TSS is an alternative to <strong>AUC</strong> that <strong>does not depend on prevalence (species rarity)</strong>.</p>
+<p><strong>Formula:</strong><br><span class="math display">\[
+TSS = Sensitivity + Specificity - 1
+\]</span></p>
+<p>✅ <strong>Good for ecological models where presence/absence is not evenly distributed.</strong><br>
+✅ <strong>Ranges from -1 (worse than random) to 1 (perfect prediction).</strong></p>
+<hr>
+</div>
+<div id="root-mean-square-error-rmse-for-continuous-models" class="section level3" number="13.2.4">
+<h3>
+<span class="header-section-number">13.2.4</span> <strong>4. Root Mean Square Error (RMSE) for Continuous Models</strong><a class="anchor" aria-label="anchor" href="#root-mean-square-error-rmse-for-continuous-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>When the <strong>model outputs continuous suitability values (e.g., habitat suitability indices)</strong>, RMSE measures how much <strong>predictions deviate from actual presence/absence</strong>.</p>
+<p><strong>Formula:</strong><br><span class="math display">\[
+RMSE = \sqrt{\frac{\sum (Predicted - Observed)^2}{n}}
+\]</span></p>
+<p>✅ <strong>Lower RMSE = Better fit.</strong><br>
+✅ <strong>Works well when comparing continuous predictions (e.g., suitability scores from MaxEnt).</strong></p>
+<hr>
+</div>
+</div>
+<div id="comparison-of-model-evaluation-metrics" class="section level2" number="13.3">
+<h2>
+<span class="header-section-number">13.3</span> <strong>Comparison of Model Evaluation Metrics</strong><a class="anchor" aria-label="anchor" href="#comparison-of-model-evaluation-metrics"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="25%">
+<col width="50%">
+<col width="23%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Metric</strong></th>
+<th><strong>Best For</strong></th>
+<th><strong>Weaknesses</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Accuracy</strong></td>
+<td>Balanced presence/absence datasets.</td>
+<td>Misleading for imbalanced data.</td>
+</tr>
+<tr class="even">
+<td><strong>Sensitivity</strong></td>
+<td>Conservation-focused predictions.</td>
+<td>Can overestimate species presence.</td>
+</tr>
+<tr class="odd">
+<td><strong>Specificity</strong></td>
+<td>Preventing false positives.</td>
+<td>Ignores presence misclassification.</td>
+</tr>
+<tr class="even">
+<td><strong>Kappa</strong></td>
+<td>Adjusting accuracy for chance.</td>
+<td>Harder to interpret.</td>
+</tr>
+<tr class="odd">
+<td><strong>AUC-ROC</strong></td>
+<td>General model evaluation.</td>
+<td>Can be biased for rare species.</td>
+</tr>
+<tr class="even">
+<td><strong>AUC-PR</strong></td>
+<td>Rare species modeling.</td>
+<td>Not commonly used in SDM.</td>
+</tr>
+<tr class="odd">
+<td><strong>TSS</strong></td>
+<td>Presence-background models.</td>
+<td>Less known outside ecology.</td>
+</tr>
+<tr class="even">
+<td><strong>RMSE</strong></td>
+<td>Continuous suitability models.</td>
+<td>Doesn’t work for presence/absence.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<div id="next-steps-3" class="section level3" number="13.3.1">
+<h3>
+<span class="header-section-number">13.3.1</span> <strong>Next Steps</strong><a class="anchor" aria-label="anchor" href="#next-steps-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that we understand <strong>model evaluation metrics</strong>, the next section will explore <strong>different validation techniques</strong> (cross-validation, train-test split, and spatial validation) to ensure our models generalize well to new data. 🚀</p>
+<p>Model validation ensures that our <strong>Species Distribution Models (SDMs)</strong> perform well on unseen data. Without proper validation, models may <strong>overfit</strong> or fail to <strong>generalize</strong> to real-world conditions.</p>
+<hr>
+</div>
+<div id="train-test-split" class="section level3" number="13.3.2">
+<h3>
+<span class="header-section-number">13.3.2</span> <strong>1. Train-Test Split</strong><a class="anchor" aria-label="anchor" href="#train-test-split"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Why Use a Separate Test Set?</strong><br>
+A model that fits training data well might <strong>fail on new data</strong>. The <strong>train-test split</strong> ensures that the model is evaluated on <strong>independent data</strong> to measure generalization.</p>
+<p>✅ <strong>Prevents overfitting</strong><br>
+✅ <strong>Ensures predictions are reliable</strong><br>
+✅ <strong>Used in all machine learning applications</strong></p>
+<div id="code-example-train-test-split" class="section level4" number="13.3.2.1">
+<h4>
+<span class="header-section-number">13.3.2.1</span> <strong>Code Example: Train-Test Split</strong><a class="anchor" aria-label="anchor" href="#code-example-train-test-split"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load necessary package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Split data: 70% Training, 30% Testing</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">trainIndex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span>, p <span class="op">=</span> <span class="fl">0.7</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">trainIndex</span>, <span class="op">]</span></span>
+<span><span class="va">test_data</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="op">-</span><span class="va">trainIndex</span>, <span class="op">]</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="cross-validation-1" class="section level3" number="13.3.3">
+<h3>
+<span class="header-section-number">13.3.3</span> <strong>2. Cross-Validation</strong><a class="anchor" aria-label="anchor" href="#cross-validation-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cross-validation is used when we <strong>don’t want to lose data for training</strong>. It divides the dataset into <strong>multiple subsets</strong> and trains the model several times to ensure stability.</p>
+<hr>
+<div id="k-fold-cross-validation" class="section level4" number="13.3.3.1">
+<h4>
+<span class="header-section-number">13.3.3.1</span> <strong>K-Fold Cross-Validation</strong><a class="anchor" aria-label="anchor" href="#k-fold-cross-validation"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>Splits data into <strong>K folds</strong> (e.g., <strong>5-fold or 10-fold</strong>).</li>
+<li>The model is trained on <strong>K-1 folds</strong> and tested on the remaining fold.</li>
+<li>The process repeats <strong>K times</strong>, and results are averaged.</li>
+</ul>
+<p>✅ <strong>More reliable than a single train-test split</strong><br>
+✅ <strong>Works well with small datasets</strong></p>
+</div>
+<div id="code-example-k-fold-cross-validation" class="section level4" number="13.3.3.2">
+<h4>
+<span class="header-section-number">13.3.3.2</span> <strong>Code Example: K-Fold Cross-Validation</strong><a class="anchor" aria-label="anchor" href="#code-example-k-fold-cross-validation"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Perform 5-fold cross-validation</span></span>
+<span><span class="va">train_control</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, number <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">cv_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span>, method <span class="op">=</span> <span class="st">"rf"</span>, trControl <span class="op">=</span> <span class="va">train_control</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">cv_model</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="leave-one-out-cross-validation-loocv" class="section level4" number="13.3.3.3">
+<h4>
+<span class="header-section-number">13.3.3.3</span> <strong>Leave-One-Out Cross-Validation (LOOCV)</strong><a class="anchor" aria-label="anchor" href="#leave-one-out-cross-validation-loocv"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>Uses <strong>one data point</strong> as the test set and <strong>all others</strong> as training.</li>
+<li>Repeats this process for every data point.</li>
+</ul>
+<p>✅ <strong>Best for very small datasets</strong><br>
+✅ <strong>Ensures all data points contribute to validation</strong><br>
+⚠️ <strong>Computationally expensive for large datasets</strong></p>
+</div>
+<div id="code-example-loocv" class="section level4" number="13.3.3.4">
+<h4>
+<span class="header-section-number">13.3.3.4</span> <strong>Code Example: LOOCV</strong><a class="anchor" aria-label="anchor" href="#code-example-loocv"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Perform Leave-One-Out Cross-Validation</span></span>
+<span><span class="va">train_control_loocv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"LOOCV"</span><span class="op">)</span></span>
+<span><span class="va">loocv_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span>, method <span class="op">=</span> <span class="st">"rf"</span>, trControl <span class="op">=</span> <span class="va">train_control_loocv</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">loocv_model</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="spatially-explicit-validation" class="section level3" number="13.3.4">
+<h3>
+<span class="header-section-number">13.3.4</span> <strong>3. Spatially Explicit Validation</strong><a class="anchor" aria-label="anchor" href="#spatially-explicit-validation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Standard validation methods assume that data points are <strong>independent</strong>, but species occurrence points are often <strong>spatially clustered</strong>. <strong>Spatially explicit validation</strong> ensures that evaluation accounts for spatial autocorrelation.</p>
+<p>✅ <strong>Prevents overestimating model performance</strong><br>
+✅ <strong>Ensures the model works in unsampled areas</strong></p>
+<div id="approach-block-cross-validation" class="section level4" number="13.3.4.1">
+<h4>
+<span class="header-section-number">13.3.4.1</span> <strong>Approach: Block Cross-Validation</strong><a class="anchor" aria-label="anchor" href="#approach-block-cross-validation"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>Divides the study area into <strong>spatial blocks</strong>.</li>
+<li>Uses some blocks for <strong>training</strong> and others for <strong>testing</strong>.</li>
+</ul>
+</div>
+<div id="code-example-spatial-cross-validation" class="section level4" number="13.3.4.2">
+<h4>
+<span class="header-section-number">13.3.4.2</span> <strong>Code Example: Spatial Cross-Validation</strong><a class="anchor" aria-label="anchor" href="#code-example-spatial-cross-validation"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rvalavi/blockCV">blockCV</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Define spatial blocks</span></span>
+<span><span class="va">blocks</span> <span class="op">&lt;-</span> <span class="fu">spatialBlock</span><span class="op">(</span>speciesData <span class="op">=</span> <span class="va">data</span>, theRange <span class="op">=</span> <span class="fl">100000</span>, k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Perform cross-validation with spatial blocks</span></span>
+<span><span class="va">train_control_spatial</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>, index <span class="op">=</span> <span class="va">blocks</span><span class="op">$</span><span class="va">folds</span><span class="op">)</span></span>
+<span><span class="va">spatial_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span>, method <span class="op">=</span> <span class="st">"rf"</span>, trControl <span class="op">=</span> <span class="va">train_control_spatial</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">spatial_model</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+</div>
+<div id="visualizing-model-performance" class="section level2" number="13.4">
+<h2>
+<span class="header-section-number">13.4</span> <strong>4. Visualizing Model Performance</strong><a class="anchor" aria-label="anchor" href="#visualizing-model-performance"><i class="fas fa-link"></i></a>
+</h2>
+<p>Model evaluation is <strong>easier to interpret</strong> when results are visualized. Below are key ways to visualize model quality.</p>
+<hr>
+<div id="roc-and-precision-recall-curves" class="section level3" number="13.4.1">
+<h3>
+<span class="header-section-number">13.4.1</span> <strong>1. ROC and Precision-Recall Curves</strong><a class="anchor" aria-label="anchor" href="#roc-and-precision-recall-curves"><i class="fas fa-link"></i></a>
+</h3>
+<div id="roc-curve-receiver-operating-characteristic-curve-1" class="section level4" number="13.4.1.1">
+<h4>
+<span class="header-section-number">13.4.1.1</span> <strong>ROC Curve (Receiver Operating Characteristic Curve)</strong><a class="anchor" aria-label="anchor" href="#roc-curve-receiver-operating-characteristic-curve-1"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>X-axis</strong>: False Positive Rate<br>
+</li>
+<li>
+<strong>Y-axis</strong>: True Positive Rate<br>
+</li>
+<li>Higher <strong>AUC</strong> (closer to 1) indicates better performance.</li>
+</ul>
+</div>
+<div id="code-example-plot-roc-curve" class="section level4" number="13.4.1.2">
+<h4>
+<span class="header-section-number">13.4.1.2</span> <strong>Code Example: Plot ROC Curve</strong><a class="anchor" aria-label="anchor" href="#code-example-plot-roc-curve"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute and plot ROC curve</span></span>
+<span><span class="va">roc_curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">test_data</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">roc_curve</span>, main <span class="op">=</span> <span class="st">"ROC Curve"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="precision-recall-curve" class="section level4" number="13.4.1.3">
+<h4>
+<span class="header-section-number">13.4.1.3</span> <strong>Precision-Recall Curve</strong><a class="anchor" aria-label="anchor" href="#precision-recall-curve"><i class="fas fa-link"></i></a>
+</h4>
+<p>Best used for <strong>imbalanced datasets</strong> where absences outnumber presences.</p>
+</div>
+<div id="code-example-precision-recall-curve" class="section level4" number="13.4.1.4">
+<h4>
+<span class="header-section-number">13.4.1.4</span> <strong>Code Example: Precision-Recall Curve</strong><a class="anchor" aria-label="anchor" href="#code-example-precision-recall-curve"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Compute and plot Precision-Recall curve</span></span>
+<span><span class="va">pr_curve</span> <span class="op">&lt;-</span> <span class="fu">pr.curve</span><span class="op">(</span>scores.class0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">test_data</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,</span>
+<span>                     weights.class0 <span class="op">=</span> <span class="va">test_data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">pr_curve</span>, main <span class="op">=</span> <span class="st">"Precision-Recall Curve"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="suitability-maps-and-threshold-selection" class="section level3" number="13.4.2">
+<h3>
+<span class="header-section-number">13.4.2</span> <strong>2. Suitability Maps and Threshold Selection</strong><a class="anchor" aria-label="anchor" href="#suitability-maps-and-threshold-selection"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Binary vs. Continuous Predictions</strong><br>
+- <strong>Continuous maps</strong> show habitat suitability scores.<br>
+- <strong>Binary maps</strong> classify suitable vs. unsuitable areas based on a threshold.</p>
+<div id="thresholding-approaches" class="section level4" number="13.4.2.1">
+<h4>
+<span class="header-section-number">13.4.2.1</span> <strong>Thresholding Approaches</strong><a class="anchor" aria-label="anchor" href="#thresholding-approaches"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Maximize Sensitivity-Specificity</strong><br>
+</li>
+<li>
+<strong>10th Percentile Presence Threshold</strong> (for rare species).</li>
+</ul>
+</div>
+<div id="code-example-suitability-map-with-thresholding" class="section level4" number="13.4.2.2">
+<h4>
+<span class="header-section-number">13.4.2.2</span> <strong>Code Example: Suitability Map with Thresholding</strong><a class="anchor" aria-label="anchor" href="#code-example-suitability-map-with-thresholding"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Predict suitability</span></span>
+<span><span class="va">suitability_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">raster_stack</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert to binary presence/absence using threshold</span></span>
+<span><span class="va">threshold</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span>
+<span><span class="va">binary_map</span> <span class="op">&lt;-</span> <span class="va">suitability_map</span> <span class="op">&gt;</span> <span class="va">threshold</span></span>
+<span></span>
+<span><span class="co"># Plot results</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">suitability_map</span>, main <span class="op">=</span> <span class="st">"Continuous Suitability Map"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">binary_map</span>, main <span class="op">=</span> <span class="st">"Binary Presence/Absence Map"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="response-curves" class="section level3" number="13.4.3">
+<h3>
+<span class="header-section-number">13.4.3</span> <strong>3. Response Curves</strong><a class="anchor" aria-label="anchor" href="#response-curves"><i class="fas fa-link"></i></a>
+</h3>
+<p>Response curves show how <strong>each environmental variable affects species predictions</strong>.</p>
+<p>✅ <strong>Ensures ecological realism</strong><br>
+✅ <strong>Helps identify misleading predictors</strong></p>
+<div id="code-example-plot-response-curves" class="section level4" number="13.4.3.1">
+<h4>
+<span class="header-section-number">13.4.3.1</span> <strong>Code Example: Plot Response Curves</strong><a class="anchor" aria-label="anchor" href="#code-example-plot-response-curves"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot response curves for important variables</span></span>
+<span><span class="fu">plot.gbm</span><span class="op">(</span><span class="va">model</span>, i.var <span class="op">=</span> <span class="st">"bio1"</span>, main <span class="op">=</span> <span class="st">"Effect of Temperature (Bio1)"</span><span class="op">)</span></span>
+<span><span class="fu">plot.gbm</span><span class="op">(</span><span class="va">model</span>, i.var <span class="op">=</span> <span class="st">"bio12"</span>, main <span class="op">=</span> <span class="st">"Effect of Precipitation (Bio12)"</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>What to Look For?</strong><br>
+- Do the response curves <strong>make ecological sense</strong>?<br>
+- Are important predictors showing meaningful <strong>trends</strong>?</p>
+<hr>
+</div>
+</div>
+<div id="summary-key-model-validation-visualization-techniques" class="section level3" number="13.4.4">
+<h3>
+<span class="header-section-number">13.4.4</span> <strong>Summary: Key Model Validation &amp; Visualization Techniques</strong><a class="anchor" aria-label="anchor" href="#summary-key-model-validation-visualization-techniques"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="37%">
+<col width="49%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Method</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Best For</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Train-Test Split</strong></td>
+<td>Evaluates performance on unseen data.</td>
+<td>General model validation.</td>
+</tr>
+<tr class="even">
+<td><strong>K-Fold Cross-Validation</strong></td>
+<td>Ensures stability across multiple splits.</td>
+<td>Large datasets.</td>
+</tr>
+<tr class="odd">
+<td><strong>LOOCV</strong></td>
+<td>Uses every point for training/testing.</td>
+<td>Small datasets.</td>
+</tr>
+<tr class="even">
+<td><strong>Spatial Cross-Validation</strong></td>
+<td>Prevents spatial overfitting.</td>
+<td>SDMs with clustered data.</td>
+</tr>
+<tr class="odd">
+<td><strong>ROC Curve</strong></td>
+<td>Evaluates sensitivity-specificity trade-off.</td>
+<td>Presence/absence models.</td>
+</tr>
+<tr class="even">
+<td><strong>Precision-Recall Curve</strong></td>
+<td>Measures performance for rare species.</td>
+<td>Imbalanced datasets.</td>
+</tr>
+<tr class="odd">
+<td><strong>Suitability Maps</strong></td>
+<td>Visualizes habitat suitability.</td>
+<td>Presence-only models (e.g., MaxEnt).</td>
+</tr>
+<tr class="even">
+<td><strong>Response Curves</strong></td>
+<td>Ensures predictor-response relationships make sense.</td>
+<td>All SDMs.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="next-steps-4" class="section level3" number="13.4.5">
+<h3>
+<span class="header-section-number">13.4.5</span> <strong>Next Steps</strong><a class="anchor" aria-label="anchor" href="#next-steps-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that we have <strong>validated the model and visualized results</strong>, the next section will explore <strong>comparing different SDM models (CART, RF, GBM, MaxEnt) to choose the best approach for a given dataset.</strong> 🚀</p>
+<hr>
+</div>
+</div>
+<div id="comparing-models-cart-rf-gbm-and-maxent" class="section level2" number="13.5">
+<h2>
+<span class="header-section-number">13.5</span> <strong>5. Comparing Models: CART, RF, GBM, and MaxEnt</strong><a class="anchor" aria-label="anchor" href="#comparing-models-cart-rf-gbm-and-maxent"><i class="fas fa-link"></i></a>
+</h2>
+<p>Selecting the best <strong>Species Distribution Model (SDM)</strong> depends on <strong>data type</strong>, <strong>research goals</strong>, and <strong>computational resources</strong>. Here, we compare <strong>CART, Random Forest (RF), Gradient Boosting Machine (GBM), and MaxEnt</strong> to determine when each is most useful.</p>
+<hr>
+<div id="best-evaluation-metrics-for-tree-based-vs.-presence-background-models" class="section level3" number="13.5.1">
+<h3>
+<span class="header-section-number">13.5.1</span> <strong>1. Best Evaluation Metrics for Tree-Based vs. Presence-Background Models</strong><a class="anchor" aria-label="anchor" href="#best-evaluation-metrics-for-tree-based-vs.-presence-background-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>Different model types require different evaluation metrics:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="17%">
+<col width="32%">
+<col width="20%">
+<col width="28%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Metric</strong></th>
+<th><strong>CART &amp; RF (Classification)</strong></th>
+<th><strong>GBM (Boosting)</strong></th>
+<th><strong>MaxEnt (Presence-Only)</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Accuracy</strong></td>
+<td>✅ Good for presence/absence</td>
+<td>✅ Works well</td>
+<td>❌ Not applicable</td>
+</tr>
+<tr class="even">
+<td><strong>AUC-ROC</strong></td>
+<td>✅ Good for all classification models</td>
+<td>✅ Strong predictor</td>
+<td>✅ Best for MaxEnt</td>
+</tr>
+<tr class="odd">
+<td><strong>Precision-Recall</strong></td>
+<td>✅ Works for imbalanced data</td>
+<td>✅ Works for boosting models</td>
+<td>✅ Works for presence-only data</td>
+</tr>
+<tr class="even">
+<td><strong>TSS</strong></td>
+<td>✅ Useful in SDMs</td>
+<td>✅ More informative than accuracy</td>
+<td>✅ Common in presence-background models</td>
+</tr>
+<tr class="odd">
+<td><strong>Response Curves</strong></td>
+<td>✅ Helps interpret variable impact</td>
+<td>✅ Useful for interpretation</td>
+<td>✅ Essential for ecological validation</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>Takeaway</strong>: <strong>MaxEnt relies more on AUC and presence-background validation</strong>, while tree-based methods use <strong>accuracy and classification metrics</strong>.</p>
+<hr>
+</div>
+<div id="when-to-use-different-sdm-models" class="section level3" number="13.5.2">
+<h3>
+<span class="header-section-number">13.5.2</span> <strong>2. When to Use Different SDM Models?</strong><a class="anchor" aria-label="anchor" href="#when-to-use-different-sdm-models"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="20%">
+<col width="28%">
+<col width="23%">
+<col width="28%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Model</strong></th>
+<th><strong>Best Used For</strong></th>
+<th><strong>Advantages</strong></th>
+<th><strong>Disadvantages</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>CART</strong></td>
+<td>Simple rules-based classification.</td>
+<td>Easy to interpret.</td>
+<td>Prone to overfitting.</td>
+</tr>
+<tr class="even">
+<td><strong>Random Forest (RF)</strong></td>
+<td>Presence-absence classification.</td>
+<td>Handles nonlinear relationships, reduces overfitting.</td>
+<td>Computationally expensive.</td>
+</tr>
+<tr class="odd">
+<td><strong>GBM</strong></td>
+<td>High-accuracy modeling.</td>
+<td>Best predictive power.</td>
+<td>Requires tuning, slow training.</td>
+</tr>
+<tr class="even">
+<td><strong>MaxEnt</strong></td>
+<td>Presence-only data modeling.</td>
+<td>Handles small datasets, works without absence data.</td>
+<td>Cannot model true absence data.</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>Takeaway</strong>:<br>
+- <strong>Use CART when interpretability is key.</strong><br>
+- <strong>Use RF for balanced presence-absence classification.</strong><br>
+- <strong>Use GBM when maximum accuracy is needed.</strong><br>
+- <strong>Use MaxEnt when only presence data is available.</strong></p>
+<hr>
+</div>
+<div id="performance-trade-offs-interpretability-vs.-accuracy-vs.-computational-cost" class="section level3" number="13.5.3">
+<h3>
+<span class="header-section-number">13.5.3</span> <strong>3. Performance Trade-Offs: Interpretability vs. Accuracy vs. Computational Cost</strong><a class="anchor" aria-label="anchor" href="#performance-trade-offs-interpretability-vs.-accuracy-vs.-computational-cost"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="27%">
+<col width="19%">
+<col width="17%">
+<col width="17%">
+<col width="19%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Factor</strong></th>
+<th><strong>CART</strong></th>
+<th><strong>RF</strong></th>
+<th><strong>GBM</strong></th>
+<th><strong>MaxEnt</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Interpretability</strong></td>
+<td>✅ Very High</td>
+<td>❌ Harder to interpret</td>
+<td>❌ Harder to interpret</td>
+<td>✅ Response curves help interpret results</td>
+</tr>
+<tr class="even">
+<td><strong>Accuracy</strong></td>
+<td>❌ Low</td>
+<td>✅ High</td>
+<td>✅ Very High</td>
+<td>✅ High for presence-only</td>
+</tr>
+<tr class="odd">
+<td><strong>Computational Cost</strong></td>
+<td>✅ Fast</td>
+<td>❌ Medium-High</td>
+<td>❌ High</td>
+<td>✅ Efficient for presence-only</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>Takeaway</strong>:<br>
+- <strong>Use CART when interpretability is more important than accuracy.</strong><br>
+- <strong>Use RF/GBM when accuracy is the priority.</strong><br>
+- <strong>Use MaxEnt when working with presence-only data and computational efficiency is needed.</strong></p>
+<hr>
+</div>
+</div>
+<div id="common-pitfalls-in-model-evaluation-1" class="section level2" number="13.6">
+<h2>
+<span class="header-section-number">13.6</span> <strong>6. Common Pitfalls in Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#common-pitfalls-in-model-evaluation-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Even when models perform well, <strong>several pitfalls</strong> can lead to misleading results.</p>
+<div id="overfitting-when-a-model-is-too-complex-and-fails-to-generalize" class="section level3" number="13.6.1">
+<h3>
+<span class="header-section-number">13.6.1</span> <strong>1. Overfitting: When a Model is Too Complex and Fails to Generalize</strong><a class="anchor" aria-label="anchor" href="#overfitting-when-a-model-is-too-complex-and-fails-to-generalize"><i class="fas fa-link"></i></a>
+</h3>
+<p>⚠️ <strong>Problem</strong>: A model that fits training data perfectly but performs poorly on new data.</p>
+<p>🔹 <strong>Solution</strong>:<br>
+- Use <strong>cross-validation</strong> to ensure generalization.<br>
+- <strong>Regularization</strong> in GBM and MaxEnt prevents overfitting.<br>
+- <strong>Limit tree depth</strong> in CART and RF.</p>
+<hr>
+</div>
+<div id="ignoring-spatial-bias-why-presence-points-should-be-spatially-independent" class="section level3" number="13.6.2">
+<h3>
+<span class="header-section-number">13.6.2</span> <strong>2. Ignoring Spatial Bias: Why Presence Points Should Be Spatially Independent</strong><a class="anchor" aria-label="anchor" href="#ignoring-spatial-bias-why-presence-points-should-be-spatially-independent"><i class="fas fa-link"></i></a>
+</h3>
+<p>⚠️ <strong>Problem</strong>:<br>
+- If presence records <strong>cluster near roads or specific locations</strong>, the model may falsely learn that species prefer those areas.</p>
+<p>🔹 <strong>Solution</strong>:<br>
+- Use <strong>spatial cross-validation</strong> instead of random splits.<br>
+- <strong>Apply bias correction</strong> in MaxEnt to adjust for sampling effort.</p>
+<hr>
+</div>
+<div id="improper-thresholding-setting-unrealistic-suitability-cutoffs" class="section level3" number="13.6.3">
+<h3>
+<span class="header-section-number">13.6.3</span> <strong>3. Improper Thresholding: Setting Unrealistic Suitability Cutoffs</strong><a class="anchor" aria-label="anchor" href="#improper-thresholding-setting-unrealistic-suitability-cutoffs"><i class="fas fa-link"></i></a>
+</h3>
+<p>⚠️ <strong>Problem</strong>:<br>
+- Converting <strong>continuous suitability scores</strong> into <strong>binary presence-absence maps</strong> using arbitrary thresholds.</p>
+<p>🔹 <strong>Solution</strong>:<br>
+- Use <strong>Maximize Sensitivity-Specificity Thresholding</strong>.<br>
+- Compare <strong>multiple thresholding methods</strong> to select the most meaningful.</p>
+<p>✅ <strong>Takeaway</strong>: Always validate threshold selection with ecological knowledge.</p>
+<hr>
+</div>
+</div>
+<div id="summary-best-practices" class="section level2" number="13.7">
+<h2>
+<span class="header-section-number">13.7</span> <strong>7. Summary &amp; Best Practices</strong><a class="anchor" aria-label="anchor" href="#summary-best-practices"><i class="fas fa-link"></i></a>
+</h2>
+<div id="key-takeaways-from-model-evaluation" class="section level3" number="13.7.1">
+<h3>
+<span class="header-section-number">13.7.1</span> <strong>Key Takeaways from Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-from-model-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Different models require different evaluation metrics</strong> – RF/GBM rely on classification metrics, while MaxEnt uses presence-background validation.<br>
+</li>
+<li>
+<strong>Choose models based on data availability</strong> – Presence-absence models work well for classification, while MaxEnt is best for presence-only data.<br>
+</li>
+<li>
+<strong>Avoid common pitfalls</strong> – Overfitting, spatial bias, and improper thresholding can reduce model reliability.</li>
+</ul>
+<hr>
+</div>
+<div id="recommended-workflow-for-assessing-sdm-performance" class="section level3" number="13.7.2">
+<h3>
+<span class="header-section-number">13.7.2</span> <strong>Recommended Workflow for Assessing SDM Performance</strong><a class="anchor" aria-label="anchor" href="#recommended-workflow-for-assessing-sdm-performance"><i class="fas fa-link"></i></a>
+</h3>
+<p>✅ <strong>Step 1: Choose an SDM Model Based on Data Type</strong><br>
+- Use <strong>CART, RF, or GBM for presence-absence</strong>.<br>
+- Use <strong>MaxEnt for presence-only data</strong>.</p>
+<p>✅ <strong>Step 2: Apply Proper Validation Techniques</strong><br>
+- Use <strong>Train-Test Splitting</strong> or <strong>Cross-Validation</strong> for presence-absence models.<br>
+- Use <strong>Spatial Cross-Validation</strong> when presence points are clustered.</p>
+<p>✅ <strong>Step 3: Select the Right Performance Metrics</strong><br>
+- <strong>Accuracy, Sensitivity, Specificity, Kappa</strong> for RF/GBM.<br>
+- <strong>AUC, TSS, PR-Curve</strong> for MaxEnt.</p>
+<p>✅ <strong>Step 4: Interpret Results Ecologically</strong><br>
+- Ensure that <strong>response curves make biological sense</strong>.<br>
+- Check that <strong>species presence is predicted in ecologically relevant areas</strong>.</p>
+<hr>
+</div>
+<div id="iterative-improvements-how-to-refine-models-based-on-evaluation-results" class="section level3" number="13.7.3">
+<h3>
+<span class="header-section-number">13.7.3</span> <strong>Iterative Improvements: How to Refine Models Based on Evaluation Results</strong><a class="anchor" aria-label="anchor" href="#iterative-improvements-how-to-refine-models-based-on-evaluation-results"><i class="fas fa-link"></i></a>
+</h3>
+<p>🔄 <strong>If AUC is low</strong> → Try different feature selection methods.<br>
+🔄 <strong>If overfitting occurs</strong> → Reduce model complexity (e.g., increase regularization in GBM, limit tree depth in RF).<br>
+🔄 <strong>If presence points are biased</strong> → Use spatially explicit validation.</p>
+<p>✅ <strong>Final Takeaway</strong>:<br>
+By following <strong>best practices in model evaluation</strong>, you ensure that <strong>species distribution models are robust, accurate, and ecologically meaningful</strong>. 🚀</p>
+
+</div>
+</div>
+<div id="ensemble-models" class="section level2" number="13.8">
+<h2>
+<span class="header-section-number">13.8</span> # Ensemble Models<a class="anchor" aria-label="anchor" href="#ensemble-models"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="introduction-to-ensemble-models" class="section level2" number="13.9">
+<h2>
+<span class="header-section-number">13.9</span> <strong>1. Introduction to Ensemble Models</strong><a class="anchor" aria-label="anchor" href="#introduction-to-ensemble-models"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<div id="what-are-ensemble-models" class="section level3" number="13.9.1">
+<h3>
+<span class="header-section-number">13.9.1</span> <strong>What Are Ensemble Models?</strong><a class="anchor" aria-label="anchor" href="#what-are-ensemble-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ensemble models combine predictions from multiple models to <strong>increase accuracy, stability, and generalization</strong>. Instead of relying on a single model, ensembles aggregate results from different models to produce a more <strong>robust</strong> prediction.</p>
+<p>Ensemble methods are particularly useful in <strong>Species Distribution Modeling (SDM)</strong> because different algorithms may capture different aspects of species-environment relationships.</p>
+<hr>
+</div>
+<div id="why-use-ensemble-approaches-in-sdm" class="section level3" number="13.9.2">
+<h3>
+<span class="header-section-number">13.9.2</span> <strong>Why Use Ensemble Approaches in SDM?</strong><a class="anchor" aria-label="anchor" href="#why-use-ensemble-approaches-in-sdm"><i class="fas fa-link"></i></a>
+</h3>
+<p>📌 <strong>Single models may be biased</strong> – Different SDM algorithms have strengths and weaknesses.<br>
+📌 <strong>Combining models improves reliability</strong> – Ensembles reduce overfitting and increase prediction stability.<br>
+📌 <strong>More realistic ecological interpretations</strong> – Reducing uncertainty in predictions makes results more reliable for conservation planning.</p>
+<p>✅ <strong>Example</strong>: If a species’ distribution is predicted differently by <strong>MaxEnt (presence-only) and Random Forest (presence-absence)</strong>, an ensemble model can <strong>blend</strong> both predictions for a better outcome.</p>
+<hr>
+</div>
+<div id="advantages-over-single-model-predictions" class="section level3" number="13.9.3">
+<h3>
+<span class="header-section-number">13.9.3</span> <strong>Advantages Over Single-Model Predictions</strong><a class="anchor" aria-label="anchor" href="#advantages-over-single-model-predictions"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="55%">
+<col width="44%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Advantage</strong></th>
+<th><strong>Explanation</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Increased Accuracy</strong></td>
+<td>Aggregating models reduces individual errors.</td>
+</tr>
+<tr class="even">
+<td><strong>Better Generalization</strong></td>
+<td>Prevents overfitting to training data.</td>
+</tr>
+<tr class="odd">
+<td><strong>Reduced Uncertainty</strong></td>
+<td>Multiple models provide more stable predictions.</td>
+</tr>
+<tr class="even">
+<td><strong>Improved Ecological Interpretability</strong></td>
+<td>More robust predictions across different environmental gradients.</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>Takeaway</strong>: Ensemble models are widely used in <strong>machine learning and ecology</strong> to improve species distribution predictions.</p>
+<hr>
+</div>
+</div>
+<div id="types-of-ensemble-methods" class="section level2" number="13.10">
+<h2>
+<span class="header-section-number">13.10</span> <strong>2. Types of Ensemble Methods</strong><a class="anchor" aria-label="anchor" href="#types-of-ensemble-methods"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are four common <strong>ensemble modeling techniques</strong> used in SDM.</p>
+<hr>
+<div id="bagging-bootstrap-aggregating" class="section level3" number="13.10.1">
+<h3>
+<span class="header-section-number">13.10.1</span> <strong>1. Bagging (Bootstrap Aggregating)</strong><a class="anchor" aria-label="anchor" href="#bagging-bootstrap-aggregating"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bagging creates multiple versions of the same model by training them on <strong>different random subsets of the data</strong> and then averaging their predictions.</p>
+<p>📌 <strong>Example</strong>: <strong>Random Forest</strong> is a bagging method that builds multiple decision trees and averages their outputs.</p>
+<p>✅ <strong>Reduces variance</strong> and prevents overfitting.<br>
+✅ Works well for <strong>presence-absence models</strong>.</p>
+<hr>
+</div>
+<div id="boosting" class="section level3" number="13.10.2">
+<h3>
+<span class="header-section-number">13.10.2</span> <strong>2. Boosting</strong><a class="anchor" aria-label="anchor" href="#boosting"><i class="fas fa-link"></i></a>
+</h3>
+<p>Boosting builds models <strong>sequentially</strong>, where each new model <strong>learns from the errors of the previous models</strong> to improve performance.</p>
+<p>📌 <strong>Example</strong>: <strong>Gradient Boosting Machine (GBM)</strong> sequentially refines weak learners into a strong model.</p>
+<p>✅ Improves <strong>accuracy</strong> by learning from mistakes.<br>
+✅ Works well with <strong>complex, nonlinear relationships</strong>.</p>
+<hr>
+</div>
+<div id="stacking-model-stacking" class="section level3" number="13.10.3">
+<h3>
+<span class="header-section-number">13.10.3</span> <strong>3. Stacking (Model Stacking)</strong><a class="anchor" aria-label="anchor" href="#stacking-model-stacking"><i class="fas fa-link"></i></a>
+</h3>
+<p>Stacking is a <strong>meta-learning approach</strong> that combines predictions from multiple models and <strong>trains another model to learn which predictions to trust more</strong>.</p>
+<p>📌 <strong>Example</strong>: Combining <strong>MaxEnt, Random Forest, and GBM</strong> into a final predictive model.</p>
+<p>✅ Learns the <strong>best combination of models</strong> for optimal predictions.<br>
+✅ Reduces <strong>individual model biases</strong>.</p>
+<hr>
+</div>
+<div id="weighted-ensemble-models" class="section level3" number="13.10.4">
+<h3>
+<span class="header-section-number">13.10.4</span> <strong>4. Weighted Ensemble Models</strong><a class="anchor" aria-label="anchor" href="#weighted-ensemble-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>Instead of treating all models equally, <strong>weighted ensembles</strong> assign different weights to different models based on <strong>performance metrics</strong> (e.g., AUC, TSS).</p>
+<p>📌 <strong>Example</strong>: If <strong>MaxEnt</strong> performs best for presence-only data, it gets a <strong>higher weight</strong> than CART or GBM in the final ensemble.</p>
+<p>✅ Balances <strong>strengths and weaknesses</strong> of different models.<br>
+✅ Can be <strong>customized</strong> based on model reliability.</p>
+<hr>
+</div>
+<div id="summary-choosing-the-right-ensemble-method" class="section level3" number="13.10.5">
+<h3>
+<span class="header-section-number">13.10.5</span> <strong>Summary: Choosing the Right Ensemble Method</strong><a class="anchor" aria-label="anchor" href="#summary-choosing-the-right-ensemble-method"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="43%">
+<col width="26%">
+<col width="30%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Ensemble Method</strong></th>
+<th><strong>Best For</strong></th>
+<th><strong>Key Benefit</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Bagging (RF)</strong></td>
+<td>Presence-Absence Data</td>
+<td>Reduces overfitting</td>
+</tr>
+<tr class="even">
+<td><strong>Boosting (GBM)</strong></td>
+<td>Complex SDM Patterns</td>
+<td>Increases accuracy</td>
+</tr>
+<tr class="odd">
+<td><strong>Stacking</strong></td>
+<td>Combining Multiple SDM Models</td>
+<td>Improves predictive power</td>
+</tr>
+<tr class="even">
+<td><strong>Weighted Ensembles</strong></td>
+<td>Balancing Model Contributions</td>
+<td>Reduces bias</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+</div>
+<div id="implementing-ensemble-models-in-r" class="section level2" number="13.11">
+<h2>
+<span class="header-section-number">13.11</span> <strong>3. Implementing Ensemble Models in R</strong><a class="anchor" aria-label="anchor" href="#implementing-ensemble-models-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this section, we will <strong>train multiple Species Distribution Models (SDMs)</strong> using <strong>CART, Random Forest (RF), Gradient Boosting Machine (GBM), and MaxEnt</strong>, then <strong>combine their predictions into an ensemble model</strong> for improved accuracy and robustness.</p>
+<hr>
+<div id="step-1-load-necessary-libraries" class="section level3" number="13.11.1">
+<h3>
+<span class="header-section-number">13.11.1</span> <strong>Step 1: Load Necessary Libraries</strong><a class="anchor" aria-label="anchor" href="#step-1-load-necessary-libraries"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load required libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span>        <span class="co"># For species distribution modeling</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span>        <span class="co"># CART (Decision Tree)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stat.berkeley.edu/~breiman/RandomForests/">randomForest</a></span><span class="op">)</span> <span class="co"># Random Forest</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gbm-developers/gbm">gbm</a></span><span class="op">)</span>         <span class="co"># Gradient Boosting Machine</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span>       <span class="co"># Model training and evaluation</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jamiemkass.github.io/ENMeval/">ENMeval</a></span><span class="op">)</span>     <span class="co"># MaxEnt modeling</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/">terra</a></span><span class="op">)</span>       <span class="co"># Handling raster data</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-2-load-and-prepare-data-2" class="section level3" number="13.11.2">
+<h3>
+<span class="header-section-number">13.11.2</span> <strong>Step 2: Load and Prepare Data</strong><a class="anchor" aria-label="anchor" href="#step-2-load-and-prepare-data-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>We will use <strong>presence-absence data</strong> from <code><a href="https://rdrr.io/pkg/dismo/man/bioclim.html">dismo::bioclim</a></code> and <strong>environmental predictors</strong>.</p>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load species data</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">dismo</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dismo/man/bioclim.html">bioclim</a></span></span>
+<span></span>
+<span><span class="co"># Convert presence to a factor (classification task)</span></span>
+<span><span class="va">data</span><span class="op">$</span><span class="va">presence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/is.bool.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Split into Training and Testing Sets (70% Training, 30% Testing)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">trainIndex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span>, p <span class="op">=</span> <span class="fl">0.7</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">trainIndex</span>, <span class="op">]</span></span>
+<span><span class="va">test_data</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="op">-</span><span class="va">trainIndex</span>, <span class="op">]</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-3-train-individual-sdm-models" class="section level3" number="13.11.3">
+<h3>
+<span class="header-section-number">13.11.3</span> <strong>Step 3: Train Individual SDM Models</strong><a class="anchor" aria-label="anchor" href="#step-3-train-individual-sdm-models"><i class="fas fa-link"></i></a>
+</h3>
+<div id="cart-model-decision-tree" class="section level4" number="13.11.3.1">
+<h4>
+<span class="header-section-number">13.11.3.1</span> <strong>1. CART Model (Decision Tree)</strong><a class="anchor" aria-label="anchor" href="#cart-model-decision-tree"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cart_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span>, method <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span>
+<span><span class="va">cart_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">cart_model</span>, <span class="va">test_data</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>  <span class="co"># Probability of presence</span></span></code></pre></div>
+<hr>
+</div>
+<div id="random-forest-model" class="section level4" number="13.11.3.2">
+<h4>
+<span class="header-section-number">13.11.3.2</span> <strong>2. Random Forest Model</strong><a class="anchor" aria-label="anchor" href="#random-forest-model"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rf_model</span> <span class="op">&lt;-</span> <span class="fu">randomForest</span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span>, ntree <span class="op">=</span> <span class="fl">500</span>, importance <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">rf_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf_model</span>, <span class="va">test_data</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>  <span class="co"># Probability of presence</span></span></code></pre></div>
+<hr>
+</div>
+<div id="gradient-boosting-machine-gbm" class="section level4" number="13.11.3.3">
+<h4>
+<span class="header-section-number">13.11.3.3</span> <strong>3. Gradient Boosting Machine (GBM)</strong><a class="anchor" aria-label="anchor" href="#gradient-boosting-machine-gbm"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gbm_model</span> <span class="op">&lt;-</span> <span class="fu">gbm</span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span>, distribution <span class="op">=</span> <span class="st">"bernoulli"</span>, </span>
+<span>                 n.trees <span class="op">=</span> <span class="fl">500</span>, shrinkage <span class="op">=</span> <span class="fl">0.01</span>, interaction.depth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">gbm_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm_model</span>, <span class="va">test_data</span>, n.trees <span class="op">=</span> <span class="fl">500</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="maxent-model-presence-only" class="section level4" number="13.11.3.4">
+<h4>
+<span class="header-section-number">13.11.3.4</span> <strong>4. MaxEnt Model (Presence-Only)</strong><a class="anchor" aria-label="anchor" href="#maxent-model-presence-only"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prepare data for MaxEnt</span></span>
+<span><span class="va">presence_points</span> <span class="op">&lt;-</span> <span class="va">train_data</span><span class="op">[</span><span class="va">train_data</span><span class="op">$</span><span class="va">presence</span> <span class="op">==</span> <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">background_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/randomPoints.html">randomPoints</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="fl">500</span><span class="op">)</span>  <span class="co"># Generate background points</span></span>
+<span></span>
+<span><span class="co"># Train MaxEnt model</span></span>
+<span><span class="va">maxent_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/maxent.html">maxent</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">presence_points</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Predict probabilities</span></span>
+<span><span class="va">maxent_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">maxent_model</span>, <span class="va">test_data</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="step-4-combine-predictions-into-an-ensemble-model" class="section level3" number="13.11.4">
+<h3>
+<span class="header-section-number">13.11.4</span> <strong>Step 4: Combine Predictions into an Ensemble Model</strong><a class="anchor" aria-label="anchor" href="#step-4-combine-predictions-into-an-ensemble-model"><i class="fas fa-link"></i></a>
+</h3>
+<p>We will use a <strong>simple mean ensemble</strong> by averaging the probability predictions from all models.</p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Combine model predictions</span></span>
+<span><span class="va">ensemble_pred</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">cart_pred</span> <span class="op">+</span> <span class="va">rf_pred</span> <span class="op">+</span> <span class="va">gbm_pred</span> <span class="op">+</span> <span class="va">maxent_pred</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span></span></code></pre></div>
+<p>Alternatively, <strong>weighted ensembles</strong> can be used by giving higher weights to models with better AUC scores.</p>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Compute AUC scores for each model</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span><span class="va">auc_cart</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">cart_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">auc_rf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">rf_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">auc_gbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">gbm_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">auc_maxent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">maxent_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute weighted ensemble based on AUC</span></span>
+<span><span class="va">total_auc</span> <span class="op">&lt;-</span> <span class="va">auc_cart</span> <span class="op">+</span> <span class="va">auc_rf</span> <span class="op">+</span> <span class="va">auc_gbm</span> <span class="op">+</span> <span class="va">auc_maxent</span></span>
+<span><span class="va">weights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">auc_cart</span>, <span class="va">auc_rf</span>, <span class="va">auc_gbm</span>, <span class="va">auc_maxent</span><span class="op">)</span> <span class="op">/</span> <span class="va">total_auc</span></span>
+<span><span class="va">ensemble_pred_weighted</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">weights</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">*</span> <span class="va">cart_pred</span> <span class="op">+</span> </span>
+<span>                           <span class="va">weights</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="va">rf_pred</span> <span class="op">+</span> </span>
+<span>                           <span class="va">weights</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="va">gbm_pred</span> <span class="op">+</span> </span>
+<span>                           <span class="va">weights</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">*</span> <span class="va">maxent_pred</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-5-evaluate-ensemble-performance-vs.-individual-models" class="section level3" number="13.11.5">
+<h3>
+<span class="header-section-number">13.11.5</span> <strong>Step 5: Evaluate Ensemble Performance vs. Individual Models</strong><a class="anchor" aria-label="anchor" href="#step-5-evaluate-ensemble-performance-vs.-individual-models"><i class="fas fa-link"></i></a>
+</h3>
+<div id="compute-auc-scores" class="section level4" number="13.11.5.1">
+<h4>
+<span class="header-section-number">13.11.5.1</span> <strong>1. Compute AUC Scores</strong><a class="anchor" aria-label="anchor" href="#compute-auc-scores"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">auc_ensemble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">ensemble_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">auc_weighted_ensemble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">ensemble_pred_weighted</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"CART AUC:"</span>, <span class="va">auc_cart</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Random Forest AUC:"</span>, <span class="va">auc_rf</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"GBM AUC:"</span>, <span class="va">auc_gbm</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"MaxEnt AUC:"</span>, <span class="va">auc_maxent</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Simple Ensemble AUC:"</span>, <span class="va">auc_ensemble</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Weighted Ensemble AUC:"</span>, <span class="va">auc_weighted_ensemble</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="compare-accuracy-1" class="section level4" number="13.11.5.2">
+<h4>
+<span class="header-section-number">13.11.5.2</span> <strong>2. Compare Accuracy</strong><a class="anchor" aria-label="anchor" href="#compare-accuracy-1"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Convert probabilities to presence/absence using 0.5 threshold</span></span>
+<span><span class="va">ensemble_pred_class</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">ensemble_pred</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"1"</span>, <span class="st">"0"</span><span class="op">)</span></span>
+<span><span class="va">weighted_ensemble_pred_class</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">ensemble_pred_weighted</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"1"</span>, <span class="st">"0"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute accuracy for each model</span></span>
+<span><span class="va">accuracy_ensemble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ensemble_pred_class</span> <span class="op">==</span> <span class="va">test_data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html">nrow</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span></span>
+<span><span class="va">accuracy_weighted_ensemble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">weighted_ensemble_pred_class</span> <span class="op">==</span> <span class="va">test_data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html">nrow</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Ensemble Accuracy:"</span>, <span class="va">accuracy_ensemble</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Weighted Ensemble Accuracy:"</span>, <span class="va">accuracy_weighted_ensemble</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>Expected Results</strong>:<br>
+- The <strong>ensemble models should outperform individual models</strong>.<br>
+- <strong>Weighted ensembles</strong> should perform <strong>better than simple averaging</strong> because they prioritize <strong>better-performing models</strong>.</p>
+<hr>
+</div>
+</div>
+<div id="summary-ensemble-modeling-in-sdm" class="section level3" number="13.11.6">
+<h3>
+<span class="header-section-number">13.11.6</span> <strong>Summary: Ensemble Modeling in SDM</strong><a class="anchor" aria-label="anchor" href="#summary-ensemble-modeling-in-sdm"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="32%">
+<col width="32%">
+<col width="35%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Model</strong></th>
+<th><strong>Strengths</strong></th>
+<th><strong>Weaknesses</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>CART</strong></td>
+<td>Simple &amp; interpretable</td>
+<td>Lower accuracy</td>
+</tr>
+<tr class="even">
+<td><strong>Random Forest (RF)</strong></td>
+<td>Reduces overfitting</td>
+<td>Computationally expensive</td>
+</tr>
+<tr class="odd">
+<td><strong>GBM</strong></td>
+<td>High predictive accuracy</td>
+<td>Requires tuning</td>
+</tr>
+<tr class="even">
+<td><strong>MaxEnt</strong></td>
+<td>Works with presence-only data</td>
+<td>Can’t model true absences</td>
+</tr>
+<tr class="odd">
+<td><strong>Ensemble (Mean)</strong></td>
+<td>Balances strengths of all models</td>
+<td>May treat weaker models equally</td>
+</tr>
+<tr class="even">
+<td><strong>Weighted Ensemble</strong></td>
+<td>Prioritizes stronger models</td>
+<td>Requires AUC-based weighting</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>Final Takeaway</strong>:<br>
+- <strong>Simple averaging</strong> of models is an <strong>easy way to improve accuracy</strong>.<br>
+- <strong>Weighted ensembles</strong> provide <strong>even better performance</strong> by giving <strong>higher importance to stronger models</strong>.</p>
+</div>
+<div id="benefits-of-ensemble-models" class="section level3" number="13.11.7">
+<h3>
+<span class="header-section-number">13.11.7</span> <strong>Benefits of Ensemble Models</strong><a class="anchor" aria-label="anchor" href="#benefits-of-ensemble-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ensemble models provide significant improvements over single-model predictions, making them valuable for <strong>Species Distribution Modeling (SDM)</strong>.</p>
+<p>✅ <strong>Improved Accuracy</strong><br>
+- By combining multiple models, ensembles capture <strong>different aspects of species-environment relationships</strong>, leading to <strong>better predictions</strong>.<br>
+- <strong>Example</strong>: If MaxEnt overpredicts species presence and RF underpredicts, the ensemble <strong>balances</strong> these biases.</p>
+<p>✅ <strong>Reduced Overfitting</strong><br>
+- Individual models (e.g., <strong>CART</strong>) may overfit to training data, but ensembles <strong>smooth out inconsistencies</strong>.<br>
+- Methods like <strong>bagging (RF)</strong> and <strong>boosting (GBM)</strong> prevent models from learning noise.</p>
+<p>✅ <strong>Better Generalization to New Data</strong><br>
+- Combining models makes predictions <strong>more stable</strong> across different environmental conditions.<br>
+- <strong>Example</strong>: If a single model performs poorly in certain regions, others in the ensemble compensate.</p>
+<p>✅ <strong>More Robust Predictions for Conservation</strong><br>
+- When SDMs are used for conservation planning, <strong>reducing uncertainty is crucial</strong>.<br>
+- <strong>Example</strong>: In habitat suitability mapping, ensembles minimize the risk of <strong>false negatives</strong> (missing critical habitats).</p>
+<hr>
+</div>
+<div id="limitations-of-ensemble-models" class="section level3" number="13.11.8">
+<h3>
+<span class="header-section-number">13.11.8</span> <strong>Limitations of Ensemble Models</strong><a class="anchor" aria-label="anchor" href="#limitations-of-ensemble-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>⚠️ <strong>Increased Computational Cost</strong><br>
+- Training multiple models requires <strong>more processing power and time</strong>.<br>
+- <strong>Example</strong>: Running <strong>CART, RF, GBM, and MaxEnt together</strong> takes longer than a single MaxEnt model.</p>
+<p>⚠️ <strong>Model Complexity</strong><br>
+- Understanding <strong>why</strong> an ensemble makes a prediction is harder than understanding a <strong>single decision tree (CART)</strong>.<br>
+- <strong>Solution</strong>: Feature importance analysis can <strong>help interpret which variables matter most</strong>.</p>
+<p>⚠️ <strong>Difficult Interpretation</strong><br>
+- Some stakeholders (e.g., policymakers, conservation planners) prefer <strong>simple, interpretable models</strong>.<br>
+- <strong>Example</strong>: A single <strong>decision tree (CART)</strong> is easy to explain, while a complex <strong>GBM ensemble</strong> is not.</p>
+<p>✅ <strong>Takeaway</strong>:<br>
+Use ensembles <strong>when accuracy is critical</strong> but be mindful of <strong>computational costs and interpretability challenges</strong>.</p>
+<hr>
+</div>
+</div>
+<div id="summary-best-practices-1" class="section level2" number="13.12">
+<h2>
+<span class="header-section-number">13.12</span> <strong>5. Summary &amp; Best Practices</strong><a class="anchor" aria-label="anchor" href="#summary-best-practices-1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="when-to-use-ensemble-models-in-sdm" class="section level3" number="13.12.1">
+<h3>
+<span class="header-section-number">13.12.1</span> <strong>When to Use Ensemble Models in SDM</strong><a class="anchor" aria-label="anchor" href="#when-to-use-ensemble-models-in-sdm"><i class="fas fa-link"></i></a>
+</h3>
+<p>📌 When <strong>multiple models provide different results</strong>, and we need a <strong>consensus prediction</strong>.<br>
+📌 When we want to <strong>reduce uncertainty</strong> in species distribution maps.<br>
+📌 When working with <strong>complex environmental datasets</strong> where single models struggle.<br>
+📌 When prioritizing <strong>accuracy over interpretability</strong> (e.g., conservation planning).</p>
+<hr>
+</div>
+<div id="recommended-workflow-for-building-and-evaluating-ensembles" class="section level3" number="13.12.2">
+<h3>
+<span class="header-section-number">13.12.2</span> <strong>Recommended Workflow for Building and Evaluating Ensembles</strong><a class="anchor" aria-label="anchor" href="#recommended-workflow-for-building-and-evaluating-ensembles"><i class="fas fa-link"></i></a>
+</h3>
+<p>✅ <strong>Step 1: Train Multiple Models</strong><br>
+- Use <strong>CART, RF, GBM, and MaxEnt</strong> to generate individual predictions.</p>
+<p>✅ <strong>Step 2: Select the Best Models</strong><br>
+- Remove models that perform poorly (low <strong>AUC, TSS, or Kappa</strong> scores).</p>
+<p>✅ <strong>Step 3: Combine Predictions Using an Ensemble Approach</strong><br>
+- <strong>Simple averaging</strong> (mean of all models).<br>
+- <strong>Weighted averaging</strong> (assign higher weight to better-performing models).</p>
+<p>✅ <strong>Step 4: Evaluate Ensemble Performance</strong><br>
+- Compare ensemble <strong>AUC and accuracy</strong> with individual models.<br>
+- Use <strong>response curves</strong> to check ecological validity.</p>
+<p>✅ <strong>Step 5: Visualize and Interpret Results</strong><br>
+- Generate <strong>ensemble suitability maps</strong> and compare with individual model maps.<br>
+- Ensure <strong>predictions align with ecological expectations</strong>.</p>
+<hr>
+</div>
+<div id="how-to-select-the-best-models-for-ensemble-predictions" class="section level3" number="13.12.3">
+<h3>
+<span class="header-section-number">13.12.3</span> <strong>How to Select the Best Models for Ensemble Predictions?</strong><a class="anchor" aria-label="anchor" href="#how-to-select-the-best-models-for-ensemble-predictions"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="40%">
+<col width="59%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Scenario</strong></th>
+<th><strong>Best Approach</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>High Interpretability Needed</strong></td>
+<td>Use <strong>CART + RF</strong> (decision trees are easier to explain).</td>
+</tr>
+<tr class="even">
+<td><strong>Presence-Only Data</strong></td>
+<td>Use <strong>MaxEnt + GBM</strong> (handles presence-background data well).</td>
+</tr>
+<tr class="odd">
+<td><strong>Max Accuracy Required</strong></td>
+<td>Use <strong>Weighted Ensemble (GBM + RF)</strong>.</td>
+</tr>
+<tr class="even">
+<td><strong>Computationally Limited</strong></td>
+<td>Use <strong>Random Forest (RF)</strong> (avoids training multiple models).</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ <strong>Final Takeaway</strong><br>
+- Ensemble models provide <strong>higher accuracy, reduced overfitting, and better generalization</strong>.<br>
+- However, they require <strong>more computation</strong> and can be <strong>harder to interpret</strong>.<br>
+- Choose the <strong>right ensemble approach</strong> based on <strong>your dataset and conservation goals</strong>.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="gbm-variable-selection.html"><span class="header-section-number">12</span> GBM Variable Selection</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#model-evaluation-in-sdm"><span class="header-section-number">13</span> Model Evaluation in SDM</a></li>
+<li>
+<a class="nav-link" href="#introduction-to-model-evaluation"><span class="header-section-number">13.1</span> 1. Introduction to Model Evaluation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-model-evaluation-is-important-in-sdm"><span class="header-section-number">13.1.1</span> Why Model Evaluation is Important in SDM</a></li>
+<li><a class="nav-link" href="#key-objectives-of-model-evaluation"><span class="header-section-number">13.1.2</span> Key Objectives of Model Evaluation</a></li>
+<li><a class="nav-link" href="#common-pitfalls-in-model-evaluation"><span class="header-section-number">13.1.3</span> Common Pitfalls in Model Evaluation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#performance-metrics-for-model-evaluation"><span class="header-section-number">13.2</span> 2. Performance Metrics for Model Evaluation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#classification-metrics-for-presenceabsence-models"><span class="header-section-number">13.2.1</span> 1. Classification Metrics (For Presence/Absence Models)</a></li>
+<li><a class="nav-link" href="#area-under-the-curve-auc-roc-auc-pr"><span class="header-section-number">13.2.2</span> 2. Area Under the Curve (AUC-ROC &amp; AUC-PR)</a></li>
+<li><a class="nav-link" href="#true-skill-statistic-tss"><span class="header-section-number">13.2.3</span> 3. True Skill Statistic (TSS)</a></li>
+<li><a class="nav-link" href="#root-mean-square-error-rmse-for-continuous-models"><span class="header-section-number">13.2.4</span> 4. Root Mean Square Error (RMSE) for Continuous Models</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#comparison-of-model-evaluation-metrics"><span class="header-section-number">13.3</span> Comparison of Model Evaluation Metrics</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#next-steps-3"><span class="header-section-number">13.3.1</span> Next Steps</a></li>
+<li><a class="nav-link" href="#train-test-split"><span class="header-section-number">13.3.2</span> 1. Train-Test Split</a></li>
+<li><a class="nav-link" href="#cross-validation-1"><span class="header-section-number">13.3.3</span> 2. Cross-Validation</a></li>
+<li><a class="nav-link" href="#spatially-explicit-validation"><span class="header-section-number">13.3.4</span> 3. Spatially Explicit Validation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#visualizing-model-performance"><span class="header-section-number">13.4</span> 4. Visualizing Model Performance</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#roc-and-precision-recall-curves"><span class="header-section-number">13.4.1</span> 1. ROC and Precision-Recall Curves</a></li>
+<li><a class="nav-link" href="#suitability-maps-and-threshold-selection"><span class="header-section-number">13.4.2</span> 2. Suitability Maps and Threshold Selection</a></li>
+<li><a class="nav-link" href="#response-curves"><span class="header-section-number">13.4.3</span> 3. Response Curves</a></li>
+<li><a class="nav-link" href="#summary-key-model-validation-visualization-techniques"><span class="header-section-number">13.4.4</span> Summary: Key Model Validation &amp; Visualization Techniques</a></li>
+<li><a class="nav-link" href="#next-steps-4"><span class="header-section-number">13.4.5</span> Next Steps</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#comparing-models-cart-rf-gbm-and-maxent"><span class="header-section-number">13.5</span> 5. Comparing Models: CART, RF, GBM, and MaxEnt</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#best-evaluation-metrics-for-tree-based-vs.-presence-background-models"><span class="header-section-number">13.5.1</span> 1. Best Evaluation Metrics for Tree-Based vs. Presence-Background Models</a></li>
+<li><a class="nav-link" href="#when-to-use-different-sdm-models"><span class="header-section-number">13.5.2</span> 2. When to Use Different SDM Models?</a></li>
+<li><a class="nav-link" href="#performance-trade-offs-interpretability-vs.-accuracy-vs.-computational-cost"><span class="header-section-number">13.5.3</span> 3. Performance Trade-Offs: Interpretability vs. Accuracy vs. Computational Cost</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#common-pitfalls-in-model-evaluation-1"><span class="header-section-number">13.6</span> 6. Common Pitfalls in Model Evaluation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#overfitting-when-a-model-is-too-complex-and-fails-to-generalize"><span class="header-section-number">13.6.1</span> 1. Overfitting: When a Model is Too Complex and Fails to Generalize</a></li>
+<li><a class="nav-link" href="#ignoring-spatial-bias-why-presence-points-should-be-spatially-independent"><span class="header-section-number">13.6.2</span> 2. Ignoring Spatial Bias: Why Presence Points Should Be Spatially Independent</a></li>
+<li><a class="nav-link" href="#improper-thresholding-setting-unrealistic-suitability-cutoffs"><span class="header-section-number">13.6.3</span> 3. Improper Thresholding: Setting Unrealistic Suitability Cutoffs</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#summary-best-practices"><span class="header-section-number">13.7</span> 7. Summary &amp; Best Practices</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#key-takeaways-from-model-evaluation"><span class="header-section-number">13.7.1</span> Key Takeaways from Model Evaluation</a></li>
+<li><a class="nav-link" href="#recommended-workflow-for-assessing-sdm-performance"><span class="header-section-number">13.7.2</span> Recommended Workflow for Assessing SDM Performance</a></li>
+<li><a class="nav-link" href="#iterative-improvements-how-to-refine-models-based-on-evaluation-results"><span class="header-section-number">13.7.3</span> Iterative Improvements: How to Refine Models Based on Evaluation Results</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#ensemble-models"><span class="header-section-number">13.8</span> # Ensemble Models</a></li>
+<li>
+<a class="nav-link" href="#introduction-to-ensemble-models"><span class="header-section-number">13.9</span> 1. Introduction to Ensemble Models</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#what-are-ensemble-models"><span class="header-section-number">13.9.1</span> What Are Ensemble Models?</a></li>
+<li><a class="nav-link" href="#why-use-ensemble-approaches-in-sdm"><span class="header-section-number">13.9.2</span> Why Use Ensemble Approaches in SDM?</a></li>
+<li><a class="nav-link" href="#advantages-over-single-model-predictions"><span class="header-section-number">13.9.3</span> Advantages Over Single-Model Predictions</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#types-of-ensemble-methods"><span class="header-section-number">13.10</span> 2. Types of Ensemble Methods</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bagging-bootstrap-aggregating"><span class="header-section-number">13.10.1</span> 1. Bagging (Bootstrap Aggregating)</a></li>
+<li><a class="nav-link" href="#boosting"><span class="header-section-number">13.10.2</span> 2. Boosting</a></li>
+<li><a class="nav-link" href="#stacking-model-stacking"><span class="header-section-number">13.10.3</span> 3. Stacking (Model Stacking)</a></li>
+<li><a class="nav-link" href="#weighted-ensemble-models"><span class="header-section-number">13.10.4</span> 4. Weighted Ensemble Models</a></li>
+<li><a class="nav-link" href="#summary-choosing-the-right-ensemble-method"><span class="header-section-number">13.10.5</span> Summary: Choosing the Right Ensemble Method</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#implementing-ensemble-models-in-r"><span class="header-section-number">13.11</span> 3. Implementing Ensemble Models in R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#step-1-load-necessary-libraries"><span class="header-section-number">13.11.1</span> Step 1: Load Necessary Libraries</a></li>
+<li><a class="nav-link" href="#step-2-load-and-prepare-data-2"><span class="header-section-number">13.11.2</span> Step 2: Load and Prepare Data</a></li>
+<li><a class="nav-link" href="#step-3-train-individual-sdm-models"><span class="header-section-number">13.11.3</span> Step 3: Train Individual SDM Models</a></li>
+<li><a class="nav-link" href="#step-4-combine-predictions-into-an-ensemble-model"><span class="header-section-number">13.11.4</span> Step 4: Combine Predictions into an Ensemble Model</a></li>
+<li><a class="nav-link" href="#step-5-evaluate-ensemble-performance-vs.-individual-models"><span class="header-section-number">13.11.5</span> Step 5: Evaluate Ensemble Performance vs. Individual Models</a></li>
+<li><a class="nav-link" href="#summary-ensemble-modeling-in-sdm"><span class="header-section-number">13.11.6</span> Summary: Ensemble Modeling in SDM</a></li>
+<li><a class="nav-link" href="#benefits-of-ensemble-models"><span class="header-section-number">13.11.7</span> Benefits of Ensemble Models</a></li>
+<li><a class="nav-link" href="#limitations-of-ensemble-models"><span class="header-section-number">13.11.8</span> Limitations of Ensemble Models</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#summary-best-practices-1"><span class="header-section-number">13.12</span> 5. Summary &amp; Best Practices</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#when-to-use-ensemble-models-in-sdm"><span class="header-section-number">13.12.1</span> When to Use Ensemble Models in SDM</a></li>
+<li><a class="nav-link" href="#recommended-workflow-for-building-and-evaluating-ensembles"><span class="header-section-number">13.12.2</span> Recommended Workflow for Building and Evaluating Ensembles</a></li>
+<li><a class="nav-link" href="#how-to-select-the-best-models-for-ensemble-predictions"><span class="header-section-number">13.12.3</span> How to Select the Best Models for Ensemble Predictions?</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/12-model-evaluation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/12-model-evaluation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-02-05.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -50,14 +50,12 @@
 <li><a class="active" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
 <li><a class="" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
 <li><a class="" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
-<li><a class="" href="references.html">References</a></li>
-<li><a class="" href="maxent.html"><span class="header-section-number">8</span> Maxent</a></li>
-<li><a class="" href="maxent-bias-correction.html"><span class="header-section-number">9</span> Maxent Bias Correction</a></li>
-<li><a class="" href="cart-rf-gbm.html"><span class="header-section-number">10</span> Cart RF GBM</a></li>
-<li><a class="" href="model-evaluation-1.html"><span class="header-section-number">11</span> Model Evaluation</a></li>
-<li><a class="" href="more-sdm-theory.html"><span class="header-section-number">12</span> More SDM Theory</a></li>
-<li><a class="" href="more-sdm-theory-part-2.html"><span class="header-section-number">13</span> More SDM Theory Part 2</a></li>
-<li><a class="" href="ensemble-models.html"><span class="header-section-number">14</span> Ensemble Models</a></li>
+<li><a class="" href="maxent-algorithm.html"><span class="header-section-number">8</span> Maxent Algorithm</a></li>
+<li><a class="" href="exercise.html"><span class="header-section-number">9</span> Exercise</a></li>
+<li><a class="" href="maxent-bias-correction.html"><span class="header-section-number">10</span> Maxent Bias Correction</a></li>
+<li><a class="" href="cart-rf-and-gbm.html"><span class="header-section-number">11</span> Cart, RF, and GBM</a></li>
+<li><a class="" href="gbm-variable-selection.html"><span class="header-section-number">12</span> GBM Variable Selection</a></li>
+<li><a class="" href="model-evaluation-in-sdm.html"><span class="header-section-number">13</span> Model Evaluation in SDM</a></li>
 </ul>
 
         <div class="book-extra">
@@ -374,7 +372,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-01-31.</p>
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-02-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -382,6 +380,34 @@
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

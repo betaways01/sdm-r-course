@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 12 GBM Variable Selection | A Minimal Book Example</title>
+<meta name="author" content="Basim Alsaedi">
+<meta name="description" content="12.1 1. Introduction to Variable Selection in GBM  12.1.1 Why Variable Selection Matters in GBM for SDM Gradient Boosting Machines (GBM) are powerful for Species Distribution Modeling (SDM), but...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 12 GBM Variable Selection | A Minimal Book Example">
+<meta property="og:type" content="book">
+<meta property="og:description" content="12.1 1. Introduction to Variable Selection in GBM  12.1.1 Why Variable Selection Matters in GBM for SDM Gradient Boosting Machines (GBM) are powerful for Species Distribution Modeling (SDM), but...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 12 GBM Variable Selection | A Minimal Book Example">
+<meta name="twitter:description" content="12.1 1. Introduction to Variable Selection in GBM  12.1.1 Why Variable Selection Matters in GBM for SDM Gradient Boosting Machines (GBM) are powerful for Species Distribution Modeling (SDM), but...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0.9000/transition.js"></script><script src="libs/bs3compat-0.8.0.9000/tabs.js"></script><script src="libs/bs3compat-0.8.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">A Minimal Book Example</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Welcome!</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></li>
+<li><a class="" href="spartial-data-in-r.html"><span class="header-section-number">4</span> Spartial Data in R</a></li>
+<li><a class="" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
+<li><a class="" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
+<li><a class="" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
+<li><a class="" href="maxent-algorithm.html"><span class="header-section-number">8</span> Maxent Algorithm</a></li>
+<li><a class="" href="exercise.html"><span class="header-section-number">9</span> Exercise</a></li>
+<li><a class="" href="maxent-bias-correction.html"><span class="header-section-number">10</span> Maxent Bias Correction</a></li>
+<li><a class="" href="cart-rf-and-gbm.html"><span class="header-section-number">11</span> Cart, RF, and GBM</a></li>
+<li><a class="active" href="gbm-variable-selection.html"><span class="header-section-number">12</span> GBM Variable Selection</a></li>
+<li><a class="" href="model-evaluation-in-sdm.html"><span class="header-section-number">13</span> Model Evaluation in SDM</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="gbm-variable-selection" class="section level1" number="12">
+<h1>
+<span class="header-section-number">12</span> GBM Variable Selection<a class="anchor" aria-label="anchor" href="#gbm-variable-selection"><i class="fas fa-link"></i></a>
+</h1>
+<hr>
+<div id="introduction-to-variable-selection-in-gbm" class="section level2" number="12.1">
+<h2>
+<span class="header-section-number">12.1</span> <strong>1. Introduction to Variable Selection in GBM</strong><a class="anchor" aria-label="anchor" href="#introduction-to-variable-selection-in-gbm"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+<div id="why-variable-selection-matters-in-gbm-for-sdm" class="section level3" number="12.1.1">
+<h3>
+<span class="header-section-number">12.1.1</span> <strong>Why Variable Selection Matters in GBM for SDM</strong><a class="anchor" aria-label="anchor" href="#why-variable-selection-matters-in-gbm-for-sdm"><i class="fas fa-link"></i></a>
+</h3>
+<p>Gradient Boosting Machines (<strong>GBM</strong>) are powerful for <strong>Species Distribution Modeling (SDM)</strong>, but they can become <strong>computationally expensive</strong> and <strong>prone to overfitting</strong> when too many predictors are included. Selecting the most important environmental variables improves:</p>
+<p>✅ <strong>Model Accuracy</strong> – Reduces noise from irrelevant predictors.<br>
+✅ <strong>Model Simplicity</strong> – Fewer variables make the model easier to interpret.<br>
+✅ <strong>Faster Computation</strong> – Training and predictions become more efficient.<br>
+✅ <strong>Better Generalization</strong> – The model performs well on unseen data.</p>
+<hr>
+</div>
+<div id="challenges-of-using-too-many-predictors" class="section level3" number="12.1.2">
+<h3>
+<span class="header-section-number">12.1.2</span> <strong>Challenges of Using Too Many Predictors</strong><a class="anchor" aria-label="anchor" href="#challenges-of-using-too-many-predictors"><i class="fas fa-link"></i></a>
+</h3>
+<p>While GBM can handle many variables, <strong>not all predictors contribute equally</strong> to the model. Using too many predictors leads to:</p>
+<p>⚠️ <strong>Overfitting</strong> – The model memorizes noise instead of learning general patterns.<br>
+⚠️ <strong>Longer Training Time</strong> – More variables mean more computations, slowing down model fitting.<br>
+⚠️ <strong>Difficult Interpretation</strong> – It becomes harder to explain why the model makes certain predictions.<br>
+⚠️ <strong>Collinearity Issues</strong> – Highly correlated variables can distort the model’s ability to learn independent relationships.</p>
+<div class="rmdnote">
+<p><strong>Example of a Poorly Selected Model</strong><br>
+Imagine modeling the distribution of a bird species with <strong>20 climate variables</strong>. If <strong>10 of them are highly correlated</strong>, the model might give <strong>redundant or misleading predictions</strong>, overcomplicating interpretation.</p>
+</div>
+<hr>
+</div>
+<div id="goal-selecting-the-most-relevant-environmental-variables" class="section level3" number="12.1.3">
+<h3>
+<span class="header-section-number">12.1.3</span> <strong>Goal: Selecting the Most Relevant Environmental Variables</strong><a class="anchor" aria-label="anchor" href="#goal-selecting-the-most-relevant-environmental-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>The aim of <strong>variable selection</strong> in GBM is to:</p>
+<p>🔹 <strong>Identify which predictors strongly influence species distribution</strong>.<br>
+🔹 <strong>Remove weak or redundant variables</strong> that add noise.<br>
+🔹 <strong>Ensure the selected variables align with ecological understanding</strong>.</p>
+<hr>
+</div>
+<div id="whats-next" class="section level3" number="12.1.4">
+<h3>
+<span class="header-section-number">12.1.4</span> <strong>What’s Next?</strong><a class="anchor" aria-label="anchor" href="#whats-next"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the next section, we will explore different <strong>methods for selecting the best variables</strong> for GBM models. These include:</p>
+<p>📌 <strong>Feature Importance Scores</strong> – Identify which variables matter most.<br>
+📌 <strong>Recursive Feature Elimination (RFE)</strong> – Iteratively remove the weakest variables.<br>
+📌 <strong>Correlation Analysis</strong> – Avoid redundancy by removing correlated predictors.<br>
+📌 <strong>Cross-Validation-Based Selection</strong> – Keep only variables that improve test set performance.</p>
+<p>🚀 <strong>Let’s dive into the different selection methods!</strong></p>
+<p>Selecting the right predictors is essential for <strong>efficient and accurate</strong> species distribution modeling (<strong>SDM</strong>) using <strong>Gradient Boosting Machines (GBM)</strong>. Below are five key methods used to identify and retain the most relevant environmental variables.</p>
+<hr>
+</div>
+<div id="feature-importance-scores" class="section level3" number="12.1.5">
+<h3>
+<span class="header-section-number">12.1.5</span> <strong>1. Feature Importance Scores</strong><a class="anchor" aria-label="anchor" href="#feature-importance-scores"><i class="fas fa-link"></i></a>
+</h3>
+<p>GBM automatically assigns an <strong>importance score</strong> to each variable based on how often it is used to split the data across decision trees.</p>
+<p>🔹 <strong>High-importance variables</strong> contribute significantly to model accuracy.<br>
+🔹 <strong>Low-importance variables</strong> can be removed to simplify the model without reducing performance.</p>
+<p><strong>How to use it?</strong><br>
+- Train an initial <strong>GBM model</strong> using all predictors.<br>
+- Extract <strong>feature importance rankings</strong> and remove the weakest variables.</p>
+<div class="rmdtip">
+<p><strong>When to Use This?</strong><br>
+Use feature importance as the <strong>first step</strong> before applying other variable selection methods.</p>
+</div>
+<hr>
+</div>
+<div id="recursive-feature-elimination-rfe" class="section level3" number="12.1.6">
+<h3>
+<span class="header-section-number">12.1.6</span> <strong>2. Recursive Feature Elimination (RFE)</strong><a class="anchor" aria-label="anchor" href="#recursive-feature-elimination-rfe"><i class="fas fa-link"></i></a>
+</h3>
+<p>Recursive Feature Elimination (<strong>RFE</strong>) is an iterative approach where the <strong>least important</strong> variables are removed <strong>one by one</strong>, and the model is retrained each time.</p>
+<p>🔹 Helps identify the <strong>optimal number of variables</strong>.<br>
+🔹 Ensures <strong>weak predictors do not dilute model accuracy</strong>.</p>
+<p><strong>How to use it?</strong><br>
+- Start with all predictors and rank their importance.<br>
+- Remove the <strong>least important variable</strong> and retrain the GBM model.<br>
+- Repeat until performance no longer improves.</p>
+<div class="rmdcaution">
+<p><strong>Downside:</strong><br>
+RFE is computationally expensive because the model is retrained multiple times.</p>
+</div>
+<hr>
+</div>
+<div id="correlation-analysis" class="section level3" number="12.1.7">
+<h3>
+<span class="header-section-number">12.1.7</span> <strong>3. Correlation Analysis</strong><a class="anchor" aria-label="anchor" href="#correlation-analysis"><i class="fas fa-link"></i></a>
+</h3>
+<p>Many environmental variables (e.g., <strong>temperature, precipitation</strong>) are <strong>highly correlated</strong>, which can distort GBM’s ability to learn independent patterns.</p>
+<p>🔹 <strong>Goal</strong>: Identify and remove redundant variables.<br>
+🔹 <strong>Solution</strong>: Use a <strong>correlation matrix</strong> and <strong>Variance Inflation Factor (VIF)</strong> to detect collinearity.</p>
+<p><strong>How to use it?</strong><br>
+- Compute <strong>correlation coefficients</strong> between predictors.<br>
+- If two variables are <strong>highly correlated</strong> (r &gt; 0.7), remove one.</p>
+<div class="rmdnote">
+<p><strong>Example:</strong><br>
+If <strong>Bio1 (Annual Mean Temperature)</strong> and <strong>Bio5 (Maximum Temperature of the Warmest Month)</strong> are highly correlated, keep only one.</p>
+</div>
+<hr>
+</div>
+<div id="aicbic-model-comparison" class="section level3" number="12.1.8">
+<h3>
+<span class="header-section-number">12.1.8</span> <strong>4. AIC/BIC Model Comparison</strong><a class="anchor" aria-label="anchor" href="#aicbic-model-comparison"><i class="fas fa-link"></i></a>
+</h3>
+<p>Model selection using <strong>Akaike Information Criterion (AIC)</strong> or <strong>Bayesian Information Criterion (BIC)</strong> helps determine the best predictor set based on <strong>model complexity vs. accuracy</strong>.</p>
+<p>🔹 <strong>AIC</strong> favors models with <strong>fewer predictors</strong> while maintaining accuracy.<br>
+🔹 <strong>BIC</strong> penalizes models with <strong>too many variables</strong>, ensuring simplicity.</p>
+<p><strong>How to use it?</strong><br>
+- Fit GBM models with different sets of variables.<br>
+- Compute AIC/BIC scores for each model.<br>
+- Select the model with the <strong>lowest AIC/BIC score</strong>.</p>
+<div class="rmdtip">
+<p><strong>Best Practice:</strong><br>
+Use AIC/BIC <strong>alongside feature importance and correlation analysis</strong> for optimal variable selection.</p>
+</div>
+<hr>
+</div>
+<div id="cross-validation-based-selection" class="section level3" number="12.1.9">
+<h3>
+<span class="header-section-number">12.1.9</span> <strong>5. Cross-Validation-Based Selection</strong><a class="anchor" aria-label="anchor" href="#cross-validation-based-selection"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cross-validation ensures that variable selection improves <strong>real-world predictive performance</strong>, not just training accuracy.</p>
+<p>🔹 <strong>Goal</strong>: Keep only predictors that improve <strong>test set performance</strong>.<br>
+🔹 <strong>Method</strong>: Use <strong>AUC (Area Under Curve) and Accuracy</strong> on a <strong>validation dataset</strong>.</p>
+<p><strong>How to use it?</strong><br>
+- Train a <strong>GBM model with all variables</strong>.<br>
+- Remove a predictor and <strong>check if AUC/accuracy decreases</strong>.<br>
+- Keep only the variables that <strong>consistently improve test set predictions</strong>.</p>
+<div class="rmdcaution">
+<p><strong>Warning:</strong><br>
+Cross-validation can be <strong>computationally expensive</strong> but ensures the final model is robust.</p>
+</div>
+<hr>
+</div>
+<div id="summary-of-variable-selection-methods" class="section level3" number="12.1.10">
+<h3>
+<span class="header-section-number">12.1.10</span> <strong>Summary of Variable Selection Methods</strong><a class="anchor" aria-label="anchor" href="#summary-of-variable-selection-methods"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="20%">
+<col width="25%">
+<col width="27%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Method</strong></th>
+<th><strong>When to Use</strong></th>
+<th><strong>Pros</strong></th>
+<th><strong>Cons</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Feature Importance Scores</strong></td>
+<td>First step for identifying key variables.</td>
+<td>Quick and easy.</td>
+<td>May not remove all redundant variables.</td>
+</tr>
+<tr class="even">
+<td><strong>Recursive Feature Elimination (RFE)</strong></td>
+<td>When you want the best subset of features.</td>
+<td>Finds optimal variable set.</td>
+<td>Computationally expensive.</td>
+</tr>
+<tr class="odd">
+<td><strong>Correlation Analysis</strong></td>
+<td>To remove redundant variables.</td>
+<td>Improves model stability.</td>
+<td>Doesn’t detect weakly correlated but irrelevant features.</td>
+</tr>
+<tr class="even">
+<td><strong>AIC/BIC Model Comparison</strong></td>
+<td>When balancing accuracy and simplicity.</td>
+<td>Ensures model is not overly complex.</td>
+<td>May remove useful predictors if over-penalized.</td>
+</tr>
+<tr class="odd">
+<td><strong>Cross-Validation Selection</strong></td>
+<td>To optimize test set performance.</td>
+<td>Ensures best real-world predictions.</td>
+<td>Computationally expensive.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+<div id="whats-next-1" class="section level3" number="12.1.11">
+<h3>
+<span class="header-section-number">12.1.11</span> <strong>What’s Next?</strong><a class="anchor" aria-label="anchor" href="#whats-next-1"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+</div>
+<div id="now-that-we-understand-methods-for-variable-selection-we-will-move-to-the-coding-demonstration-applying-these-techniques-in-r-to-improve-a-gbm-based-species-distribution-model." class="section level2" number="12.2">
+<h2>
+<span class="header-section-number">12.2</span> Now that we understand <strong>methods for variable selection</strong>, we will move to the <strong>coding demonstration</strong>, applying these techniques in R to improve a <strong>GBM-based species distribution model</strong>. 🚀<a class="anchor" aria-label="anchor" href="#now-that-we-understand-methods-for-variable-selection-we-will-move-to-the-coding-demonstration-applying-these-techniques-in-r-to-improve-a-gbm-based-species-distribution-model."><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="coding-demonstration-variable-selection-in-gbm" class="section level2" number="12.3">
+<h2>
+<span class="header-section-number">12.3</span> <strong>3. Coding Demonstration: Variable Selection in GBM</strong><a class="anchor" aria-label="anchor" href="#coding-demonstration-variable-selection-in-gbm"><i class="fas fa-link"></i></a>
+</h2>
+<p>This coding exercise will guide you through the process of <strong>selecting the most important variables</strong> for a <strong>GBM-based Species Distribution Model (SDM)</strong> in R. We will use built-in datasets and packages to ensure the workflow is reproducible.</p>
+<hr>
+<div id="step-1-load-an-sdm-dataset-with-multiple-environmental-variables" class="section level3" number="12.3.1">
+<h3>
+<span class="header-section-number">12.3.1</span> <strong>Step 1: Load an SDM Dataset with Multiple Environmental Variables</strong><a class="anchor" aria-label="anchor" href="#step-1-load-an-sdm-dataset-with-multiple-environmental-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>We will use the <code>bioclim</code> dataset from the <code>dismo</code> package, which contains species <strong>presence-absence data</strong> along with environmental predictors.</p>
+<div id="load-necessary-libraries" class="section level4" number="12.3.1.1">
+<h4>
+<span class="header-section-number">12.3.1.1</span> <strong>Load Necessary Libraries</strong><a class="anchor" aria-label="anchor" href="#load-necessary-libraries"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load required packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gbm-developers/gbm">gbm</a></span><span class="op">)</span>          <span class="co"># Gradient Boosting Machine</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span>        <span class="co"># SDM-related datasets</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span>        <span class="co"># Data partitioning and evaluation</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/taiyun/corrplot">corrplot</a></span><span class="op">)</span>     <span class="co"># Correlation visualization</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stat.berkeley.edu/~breiman/RandomForests/">randomForest</a></span><span class="op">)</span> <span class="co"># Feature importance comparison</span></span></code></pre></div>
+</div>
+<div id="load-and-inspect-the-dataset" class="section level4" number="12.3.1.2">
+<h4>
+<span class="header-section-number">12.3.1.2</span> <strong>Load and Inspect the Dataset</strong><a class="anchor" aria-label="anchor" href="#load-and-inspect-the-dataset"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load example SDM dataset</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">dismo</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/dismo/man/bioclim.html">bioclim</a></span></span>
+<span></span>
+<span><span class="co"># Convert species presence to a factor (classification task)</span></span>
+<span><span class="va">data</span><span class="op">$</span><span class="va">presence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View dataset structure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="step-2-train-an-initial-gbm-model-with-all-predictors" class="section level3" number="12.3.2">
+<h3>
+<span class="header-section-number">12.3.2</span> <strong>Step 2: Train an Initial GBM Model with All Predictors</strong><a class="anchor" aria-label="anchor" href="#step-2-train-an-initial-gbm-model-with-all-predictors"><i class="fas fa-link"></i></a>
+</h3>
+<p>Before selecting variables, let’s train a <strong>baseline GBM model</strong> with all environmental predictors.</p>
+<div id="split-data-into-training-and-testing-sets" class="section level4" number="12.3.2.1">
+<h4>
+<span class="header-section-number">12.3.2.1</span> <strong>Split Data into Training and Testing Sets</strong><a class="anchor" aria-label="anchor" href="#split-data-into-training-and-testing-sets"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set seed for reproducibility</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create training (70%) and testing (30%) sets</span></span>
+<span><span class="va">trainIndex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">presence</span>, p <span class="op">=</span> <span class="fl">0.7</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">train_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">trainIndex</span>, <span class="op">]</span></span>
+<span><span class="va">test_data</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="op">-</span><span class="va">trainIndex</span>, <span class="op">]</span></span></code></pre></div>
+</div>
+<div id="train-the-full-gbm-model" class="section level4" number="12.3.2.2">
+<h4>
+<span class="header-section-number">12.3.2.2</span> <strong>Train the Full GBM Model</strong><a class="anchor" aria-label="anchor" href="#train-the-full-gbm-model"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Train an initial GBM model</span></span>
+<span><span class="va">gbm_full</span> <span class="op">&lt;-</span> <span class="fu">gbm</span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>                data <span class="op">=</span> <span class="va">train_data</span>,</span>
+<span>                distribution <span class="op">=</span> <span class="st">"bernoulli"</span>,  <span class="co"># Classification task</span></span>
+<span>                n.trees <span class="op">=</span> <span class="fl">500</span>,  </span>
+<span>                shrinkage <span class="op">=</span> <span class="fl">0.01</span>,  </span>
+<span>                interaction.depth <span class="op">=</span> <span class="fl">3</span>,  </span>
+<span>                cv.folds <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>  <span class="co"># Cross-validation to prevent overfitting</span></span>
+<span></span>
+<span><span class="co"># View feature importance</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gbm_full</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>What to Look For?</strong><br>
+- Higher scores indicate variables that contribute the most to predictions.<br>
+- Low-importance variables should be considered for removal.</p>
+<hr>
+</div>
+</div>
+<div id="step-3-compute-feature-importance-scores-and-remove-low-importance-variables" class="section level3" number="12.3.3">
+<h3>
+<span class="header-section-number">12.3.3</span> <strong>Step 3: Compute Feature Importance Scores and Remove Low-Importance Variables</strong><a class="anchor" aria-label="anchor" href="#step-3-compute-feature-importance-scores-and-remove-low-importance-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>GBM provides <strong>relative influence scores</strong> for each predictor. We will remove variables that contribute little to model accuracy.</p>
+<div id="plot-feature-importance" class="section level4" number="12.3.3.1">
+<h4>
+<span class="header-section-number">12.3.3.1</span> <strong>Plot Feature Importance</strong><a class="anchor" aria-label="anchor" href="#plot-feature-importance"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Visualize feature importance</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gbm_full</span><span class="op">)</span><span class="op">$</span><span class="va">rel.inf</span>, names.arg <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gbm_full</span><span class="op">)</span><span class="op">$</span><span class="va">var</span>, las <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
+<span>        main <span class="op">=</span> <span class="st">"Feature Importance in GBM"</span>, cex.names <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="remove-low-importance-variables" class="section level4" number="12.3.3.2">
+<h4>
+<span class="header-section-number">12.3.3.2</span> <strong>Remove Low-Importance Variables</strong><a class="anchor" aria-label="anchor" href="#remove-low-importance-variables"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Define a cutoff threshold for importance (e.g., remove variables &lt; 2%)</span></span>
+<span><span class="va">important_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gbm_full</span><span class="op">)</span><span class="op">$</span><span class="va">var</span><span class="op">[</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gbm_full</span><span class="op">)</span><span class="op">$</span><span class="va">rel.inf</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Retain only important variables</span></span>
+<span><span class="va">train_data_reduced</span> <span class="op">&lt;-</span> <span class="va">train_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"presence"</span>, <span class="va">important_vars</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">test_data_reduced</span>  <span class="op">&lt;-</span> <span class="va">test_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"presence"</span>, <span class="va">important_vars</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<p>✅ <strong>What to Look For?</strong><br>
+- The feature importance plot highlights which variables significantly impact the model.<br>
+- Removing low-importance variables improves efficiency <strong>without reducing accuracy</strong>.</p>
+<hr>
+</div>
+</div>
+<div id="step-4-perform-correlation-analysis-to-eliminate-redundant-variables" class="section level3" number="12.3.4">
+<h3>
+<span class="header-section-number">12.3.4</span> <strong>Step 4: Perform Correlation Analysis to Eliminate Redundant Variables</strong><a class="anchor" aria-label="anchor" href="#step-4-perform-correlation-analysis-to-eliminate-redundant-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>Environmental predictors are often <strong>highly correlated</strong>, which can introduce redundancy.</p>
+<div id="compute-a-correlation-matrix" class="section level4" number="12.3.4.1">
+<h4>
+<span class="header-section-number">12.3.4.1</span> <strong>Compute a Correlation Matrix</strong><a class="anchor" aria-label="anchor" href="#compute-a-correlation-matrix"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Compute correlation matrix</span></span>
+<span><span class="va">cor_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">train_data_reduced</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>  <span class="co"># Remove target variable</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">cor_matrix</span>, method <span class="op">=</span> <span class="st">"color"</span>, type <span class="op">=</span> <span class="st">"upper"</span>, tl.cex <span class="op">=</span> <span class="fl">0.8</span>, title <span class="op">=</span> <span class="st">"Correlation Matrix"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="remove-highly-correlated-variables-r-0.7" class="section level4" number="12.3.4.2">
+<h4>
+<span class="header-section-number">12.3.4.2</span> <strong>Remove Highly Correlated Variables (r &gt; 0.7)</strong><a class="anchor" aria-label="anchor" href="#remove-highly-correlated-variables-r-0.7"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Identify correlated pairs</span></span>
+<span><span class="va">high_cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/findCorrelation.html">findCorrelation</a></span><span class="op">(</span><span class="va">cor_matrix</span>, cutoff <span class="op">=</span> <span class="fl">0.7</span>, names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Remove correlated predictors</span></span>
+<span><span class="va">train_data_final</span> <span class="op">&lt;-</span> <span class="va">train_data_reduced</span><span class="op">[</span>, <span class="op">!</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">train_data_reduced</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">high_cor</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">test_data_final</span>  <span class="op">&lt;-</span> <span class="va">test_data_reduced</span><span class="op">[</span>, <span class="op">!</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">test_data_reduced</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">high_cor</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<p>✅ <strong>Why Does This Matter?</strong><br>
+- Removing highly correlated variables prevents <strong>redundant information</strong> in the model.<br>
+- The <strong>GBM model generalizes better</strong> by relying on independent predictors.</p>
+<hr>
+</div>
+</div>
+<div id="step-5-retrain-gbm-with-reduced-features-and-compare-accuracyauc" class="section level3" number="12.3.5">
+<h3>
+<span class="header-section-number">12.3.5</span> <strong>Step 5: Retrain GBM with Reduced Features and Compare Accuracy/AUC</strong><a class="anchor" aria-label="anchor" href="#step-5-retrain-gbm-with-reduced-features-and-compare-accuracyauc"><i class="fas fa-link"></i></a>
+</h3>
+<div id="train-the-reduced-gbm-model" class="section level4" number="12.3.5.1">
+<h4>
+<span class="header-section-number">12.3.5.1</span> <strong>Train the Reduced GBM Model</strong><a class="anchor" aria-label="anchor" href="#train-the-reduced-gbm-model"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Train a GBM model with selected variables</span></span>
+<span><span class="va">gbm_reduced</span> <span class="op">&lt;-</span> <span class="fu">gbm</span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, </span>
+<span>                    data <span class="op">=</span> <span class="va">train_data_final</span>,</span>
+<span>                    distribution <span class="op">=</span> <span class="st">"bernoulli"</span>,</span>
+<span>                    n.trees <span class="op">=</span> <span class="fl">500</span>,  </span>
+<span>                    shrinkage <span class="op">=</span> <span class="fl">0.01</span>,  </span>
+<span>                    interaction.depth <span class="op">=</span> <span class="fl">3</span>,  </span>
+<span>                    cv.folds <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View feature importance of reduced model</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gbm_reduced</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="evaluate-model-performance-auc-and-accuracy" class="section level4" number="12.3.5.2">
+<h4>
+<span class="header-section-number">12.3.5.2</span> <strong>Evaluate Model Performance (AUC and Accuracy)</strong><a class="anchor" aria-label="anchor" href="#evaluate-model-performance-auc-and-accuracy"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Predict on test set</span></span>
+<span><span class="va">full_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm_full</span>, <span class="va">test_data</span>, n.trees <span class="op">=</span> <span class="fl">500</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="va">reduced_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm_reduced</span>, <span class="va">test_data_final</span>, n.trees <span class="op">=</span> <span class="fl">500</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute AUC for full model</span></span>
+<span><span class="va">full_auc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">full_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute AUC for reduced model</span></span>
+<span><span class="va">reduced_auc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data_final</span><span class="op">$</span><span class="va">presence</span>, <span class="va">reduced_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print AUC Scores</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Full GBM AUC:"</span>, <span class="va">full_auc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Reduced GBM AUC:"</span>, <span class="va">reduced_auc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="compare-accuracy" class="section level4" number="12.3.5.3">
+<h4>
+<span class="header-section-number">12.3.5.3</span> <strong>Compare Accuracy</strong><a class="anchor" aria-label="anchor" href="#compare-accuracy"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Convert predictions to binary classes</span></span>
+<span><span class="va">full_pred_class</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">full_pred</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"1"</span>, <span class="st">"0"</span><span class="op">)</span></span>
+<span><span class="va">reduced_pred_class</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">reduced_pred</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"1"</span>, <span class="st">"0"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute accuracy</span></span>
+<span><span class="va">full_acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">full_pred_class</span> <span class="op">==</span> <span class="va">test_data</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span></span>
+<span><span class="va">reduced_acc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">reduced_pred_class</span> <span class="op">==</span> <span class="va">test_data_final</span><span class="op">$</span><span class="va">presence</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">test_data_final</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Full Model Accuracy:"</span>, <span class="va">full_acc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Reduced Model Accuracy:"</span>, <span class="va">reduced_acc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>Expected Outcome</strong>:<br>
+- The <strong>reduced model should have similar AUC and accuracy</strong> to the full model but with fewer predictors.<br>
+- <strong>Computation time is reduced</strong>, making the model more efficient.</p>
+<hr>
+</div>
+</div>
+<div id="key-observations-3" class="section level3" number="12.3.6">
+<h3>
+<span class="header-section-number">12.3.6</span> <strong>Key Observations</strong><a class="anchor" aria-label="anchor" href="#key-observations-3"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Feature importance analysis helps remove weak variables.</strong><br>
+</li>
+<li>
+<strong>Correlation filtering prevents redundancy.</strong><br>
+</li>
+<li><strong>The reduced model performs as well as the full model but is more efficient.</strong></li>
+</ul>
+<hr>
+</div>
+<div id="summary-of-gbm-variable-selection-process" class="section level3" number="12.3.7">
+<h3>
+<span class="header-section-number">12.3.7</span> <strong>Summary of GBM Variable Selection Process</strong><a class="anchor" aria-label="anchor" href="#summary-of-gbm-variable-selection-process"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="33%">
+<col width="53%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Step</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Outcome</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Train Full Model</strong></td>
+<td>Baseline model with all variables.</td>
+<td>Initial AUC and accuracy.</td>
+</tr>
+<tr class="even">
+<td><strong>Feature Importance Filtering</strong></td>
+<td>Remove low-impact variables.</td>
+<td>Simplifies model without losing accuracy.</td>
+</tr>
+<tr class="odd">
+<td><strong>Correlation Analysis</strong></td>
+<td>Remove highly correlated predictors.</td>
+<td>Improves model interpretability.</td>
+</tr>
+<tr class="even">
+<td><strong>Train Reduced Model</strong></td>
+<td>Use only important, independent variables.</td>
+<td>Faster and more efficient predictions.</td>
+</tr>
+<tr class="odd">
+<td><strong>Compare Accuracy &amp; AUC</strong></td>
+<td>Ensure reduced model performs as well as full.</td>
+<td>Similar accuracy but improved efficiency.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="inline-table"><table style="width:6%;" class="table table-sm">
+<colgroup><col width="5%"></colgroup>
+<tbody>
+<tr class="odd">
+<td>## <strong>4. Model Evaluation After Variable Selection</strong>
+</td>
+</tr>
+<tr class="even">
+<td>After selecting the most relevant variables for <strong>GBM-based Species Distribution Modeling (SDM)</strong>, we must <strong>evaluate the impact</strong> of variable selection on model performance, ecological relevance, and computational efficiency.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="compare-model-performance-before-and-after-variable-selection" class="section level3" number="12.3.8">
+<h3>
+<span class="header-section-number">12.3.8</span> <strong>1. Compare Model Performance Before and After Variable Selection</strong><a class="anchor" aria-label="anchor" href="#compare-model-performance-before-and-after-variable-selection"><i class="fas fa-link"></i></a>
+</h3>
+<p>We compare the <strong>full model (with all variables)</strong> and the <strong>reduced model (with selected variables)</strong> using <strong>AUC (Area Under Curve) and accuracy</strong>.</p>
+<div id="code-example-auc-and-accuracy-comparison" class="section level4" number="12.3.8.1">
+<h4>
+<span class="header-section-number">12.3.8.1</span> <strong>Code Example: AUC and Accuracy Comparison</strong><a class="anchor" aria-label="anchor" href="#code-example-auc-and-accuracy-comparison"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute AUC for Full Model</span></span>
+<span><span class="va">full_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm_full</span>, <span class="va">test_data</span>, n.trees <span class="op">=</span> <span class="fl">500</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="va">full_auc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">presence</span>, <span class="va">full_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute AUC for Reduced Model</span></span>
+<span><span class="va">reduced_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">gbm_reduced</span>, <span class="va">test_data_final</span>, n.trees <span class="op">=</span> <span class="fl">500</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span><span class="va">reduced_auc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_data_final</span><span class="op">$</span><span class="va">presence</span>, <span class="va">reduced_pred</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print AUC Scores</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Full Model AUC:"</span>, <span class="va">full_auc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Reduced Model AUC:"</span>, <span class="va">reduced_auc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>Expected Result</strong>:<br>
+- If the <strong>AUC remains similar</strong>, the <strong>reduced model is just as effective</strong> while being more efficient.<br>
+- If the <strong>AUC decreases significantly</strong>, important predictors may have been removed.</p>
+<hr>
+</div>
+</div>
+<div id="visualizing-response-curves-1" class="section level3" number="12.3.9">
+<h3>
+<span class="header-section-number">12.3.9</span> <strong>2. Visualizing Response Curves</strong><a class="anchor" aria-label="anchor" href="#visualizing-response-curves-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Response curves <strong>show how environmental variables influence species suitability</strong>. Ensuring that response curves remain <strong>biologically meaningful</strong> after variable selection is crucial.</p>
+<div id="code-example-response-curve-visualization" class="section level4" number="12.3.9.1">
+<h4>
+<span class="header-section-number">12.3.9.1</span> <strong>Code Example: Response Curve Visualization</strong><a class="anchor" aria-label="anchor" href="#code-example-response-curve-visualization"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot response curves for the full model</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot.gbm</span><span class="op">(</span><span class="va">gbm_full</span>, i.var <span class="op">=</span> <span class="st">"bio1"</span>, main <span class="op">=</span> <span class="st">"Full Model: Bio1"</span><span class="op">)</span></span>
+<span><span class="fu">plot.gbm</span><span class="op">(</span><span class="va">gbm_reduced</span>, i.var <span class="op">=</span> <span class="st">"bio1"</span>, main <span class="op">=</span> <span class="st">"Reduced Model: Bio1"</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>What to Look For?</strong><br>
+- <strong>Similar response curves</strong> between the full and reduced models indicate that key environmental drivers are preserved.<br>
+- If response curves change drastically, an <strong>important predictor may have been removed</strong>.</p>
+<hr>
+</div>
+</div>
+<div id="assessing-computational-efficiency-gains" class="section level3" number="12.3.10">
+<h3>
+<span class="header-section-number">12.3.10</span> <strong>3. Assessing Computational Efficiency Gains</strong><a class="anchor" aria-label="anchor" href="#assessing-computational-efficiency-gains"><i class="fas fa-link"></i></a>
+</h3>
+<p>A key advantage of <strong>variable selection</strong> is reducing computational time. We compare training times before and after variable selection.</p>
+<div id="code-example-compute-training-time" class="section level4" number="12.3.10.1">
+<h4>
+<span class="header-section-number">12.3.10.1</span> <strong>Code Example: Compute Training Time</strong><a class="anchor" aria-label="anchor" href="#code-example-compute-training-time"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Measure time for full model</span></span>
+<span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">gbm_full</span> <span class="op">&lt;-</span> <span class="fu">gbm</span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span>, distribution <span class="op">=</span> <span class="st">"bernoulli"</span>, n.trees <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
+<span><span class="va">end_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">full_time</span> <span class="op">&lt;-</span> <span class="va">end_time</span> <span class="op">-</span> <span class="va">start_time</span></span>
+<span></span>
+<span><span class="co"># Measure time for reduced model</span></span>
+<span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">gbm_reduced</span> <span class="op">&lt;-</span> <span class="fu">gbm</span><span class="op">(</span><span class="va">presence</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data_final</span>, distribution <span class="op">=</span> <span class="st">"bernoulli"</span>, n.trees <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
+<span><span class="va">end_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">reduced_time</span> <span class="op">&lt;-</span> <span class="va">end_time</span> <span class="op">-</span> <span class="va">start_time</span></span>
+<span></span>
+<span><span class="co"># Print time comparison</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Full Model Training Time:"</span>, <span class="va">full_time</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Reduced Model Training Time:"</span>, <span class="va">reduced_time</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>✅ <strong>Expected Result</strong>:<br>
+- <strong>The reduced model should train faster</strong>, improving efficiency <strong>without losing predictive power</strong>.<br>
+- In large datasets, <strong>this speed improvement can be significant</strong>.</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="best-practices-common-pitfalls" class="section level2" number="12.4">
+<h2>
+<span class="header-section-number">12.4</span> <strong>5. Best Practices &amp; Common Pitfalls</strong><a class="anchor" aria-label="anchor" href="#best-practices-common-pitfalls"><i class="fas fa-link"></i></a>
+</h2>
+<div id="avoid-over-removing-important-variables" class="section level3" number="12.4.1">
+<h3>
+<span class="header-section-number">12.4.1</span> <strong>1. Avoid Over-Removing Important Variables</strong><a class="anchor" aria-label="anchor" href="#avoid-over-removing-important-variables"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Pitfall</strong>: Removing <strong>slightly less important variables</strong> may still affect model performance.<br>
+</li>
+<li>
+<strong>Solution</strong>: Gradually remove variables and <strong>compare AUC/accuracy</strong> at each step.</li>
+</ul>
+</div>
+<div id="ensure-biologicalecological-relevance" class="section level3" number="12.4.2">
+<h3>
+<span class="header-section-number">12.4.2</span> <strong>2. Ensure Biological/Ecological Relevance</strong><a class="anchor" aria-label="anchor" href="#ensure-biologicalecological-relevance"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Pitfall</strong>: Some variables may be statistically weak but ecologically essential.<br>
+</li>
+<li>
+<strong>Solution</strong>: <strong>Consult ecological knowledge</strong> before eliminating predictors.</li>
+</ul>
+<div class="rmdtip">
+<p><strong>Example</strong>:<br>
+Even if <strong>elevation (Bio6)</strong> has low importance, it might still be <strong>critical for mountain species</strong>.</p>
+</div>
+</div>
+<div id="balance-model-simplicity-with-accuracy" class="section level3" number="12.4.3">
+<h3>
+<span class="header-section-number">12.4.3</span> <strong>3. Balance Model Simplicity with Accuracy</strong><a class="anchor" aria-label="anchor" href="#balance-model-simplicity-with-accuracy"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Pitfall</strong>: Keeping <strong>too many predictors</strong> makes the model complex and slow.<br>
+</li>
+<li>
+<strong>Solution</strong>: Use <strong>AIC, BIC, or cross-validation</strong> to find the best trade-off between <strong>accuracy and simplicity</strong>.</li>
+</ul>
+<p>✅ <strong>Key Takeaway</strong>: The goal is to <strong>maintain high predictive power</strong> while <strong>removing unnecessary complexity</strong>.</p>
+<hr>
+</div>
+</div>
+<div id="summary-key-takeaways" class="section level2" number="12.5">
+<h2>
+<span class="header-section-number">12.5</span> <strong>6. Summary &amp; Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#summary-key-takeaways"><i class="fas fa-link"></i></a>
+</h2>
+<div id="why-variable-selection-matters" class="section level3" number="12.5.1">
+<h3>
+<span class="header-section-number">12.5.1</span> <strong>1. Why Variable Selection Matters</strong><a class="anchor" aria-label="anchor" href="#why-variable-selection-matters"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Reducing redundant variables <strong>improves model accuracy and interpretability</strong>.<br>
+</li>
+<li>Removing unnecessary predictors <strong>speeds up training and prediction times</strong>.</li>
+</ul>
+</div>
+<div id="recommended-workflow-for-gbm-variable-selection" class="section level3" number="12.5.2">
+<h3>
+<span class="header-section-number">12.5.2</span> <strong>2. Recommended Workflow for GBM Variable Selection</strong><a class="anchor" aria-label="anchor" href="#recommended-workflow-for-gbm-variable-selection"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="31%">
+<col width="55%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Step</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Method</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Train Full Model</strong></td>
+<td>Establish a baseline performance.</td>
+<td>Train GBM with all variables.</td>
+</tr>
+<tr class="even">
+<td><strong>Compute Feature Importance</strong></td>
+<td>Identify key predictors.</td>
+<td>Use GBM’s built-in importance ranking.</td>
+</tr>
+<tr class="odd">
+<td><strong>Remove Low-Importance Variables</strong></td>
+<td>Simplify the model.</td>
+<td>Drop predictors with very low scores.</td>
+</tr>
+<tr class="even">
+<td><strong>Perform Correlation Analysis</strong></td>
+<td>Eliminate redundant variables.</td>
+<td>Remove highly correlated predictors (r &gt; 0.7).</td>
+</tr>
+<tr class="odd">
+<td><strong>Retrain GBM</strong></td>
+<td>Improve computational efficiency.</td>
+<td>Use only selected variables.</td>
+</tr>
+<tr class="even">
+<td><strong>Evaluate Performance</strong></td>
+<td>Ensure no loss in predictive power.</td>
+<td>Compare AUC, accuracy, and response curves.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="iterative-refinement-for-sdm-models" class="section level3" number="12.5.3">
+<h3>
+<span class="header-section-number">12.5.3</span> <strong>3. Iterative Refinement for SDM Models</strong><a class="anchor" aria-label="anchor" href="#iterative-refinement-for-sdm-models"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<strong>Reassess after each removal step</strong> to avoid losing important predictors.<br>
+</li>
+<li>
+<strong>Validate response curves</strong> to ensure ecological interpretability.<br>
+</li>
+<li>
+<strong>Adjust hyperparameters</strong> to optimize performance after feature reduction.</li>
+</ul>
+<p>✅ <strong>Final Takeaway</strong>:<br>
+By selecting the right variables, <strong>GBM models remain accurate, efficient, and ecologically meaningful</strong>, making them powerful tools for <strong>Species Distribution Modeling (SDM)</strong>. 🚀</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="cart-rf-and-gbm.html"><span class="header-section-number">11</span> Cart, RF, and GBM</a></div>
+<div class="next"><a href="model-evaluation-in-sdm.html"><span class="header-section-number">13</span> Model Evaluation in SDM</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#gbm-variable-selection"><span class="header-section-number">12</span> GBM Variable Selection</a></li>
+<li>
+<a class="nav-link" href="#introduction-to-variable-selection-in-gbm"><span class="header-section-number">12.1</span> 1. Introduction to Variable Selection in GBM</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-variable-selection-matters-in-gbm-for-sdm"><span class="header-section-number">12.1.1</span> Why Variable Selection Matters in GBM for SDM</a></li>
+<li><a class="nav-link" href="#challenges-of-using-too-many-predictors"><span class="header-section-number">12.1.2</span> Challenges of Using Too Many Predictors</a></li>
+<li><a class="nav-link" href="#goal-selecting-the-most-relevant-environmental-variables"><span class="header-section-number">12.1.3</span> Goal: Selecting the Most Relevant Environmental Variables</a></li>
+<li><a class="nav-link" href="#whats-next"><span class="header-section-number">12.1.4</span> What’s Next?</a></li>
+<li><a class="nav-link" href="#feature-importance-scores"><span class="header-section-number">12.1.5</span> 1. Feature Importance Scores</a></li>
+<li><a class="nav-link" href="#recursive-feature-elimination-rfe"><span class="header-section-number">12.1.6</span> 2. Recursive Feature Elimination (RFE)</a></li>
+<li><a class="nav-link" href="#correlation-analysis"><span class="header-section-number">12.1.7</span> 3. Correlation Analysis</a></li>
+<li><a class="nav-link" href="#aicbic-model-comparison"><span class="header-section-number">12.1.8</span> 4. AIC/BIC Model Comparison</a></li>
+<li><a class="nav-link" href="#cross-validation-based-selection"><span class="header-section-number">12.1.9</span> 5. Cross-Validation-Based Selection</a></li>
+<li><a class="nav-link" href="#summary-of-variable-selection-methods"><span class="header-section-number">12.1.10</span> Summary of Variable Selection Methods</a></li>
+<li><a class="nav-link" href="#whats-next-1"><span class="header-section-number">12.1.11</span> What’s Next?</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#now-that-we-understand-methods-for-variable-selection-we-will-move-to-the-coding-demonstration-applying-these-techniques-in-r-to-improve-a-gbm-based-species-distribution-model."><span class="header-section-number">12.2</span> Now that we understand methods for variable selection, we will move to the coding demonstration, applying these techniques in R to improve a GBM-based species distribution model. 🚀</a></li>
+<li>
+<a class="nav-link" href="#coding-demonstration-variable-selection-in-gbm"><span class="header-section-number">12.3</span> 3. Coding Demonstration: Variable Selection in GBM</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#step-1-load-an-sdm-dataset-with-multiple-environmental-variables"><span class="header-section-number">12.3.1</span> Step 1: Load an SDM Dataset with Multiple Environmental Variables</a></li>
+<li><a class="nav-link" href="#step-2-train-an-initial-gbm-model-with-all-predictors"><span class="header-section-number">12.3.2</span> Step 2: Train an Initial GBM Model with All Predictors</a></li>
+<li><a class="nav-link" href="#step-3-compute-feature-importance-scores-and-remove-low-importance-variables"><span class="header-section-number">12.3.3</span> Step 3: Compute Feature Importance Scores and Remove Low-Importance Variables</a></li>
+<li><a class="nav-link" href="#step-4-perform-correlation-analysis-to-eliminate-redundant-variables"><span class="header-section-number">12.3.4</span> Step 4: Perform Correlation Analysis to Eliminate Redundant Variables</a></li>
+<li><a class="nav-link" href="#step-5-retrain-gbm-with-reduced-features-and-compare-accuracyauc"><span class="header-section-number">12.3.5</span> Step 5: Retrain GBM with Reduced Features and Compare Accuracy/AUC</a></li>
+<li><a class="nav-link" href="#key-observations-3"><span class="header-section-number">12.3.6</span> Key Observations</a></li>
+<li><a class="nav-link" href="#summary-of-gbm-variable-selection-process"><span class="header-section-number">12.3.7</span> Summary of GBM Variable Selection Process</a></li>
+<li><a class="nav-link" href="#compare-model-performance-before-and-after-variable-selection"><span class="header-section-number">12.3.8</span> 1. Compare Model Performance Before and After Variable Selection</a></li>
+<li><a class="nav-link" href="#visualizing-response-curves-1"><span class="header-section-number">12.3.9</span> 2. Visualizing Response Curves</a></li>
+<li><a class="nav-link" href="#assessing-computational-efficiency-gains"><span class="header-section-number">12.3.10</span> 3. Assessing Computational Efficiency Gains</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#best-practices-common-pitfalls"><span class="header-section-number">12.4</span> 5. Best Practices &amp; Common Pitfalls</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#avoid-over-removing-important-variables"><span class="header-section-number">12.4.1</span> 1. Avoid Over-Removing Important Variables</a></li>
+<li><a class="nav-link" href="#ensure-biologicalecological-relevance"><span class="header-section-number">12.4.2</span> 2. Ensure Biological/Ecological Relevance</a></li>
+<li><a class="nav-link" href="#balance-model-simplicity-with-accuracy"><span class="header-section-number">12.4.3</span> 3. Balance Model Simplicity with Accuracy</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#summary-key-takeaways"><span class="header-section-number">12.5</span> 6. Summary &amp; Key Takeaways</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-variable-selection-matters"><span class="header-section-number">12.5.1</span> 1. Why Variable Selection Matters</a></li>
+<li><a class="nav-link" href="#recommended-workflow-for-gbm-variable-selection"><span class="header-section-number">12.5.2</span> 2. Recommended Workflow for GBM Variable Selection</a></li>
+<li><a class="nav-link" href="#iterative-refinement-for-sdm-models"><span class="header-section-number">12.5.3</span> 3. Iterative Refinement for SDM Models</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/11-sdm-algorithms-gbm-var-selection.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/11-sdm-algorithms-gbm-var-selection.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-02-05.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

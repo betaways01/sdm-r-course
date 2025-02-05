@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 8 Maxent Algorithm | A Minimal Book Example</title>
+<meta name="author" content="Basim Alsaedi">
+<meta name="description" content="8.0.1 1. Introduction to MaxEnt  What is MaxEnt? MaxEnt (Maximum Entropy Model) is a presence-only species distribution modeling (SDM) method. It predicts where a species is likely to occur based...">
+<meta name="generator" content="bookdown 0.41 with bs4_book()">
+<meta property="og:title" content="Chapter 8 Maxent Algorithm | A Minimal Book Example">
+<meta property="og:type" content="book">
+<meta property="og:description" content="8.0.1 1. Introduction to MaxEnt  What is MaxEnt? MaxEnt (Maximum Entropy Model) is a presence-only species distribution modeling (SDM) method. It predicts where a species is likely to occur based...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 8 Maxent Algorithm | A Minimal Book Example">
+<meta name="twitter:description" content="8.0.1 1. Introduction to MaxEnt  What is MaxEnt? MaxEnt (Maximum Entropy Model) is a presence-only species distribution modeling (SDM) method. It predicts where a species is likely to occur based...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0.9000/transition.js"></script><script src="libs/bs3compat-0.8.0.9000/tabs.js"></script><script src="libs/bs3compat-0.8.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">A Minimal Book Example</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Welcome!</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="understanding-spatial-data.html"><span class="header-section-number">3</span> Understanding Spatial Data</a></li>
+<li><a class="" href="spartial-data-in-r.html"><span class="header-section-number">4</span> Spartial Data in R</a></li>
+<li><a class="" href="key-spatial-concepts-and-terminologies.html"><span class="header-section-number">5</span> Key Spatial Concepts and Terminologies</a></li>
+<li><a class="" href="steps-in-species-distribution-modeling-sdm.html"><span class="header-section-number">6</span> Steps in Species Distribution Modeling (SDM)</a></li>
+<li><a class="" href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></li>
+<li><a class="active" href="maxent-algorithm.html"><span class="header-section-number">8</span> Maxent Algorithm</a></li>
+<li><a class="" href="exercise.html"><span class="header-section-number">9</span> Exercise</a></li>
+<li><a class="" href="maxent-bias-correction.html"><span class="header-section-number">10</span> Maxent Bias Correction</a></li>
+<li><a class="" href="cart-rf-and-gbm.html"><span class="header-section-number">11</span> Cart, RF, and GBM</a></li>
+<li><a class="" href="gbm-variable-selection.html"><span class="header-section-number">12</span> GBM Variable Selection</a></li>
+<li><a class="" href="model-evaluation-in-sdm.html"><span class="header-section-number">13</span> Model Evaluation in SDM</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="maxent-algorithm" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Maxent Algorithm<a class="anchor" aria-label="anchor" href="#maxent-algorithm"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-to-maxent" class="section level3" number="8.0.1">
+<h3>
+<span class="header-section-number">8.0.1</span> <strong>1. Introduction to MaxEnt</strong><a class="anchor" aria-label="anchor" href="#introduction-to-maxent"><i class="fas fa-link"></i></a>
+</h3>
+<div class="rmdimportant">
+<p><strong>What is MaxEnt?</strong></p>
+<p>MaxEnt (Maximum Entropy Model) is a <strong>presence-only species distribution modeling (SDM) method</strong>. It predicts where a species is likely to occur based on the <strong>environmental conditions</strong> at locations where the species has been observed.</p>
+</div>
+<div id="why-use-maxent" class="section level4" number="8.0.1.1">
+<h4>
+<span class="header-section-number">8.0.1.1</span> <strong>Why Use MaxEnt?</strong><a class="anchor" aria-label="anchor" href="#why-use-maxent"><i class="fas fa-link"></i></a>
+</h4>
+<p>MaxEnt is one of the most popular tools in ecology and conservation because:</p>
+<ul>
+<li>It works well even when you have <strong>limited data</strong>.</li>
+<li>It <strong>does not require absence data</strong>, which can be difficult to collect reliably.</li>
+<li>It produces intuitive, <strong>easy-to-interpret habitat suitability maps</strong>.</li>
+</ul>
+</div>
+<div id="key-use-cases" class="section level4" number="8.0.1.2">
+<h4>
+<span class="header-section-number">8.0.1.2</span> <strong>Key Use Cases</strong><a class="anchor" aria-label="anchor" href="#key-use-cases"><i class="fas fa-link"></i></a>
+</h4>
+<p>MaxEnt is used for tasks like:</p>
+<ul>
+<li>
+<strong>Predicting species distributions</strong>: Where might a species occur based on its environmental preferences?</li>
+<li>
+<strong>Assessing climate change impacts</strong>: How might a species’ range shift with future environmental changes?</li>
+<li>
+<strong>Conservation planning</strong>: Identifying areas of high suitability to protect key habitats.</li>
+</ul>
+<div class="rmdnote">
+<p><strong>Example</strong>: Imagine you have records of a bird species found only in forested areas. Using MaxEnt, you can predict which regions have similar forest conditions and are likely to be suitable for the bird.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="core-concepts-in-maxent" class="section level3" number="8.0.2">
+<h3>
+<span class="header-section-number">8.0.2</span> <strong>2. Core Concepts in MaxEnt</strong><a class="anchor" aria-label="anchor" href="#core-concepts-in-maxent"><i class="fas fa-link"></i></a>
+</h3>
+<div id="presence-background-method" class="section level4" number="8.0.2.1">
+<h4>
+<span class="header-section-number">8.0.2.1</span> <strong>Presence-Background Method</strong><a class="anchor" aria-label="anchor" href="#presence-background-method"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdimportant">
+<p><strong>How MaxEnt Works</strong></p>
+<p>MaxEnt estimates the probability of species presence based on <strong>environmental conditions</strong> at observed locations. It compares these conditions to randomly selected “background” points, which represent the available conditions across the study area.</p>
+</div>
+<div id="presence-background-density-estimation" class="section level5" number="8.0.2.1.1">
+<h5>
+<span class="header-section-number">8.0.2.1.1</span> <strong>Presence-Background Density Estimation</strong><a class="anchor" aria-label="anchor" href="#presence-background-density-estimation"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Presence data</strong>: Locations where the species has been observed (e.g., from field surveys or citizen science platforms like GBIF).</li>
+<li>
+<strong>Background data</strong>: A random sample of points across the landscape representing the environmental conditions available to the species.</li>
+</ul>
+<p>MaxEnt <strong>models the distribution of suitable habitat conditions</strong> by finding the most uniform (spread-out) distribution that matches the constraints provided by the presence data.</p>
+</div>
+<div id="role-of-constraints" class="section level5" number="8.0.2.1.2">
+<h5>
+<span class="header-section-number">8.0.2.1.2</span> <strong>Role of Constraints</strong><a class="anchor" aria-label="anchor" href="#role-of-constraints"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>Constraints are based on the <strong>environmental variables</strong> at presence locations.</li>
+<li>For example:
+<ul>
+<li>If a species is found only in areas with temperatures between 10–20°C, MaxEnt uses this as a constraint to predict suitable areas.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="key-assumptions" class="section level4" number="8.0.2.2">
+<h4>
+<span class="header-section-number">8.0.2.2</span> <strong>Key Assumptions</strong><a class="anchor" aria-label="anchor" href="#key-assumptions"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdcaution">
+<p><strong>Important Assumptions in MaxEnt</strong></p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Ecological Constraints</strong>: The species is limited by environmental factors included in the model (e.g., climate, soil, vegetation).</li>
+<li>
+<strong>Representative Background Points</strong>:
+<ul>
+<li>The selected background points represent all available environmental conditions in the study area.</li>
+</ul>
+</li>
+<li>
+<strong>Presence Data Quality</strong>:
+<ul>
+<li>Presence data reflects where the species occurs and is not heavily biased by sampling effort.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="illustrative-example" class="section level5" number="8.0.2.2.1">
+<h5>
+<span class="header-section-number">8.0.2.2.1</span> <strong>Illustrative Example</strong><a class="anchor" aria-label="anchor" href="#illustrative-example"><i class="fas fa-link"></i></a>
+</h5>
+<p>Suppose you are modeling the habitat of a butterfly species. Presence records show it prefers warm, humid areas with moderate vegetation cover. MaxEnt will identify regions with these conditions as suitable while ignoring drier or colder areas.</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="key-features-of-maxent" class="section level3" number="8.0.3">
+<h3>
+<span class="header-section-number">8.0.3</span> <strong>3. Key Features of MaxEnt</strong><a class="anchor" aria-label="anchor" href="#key-features-of-maxent"><i class="fas fa-link"></i></a>
+</h3>
+<div id="advantages-of-maxent" class="section level4" number="8.0.3.1">
+<h4>
+<span class="header-section-number">8.0.3.1</span> <strong>Advantages of MaxEnt</strong><a class="anchor" aria-label="anchor" href="#advantages-of-maxent"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdtip">
+<ul>
+<li>
+<strong>Handles Small Sample Sizes</strong>: MaxEnt is highly effective with limited data, making it ideal for rare or poorly sampled species.</li>
+<li>
+<strong>Robust to Overfitting</strong>: By using <strong>regularization</strong>, MaxEnt prevents overly complex models, ensuring predictions are realistic.</li>
+<li>
+<strong>Flexible and Intuitive</strong>: MaxEnt provides clear outputs like habitat suitability maps and response curves, which are easy to interpret.</li>
+</ul>
+</div>
+</div>
+<div id="disadvantages-of-maxent" class="section level4" number="8.0.3.2">
+<h4>
+<span class="header-section-number">8.0.3.2</span> <strong>Disadvantages of MaxEnt</strong><a class="anchor" aria-label="anchor" href="#disadvantages-of-maxent"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdcaution">
+<ul>
+<li>
+<strong>Sensitive to Background Points</strong>:
+<ul>
+<li>The choice of background data can significantly influence results. Poorly chosen background points can bias predictions.</li>
+</ul>
+</li>
+<li>
+<strong>User-Dependent Parameters</strong>:
+<ul>
+<li>MaxEnt requires users to make decisions about parameters like <strong>feature types</strong> and <strong>regularization multipliers</strong>. Poor choices may lead to misleading models.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="flexibility-in-modeling-features" class="section level4" number="8.0.3.3">
+<h4>
+<span class="header-section-number">8.0.3.3</span> <strong>Flexibility in Modeling Features</strong><a class="anchor" aria-label="anchor" href="#flexibility-in-modeling-features"><i class="fas fa-link"></i></a>
+</h4>
+<p>MaxEnt is powerful because it allows for <strong>nonlinear transformations</strong> of environmental predictors, making it adaptable to different species and datasets:</p>
+<ul>
+<li>
+<strong>Linear Features</strong>: Assume a direct relationship between predictors and suitability.</li>
+<li>
+<strong>Quadratic Features</strong>: Capture curved relationships.</li>
+<li>
+<strong>Hinge Features</strong>: Represent thresholds where suitability sharply increases or decreases.</li>
+<li>
+<strong>Product and Interaction Terms</strong>: Account for combined effects of predictors.</li>
+</ul>
+<div class="rmdnote">
+<p><strong>Why Nonlinear Features Matter</strong>:
+Imagine modeling a frog that thrives in warm but not extreme temperatures. A quadratic feature can capture the suitability peak at moderate temperatures and its decline at very high or low temperatures.</p>
+</div>
+<div id="visualizing-response-curves" class="section level5" number="8.0.3.3.1">
+<h5>
+<span class="header-section-number">8.0.3.3.1</span> <strong>Visualizing Response Curves</strong><a class="anchor" aria-label="anchor" href="#visualizing-response-curves"><i class="fas fa-link"></i></a>
+</h5>
+<p>Response curves show how predicted suitability changes with each environmental variable. These curves help interpret species-environment relationships.</p>
+<div class="rmdtip">
+<p>Use response curves to:
+1. Check if predictions align with ecological knowledge.
+2. Identify which variables are most influential in the model.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="decisions-in-maxent-modeling" class="section level3" number="8.0.4">
+<h3>
+<span class="header-section-number">8.0.4</span> <strong>4. Decisions in MaxEnt Modeling</strong><a class="anchor" aria-label="anchor" href="#decisions-in-maxent-modeling"><i class="fas fa-link"></i></a>
+</h3>
+<div id="background-selection" class="section level4" number="8.0.4.1">
+<h4>
+<span class="header-section-number">8.0.4.1</span> <strong>1. Background Selection</strong><a class="anchor" aria-label="anchor" href="#background-selection"><i class="fas fa-link"></i></a>
+</h4>
+<div class="rmdimportant">
+<p><strong>What Are Background Points?</strong>
+Background points represent the environmental conditions available in the study area. They are crucial because MaxEnt compares presence data to these points to identify suitable habitats.</p>
+</div>
+<div id="key-considerations-1" class="section level5" number="8.0.4.1.1">
+<h5>
+<span class="header-section-number">8.0.4.1.1</span> <strong>Key Considerations</strong><a class="anchor" aria-label="anchor" href="#key-considerations-1"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Study Area Definition</strong>:
+<ul>
+<li>Background points should reflect the accessible area for the species (e.g., its dispersal range).</li>
+</ul>
+</li>
+<li>
+<strong>Sampling Bias</strong>:
+<ul>
+<li>If presence data is biased (e.g., more points near roads), background points must be adjusted to avoid reinforcing this bias.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="how-to-address-sampling-bias" class="section level5" number="8.0.4.1.2">
+<h5>
+<span class="header-section-number">8.0.4.1.2</span> <strong>How to Address Sampling Bias</strong><a class="anchor" aria-label="anchor" href="#how-to-address-sampling-bias"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Target Group Sampling</strong>:
+<ul>
+<li>Use background points from locations where similar species have been sampled.</li>
+</ul>
+</li>
+<li>
+<strong>Spatial Bias Correction</strong>:
+<ul>
+<li>Weight background points to reflect unbiased sampling effort.</li>
+</ul>
+</li>
+</ol>
+<div class="rmdcaution">
+<p><strong>Watch Out For</strong>:
+Avoid using background points that include inaccessible areas or extreme environments irrelevant to the species.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="feature-selection" class="section level4" number="8.0.4.2">
+<h4>
+<span class="header-section-number">8.0.4.2</span> <strong>2. Feature Selection</strong><a class="anchor" aria-label="anchor" href="#feature-selection"><i class="fas fa-link"></i></a>
+</h4>
+<p>MaxEnt uses “features” to describe how predictors influence suitability. Choosing appropriate features is critical for building interpretable models.</p>
+<div id="steps-for-feature-selection" class="section level5" number="8.0.4.2.1">
+<h5>
+<span class="header-section-number">8.0.4.2.1</span> <strong>Steps for Feature Selection</strong><a class="anchor" aria-label="anchor" href="#steps-for-feature-selection"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Avoid Overfitting</strong>:
+<ul>
+<li>Use fewer, ecologically meaningful predictors to keep the model simple and interpretable.</li>
+</ul>
+</li>
+<li>
+<strong>Match Features to Sample Size</strong>:
+<ul>
+<li>Use only a few feature types if you have a small number of presence records. Complex features require more data.</li>
+</ul>
+</li>
+</ul>
+<div class="rmdnote">
+<p><strong>Example</strong>:
+If you have only 20 presence records, use linear and quadratic features. Avoid hinge and product features, which require more data to fit accurately.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="regularization" class="section level4" number="8.0.4.3">
+<h4>
+<span class="header-section-number">8.0.4.3</span> <strong>3. Regularization</strong><a class="anchor" aria-label="anchor" href="#regularization"><i class="fas fa-link"></i></a>
+</h4>
+<p>Regularization helps control model complexity by penalizing overfitting. The <strong>regularization multiplier</strong> (beta) determines the trade-off between model simplicity and accuracy.</p>
+<div id="how-to-choose-regularization-values" class="section level5" number="8.0.4.3.1">
+<h5>
+<span class="header-section-number">8.0.4.3.1</span> <strong>How to Choose Regularization Values</strong><a class="anchor" aria-label="anchor" href="#how-to-choose-regularization-values"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>
+<strong>Explore Different Values</strong>:
+<ul>
+<li>Test a range of beta values to find the one that produces the most parsimonious model (e.g., using cross-validation).</li>
+</ul>
+</li>
+<li>
+<strong>Default Settings</strong>:
+<ul>
+<li>MaxEnt provides default regularization settings, but they may not be optimal for all datasets. Adjust them based on your study goals.</li>
+</ul>
+</li>
+</ul>
+<div class="rmdtip">
+<p><strong>Pro Tip</strong>:
+Use regularization to ensure your model generalizes well to new data. Overly complex models may fit your training data perfectly but fail to predict real-world patterns.</p>
+</div>
+</div>
+<div id="why-regularization-matters" class="section level5" number="8.0.4.3.2">
+<h5>
+<span class="header-section-number">8.0.4.3.2</span> <strong>Why Regularization Matters</strong><a class="anchor" aria-label="anchor" href="#why-regularization-matters"><i class="fas fa-link"></i></a>
+</h5>
+<p>Without regularization, MaxEnt might overfit small or noisy datasets, producing misleading predictions.</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="visualization-example" class="section level3" number="8.0.5">
+<h3>
+<span class="header-section-number">8.0.5</span> <strong>Visualization Example:</strong><a class="anchor" aria-label="anchor" href="#visualization-example"><i class="fas fa-link"></i></a>
+</h3>
+<p>Below is an example of a MaxEnt model with different beta values:</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Fit MaxEnt models with varying regularization multipliers</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span></span>
+<span><span class="va">maxent_model_default</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/maxent.html">maxent</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">presences</span><span class="op">)</span></span>
+<span><span class="va">maxent_model_high_reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/maxent.html">maxent</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">presences</span>, args <span class="op">=</span> <span class="st">"betamultiplier=2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot response curves to compare</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">maxent_model_default</span>, type <span class="op">=</span> <span class="st">"response"</span>, main <span class="op">=</span> <span class="st">"Default Regularization"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">maxent_model_high_reg</span>, type <span class="op">=</span> <span class="st">"response"</span>, main <span class="op">=</span> <span class="st">"High Regularization"</span><span class="op">)</span></span></code></pre></div>
+<div class="rmdnote">
+<p><strong>Interpretation</strong>:
+- Default regularization may produce more detailed curves, but risks overfitting.
+- Higher regularization produces smoother, simpler response curves, ideal for generalization.</p>
+</div>
+<hr>
+</div>
+<div id="model-output-and-interpretation" class="section level3" number="8.0.6">
+<h3>
+<span class="header-section-number">8.0.6</span> <strong>5. Model Output and Interpretation</strong><a class="anchor" aria-label="anchor" href="#model-output-and-interpretation"><i class="fas fa-link"></i></a>
+</h3>
+<div id="output-types" class="section level4" number="8.0.6.1">
+<h4>
+<span class="header-section-number">8.0.6.1</span> <strong>Output Types</strong><a class="anchor" aria-label="anchor" href="#output-types"><i class="fas fa-link"></i></a>
+</h4>
+<p>MaxEnt produces three types of outputs, each serving a specific purpose:</p>
+<ul>
+<li>
+<strong>Raw Output</strong>:
+<ul>
+<li>Represents the relative suitability of each location based on the species’ environmental conditions.</li>
+<li>Values are not probabilities but are scaled to sum to 1 across all grid cells.</li>
+</ul>
+</li>
+<li>
+<strong>Cumulative Output</strong>:
+<ul>
+<li>Sums the probabilities for all grid cells with equal or lower suitability.</li>
+<li>Suitable for identifying the best locations for the species within the study area.</li>
+</ul>
+</li>
+<li>
+<strong>Logistic Output</strong>:
+<ul>
+<li>Transforms raw output into probability-like values (0 to 1).</li>
+<li>Represents the estimated probability of presence under certain assumptions about sampling effort.</li>
+</ul>
+</li>
+</ul>
+<div class="rmdnote">
+<p><strong>Pro Tip</strong>: The <strong>logistic output</strong> is often the most interpretable and commonly used because it reflects habitat suitability in a straightforward way.</p>
+</div>
+</div>
+<div id="suitability-map-visualization" class="section level4" number="8.0.6.2">
+<h4>
+<span class="header-section-number">8.0.6.2</span> <strong>Suitability Map Visualization</strong><a class="anchor" aria-label="anchor" href="#suitability-map-visualization"><i class="fas fa-link"></i></a>
+</h4>
+<p>Suitability maps are one of the most valuable outputs from MaxEnt, highlighting areas where a species is most likely to occur.</p>
+<div id="steps-to-generate-a-suitability-map" class="section level5" number="8.0.6.2.1">
+<h5>
+<span class="header-section-number">8.0.6.2.1</span> <strong>Steps to Generate a Suitability Map</strong><a class="anchor" aria-label="anchor" href="#steps-to-generate-a-suitability-map"><i class="fas fa-link"></i></a>
+</h5>
+<ol style="list-style-type: decimal">
+<li>Use the <strong>predict()</strong> function in MaxEnt to create predictions for your study area.</li>
+<li>Visualize the predictions using <strong>raster plotting tools</strong>.</li>
+</ol>
+</div>
+<div id="code-example" class="section level5" number="8.0.6.2.2">
+<h5>
+<span class="header-section-number">8.0.6.2.2</span> <strong>Code Example</strong>:<a class="anchor" aria-label="anchor" href="#code-example"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate predictions from the MaxEnt model</span></span>
+<span><span class="va">suitability_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">maxent_model</span>, <span class="va">predictors</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize the suitability map</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">suitability_map</span>, main <span class="op">=</span> <span class="st">"Habitat Suitability Map"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="interpreting-suitability-maps" class="section level5" number="8.0.6.2.3">
+<h5>
+<span class="header-section-number">8.0.6.2.3</span> <strong>Interpreting Suitability Maps</strong><a class="anchor" aria-label="anchor" href="#interpreting-suitability-maps"><i class="fas fa-link"></i></a>
+</h5>
+<ul>
+<li>Areas with <strong>higher suitability values</strong> (e.g., 0.7–1.0 in logistic output) indicate optimal conditions for the species.</li>
+<li>Areas with <strong>lower values</strong> (e.g., 0–0.3) are less suitable or unsuitable for the species.</li>
+</ul>
+<div class="rmdtip">
+<p><strong>Analyze Patterns</strong>:
+Look for clusters of high-suitability areas to identify key habitats or potential range shifts under changing conditions.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="evaluating-maxent-models" class="section level3" number="8.0.7">
+<h3>
+<span class="header-section-number">8.0.7</span> <strong>6. Evaluating MaxEnt Models</strong><a class="anchor" aria-label="anchor" href="#evaluating-maxent-models"><i class="fas fa-link"></i></a>
+</h3>
+<div id="performance-metrics" class="section level4" number="8.0.7.1">
+<h4>
+<span class="header-section-number">8.0.7.1</span> <strong>Performance Metrics</strong><a class="anchor" aria-label="anchor" href="#performance-metrics"><i class="fas fa-link"></i></a>
+</h4>
+<p>Model evaluation is essential to ensure your predictions are accurate and ecologically meaningful. MaxEnt provides several metrics to assess performance:</p>
+<ul>
+<li>
+<strong>AUC (Area Under the ROC Curve)</strong>:
+<ul>
+<li>Measures the model’s ability to distinguish between presence and background points.</li>
+<li>Values range from:
+<ul>
+<li>
+<strong>0.5</strong>: Random prediction.</li>
+<li>
+<strong>1.0</strong>: Perfect prediction.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div id="code-example-1" class="section level5" number="8.0.7.1.1">
+<h5>
+<span class="header-section-number">8.0.7.1.1</span> <strong>Code Example</strong>:<a class="anchor" aria-label="anchor" href="#code-example-1"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Evaluate the MaxEnt model's performance</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span><span class="va">predicted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">suitability_map</span>, <span class="va">presence_points</span><span class="op">)</span></span>
+<span><span class="va">background</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">suitability_map</span>, <span class="va">background_points</span><span class="op">)</span></span>
+<span><span class="va">roc_curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">predicted</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">background</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">predicted</span>, <span class="va">background</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">roc_curve</span>, main <span class="op">=</span> <span class="st">"ROC Curve for MaxEnt Model"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="va">roc_curve</span><span class="op">)</span>  <span class="co"># Calculate AUC value</span></span></code></pre></div>
+<div class="rmdnote">
+<p><strong>Interpretation</strong>:
+An AUC &gt; 0.7 indicates a good model, while values &gt; 0.9 suggest excellent predictive power.</p>
+</div>
+<ul>
+<li>
+<strong>AIC (Akaike Information Criterion)</strong>:
+<ul>
+<li>Used to compare models and select the best one based on simplicity and goodness of fit.</li>
+<li>Can be calculated using tools like <strong>ENMTools</strong>.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="validation-techniques-1" class="section level4" number="8.0.7.2">
+<h4>
+<span class="header-section-number">8.0.7.2</span> <strong>Validation Techniques</strong><a class="anchor" aria-label="anchor" href="#validation-techniques-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Validation ensures your MaxEnt model generalizes well to new data. Common approaches include:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Training vs. Testing Data</strong>:
+<ul>
+<li>Split the occurrence data into:
+<ul>
+<li>
+<strong>Training Data</strong>: Used to build the model.</li>
+<li>
+<strong>Testing Data</strong>: Used to evaluate the model’s predictive performance.</li>
+</ul>
+</li>
+<li>Example: Use a 70:30 split.</li>
+</ul>
+</li>
+<li>
+<strong>Cross-Validation</strong>:
+<ul>
+<li>Divide the data into <strong>k-folds</strong> (e.g., 5 or 10).</li>
+<li>Train the model on k-1 folds and test on the remaining fold.</li>
+<li>Repeat this process k times and average the results.</li>
+</ul>
+</li>
+</ol>
+<div id="code-example-2" class="section level5" number="8.0.7.2.1">
+<h5>
+<span class="header-section-number">8.0.7.2.1</span> <strong>Code Example</strong>:<a class="anchor" aria-label="anchor" href="#code-example-2"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Perform k-fold cross-validation</span></span>
+<span><span class="va">maxent_model_cv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/maxent.html">maxent</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">presence_points</span>, args <span class="op">=</span> <span class="st">"replicates=5"</span><span class="op">)</span></span></code></pre></div>
+<div class="rmdtip">
+<p><strong>Best Practice</strong>:
+Use cross-validation for small datasets to maximize the use of available data while ensuring robust evaluation.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="key-takeaways-for-model-evaluation" class="section level3" number="8.0.8">
+<h3>
+<span class="header-section-number">8.0.8</span> <strong>Key Takeaways for Model Evaluation</strong><a class="anchor" aria-label="anchor" href="#key-takeaways-for-model-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Combine Metrics</strong>: Use multiple metrics (e.g., AUC, AIC) for a comprehensive assessment.</li>
+<li>
+<strong>Validate Ecologically</strong>: Ensure that predicted distributions align with the species’ known ecology.</li>
+<li>
+<strong>Test and Iterate</strong>: Experiment with different parameter settings and background points to optimize the model.</li>
+</ol>
+<hr>
+</div>
+<div id="practical-application" class="section level3" number="8.0.9">
+<h3>
+<span class="header-section-number">8.0.9</span> <strong>7. Practical Application</strong><a class="anchor" aria-label="anchor" href="#practical-application"><i class="fas fa-link"></i></a>
+</h3>
+<div id="building-a-maxent-model-in-r-step-by-step" class="section level4" number="8.0.9.1">
+<h4>
+<span class="header-section-number">8.0.9.1</span> <strong>Building a MaxEnt Model in R: Step-by-Step</strong><a class="anchor" aria-label="anchor" href="#building-a-maxent-model-in-r-step-by-step"><i class="fas fa-link"></i></a>
+</h4>
+<p>Let’s walk through a practical example to map the distribution of a hypothetical species using MaxEnt in R.</p>
+<div id="step-1-load-required-libraries" class="section level5" number="8.0.9.1.1">
+<h5>
+<span class="header-section-number">8.0.9.1.1</span> <strong>Step 1: Load Required Libraries</strong><a class="anchor" aria-label="anchor" href="#step-1-load-required-libraries"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster/sdm/">dismo</a></span><span class="op">)</span>  <span class="co"># For MaxEnt modeling</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span> <span class="co"># For working with spatial raster data</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">maps</span><span class="op">)</span>   <span class="co"># For map visualization</span></span></code></pre></div>
+</div>
+<div id="step-2-load-occurrence-data" class="section level5" number="8.0.9.1.2">
+<h5>
+<span class="header-section-number">8.0.9.1.2</span> <strong>Step 2: Load Occurrence Data</strong><a class="anchor" aria-label="anchor" href="#step-2-load-occurrence-data"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example occurrence data included in the dismo package</span></span>
+<span><span class="va">occurrence_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"ex"</span>, <span class="st">"bradypus.csv"</span>, package <span class="op">=</span> <span class="st">"dismo"</span><span class="op">)</span></span>
+<span><span class="va">occurrences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">occurrence_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Keep only latitude and longitude columns</span></span>
+<span><span class="va">occurrences</span> <span class="op">&lt;-</span> <span class="va">occurrences</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">occurrences</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize occurrences on a map</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/maps/man/map.html">map</a></span><span class="op">(</span><span class="st">"world"</span>, col <span class="op">=</span> <span class="st">"gray90"</span>, fill <span class="op">=</span> <span class="cn">TRUE</span>, bg <span class="op">=</span> <span class="st">"lightblue"</span>, lwd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/lines.html">points</a></span><span class="op">(</span><span class="va">occurrences</span>, col <span class="op">=</span> <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="step-3-load-environmental-predictors" class="section level5" number="8.0.9.1.3">
+<h5>
+<span class="header-section-number">8.0.9.1.3</span> <strong>Step 3: Load Environmental Predictors</strong><a class="anchor" aria-label="anchor" href="#step-3-load-environmental-predictors"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example environmental data provided in the dismo package</span></span>
+<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"ex"</span>, package <span class="op">=</span> <span class="st">"dismo"</span><span class="op">)</span></span>
+<span><span class="va">predictor_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="va">path</span>, pattern <span class="op">=</span> <span class="st">"grd$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Stack environmental layers</span></span>
+<span><span class="va">predictors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="va">predictor_files</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize one predictor</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">predictors</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Environmental Predictor: Layer 1"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="step-4-fit-the-maxent-model" class="section level5" number="8.0.9.1.4">
+<h5>
+<span class="header-section-number">8.0.9.1.4</span> <strong>Step 4: Fit the MaxEnt Model</strong><a class="anchor" aria-label="anchor" href="#step-4-fit-the-maxent-model"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Fit the MaxEnt model</span></span>
+<span><span class="va">maxent_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/maxent.html">maxent</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="va">occurrences</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View summary of the MaxEnt model</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">maxent_model</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="step-5-generate-predictions" class="section level5" number="8.0.9.1.5">
+<h5>
+<span class="header-section-number">8.0.9.1.5</span> <strong>Step 5: Generate Predictions</strong><a class="anchor" aria-label="anchor" href="#step-5-generate-predictions"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a suitability map</span></span>
+<span><span class="va">suitability_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">maxent_model</span>, <span class="va">predictors</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize the suitability map</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">suitability_map</span>, main <span class="op">=</span> <span class="st">"MaxEnt Habitat Suitability Map"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/maps/man/map.html">map</a></span><span class="op">(</span><span class="st">"world"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"gray"</span>, lwd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="step-6-evaluate-model-performance" class="section level5" number="8.0.9.1.6">
+<h5>
+<span class="header-section-number">8.0.9.1.6</span> <strong>Step 6: Evaluate Model Performance</strong><a class="anchor" aria-label="anchor" href="#step-6-evaluate-model-performance"><i class="fas fa-link"></i></a>
+</h5>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Use training/testing split for evaluation</span></span>
+<span><span class="va">presence_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">suitability_map</span>, <span class="va">occurrences</span><span class="op">)</span></span>
+<span><span class="va">background_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dismo/man/randomPoints.html">randomPoints</a></span><span class="op">(</span><span class="va">predictors</span>, <span class="fl">500</span><span class="op">)</span>  <span class="co"># Generate background points</span></span>
+<span><span class="va">background_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">suitability_map</span>, <span class="va">background_points</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine predictions</span></span>
+<span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">presence_values</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">background_values</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">presence_values</span>, <span class="va">background_values</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Evaluate model performance using AUC</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
+<span><span class="va">roc_curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">labels</span>, <span class="va">predictions</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">roc_curve</span>, main <span class="op">=</span> <span class="st">"ROC Curve for MaxEnt Model"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="va">roc_curve</span><span class="op">)</span>  <span class="co"># Calculate AUC value</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="tips-for-interpreting-and-troubleshooting-results" class="section level4" number="8.0.9.2">
+<h4>
+<span class="header-section-number">8.0.9.2</span> <strong>Tips for Interpreting and Troubleshooting Results</strong><a class="anchor" aria-label="anchor" href="#tips-for-interpreting-and-troubleshooting-results"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Interpreting Maps</strong>:
+<ul>
+<li>High suitability values indicate areas where the species is more likely to occur.</li>
+<li>Compare predicted distributions with known habitat preferences.</li>
+</ul>
+</li>
+<li>
+<strong>Troubleshooting Common Issues</strong>:
+<ul>
+<li>If the model overfits: Adjust regularization parameters.</li>
+<li>If predictions seem unrealistic: Check for collinearity in predictors or sampling bias in occurrence data.</li>
+</ul>
+</li>
+</ol>
+<div class="rmdtip">
+<p><strong>Pro Tip</strong>: Always validate model outputs against ecological knowledge to ensure meaningful predictions.</p>
+</div>
+<hr>
+</div>
+</div>
+<div id="common-pitfalls-and-best-practices" class="section level3" number="8.0.10">
+<h3>
+<span class="header-section-number">8.0.10</span> <strong>8. Common Pitfalls and Best Practices</strong><a class="anchor" aria-label="anchor" href="#common-pitfalls-and-best-practices"><i class="fas fa-link"></i></a>
+</h3>
+<div id="common-pitfalls" class="section level4" number="8.0.10.1">
+<h4>
+<span class="header-section-number">8.0.10.1</span> <strong>Common Pitfalls</strong><a class="anchor" aria-label="anchor" href="#common-pitfalls"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Over-reliance on Defaults</strong>:
+<ul>
+<li>The default settings in MaxEnt are not always optimal for your dataset.</li>
+<li>Customize feature selection and regularization settings based on the species and study area.</li>
+</ul>
+</li>
+<li>
+<strong>Ignoring Background Selection</strong>:
+<ul>
+<li>Poorly chosen background points can distort predictions.</li>
+<li>Ensure background points represent the environmental availability in the study area.</li>
+</ul>
+</li>
+<li>
+<strong>Overfitting</strong>:
+<ul>
+<li>Overfitting occurs when the model is too complex for the data.</li>
+<li>Avoid overfitting by simplifying feature selection and increasing regularization.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="best-practices" class="section level4" number="8.0.10.2">
+<h4>
+<span class="header-section-number">8.0.10.2</span> <strong>Best Practices</strong><a class="anchor" aria-label="anchor" href="#best-practices"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>
+<strong>Leverage Ecological Knowledge</strong>:
+<ul>
+<li>Select predictors that are ecologically relevant to the species.</li>
+<li>Avoid including highly correlated predictors.</li>
+</ul>
+</li>
+<li>
+<strong>Validate Thoroughly</strong>:
+<ul>
+<li>Use cross-validation to assess model performance.</li>
+<li>Combine statistical metrics (e.g., AUC) with ecological validation.</li>
+</ul>
+</li>
+<li>
+<strong>Iterate and Refine</strong>:
+<ul>
+<li>Test different combinations of predictors and settings.</li>
+<li>Aim for a balance between simplicity and predictive accuracy.</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="summary-and-key-takeaways-3" class="section level3" number="8.0.11">
+<h3>
+<span class="header-section-number">8.0.11</span> <strong>9. Summary and Key Takeaways</strong><a class="anchor" aria-label="anchor" href="#summary-and-key-takeaways-3"><i class="fas fa-link"></i></a>
+</h3>
+<div id="strengths-of-maxent" class="section level4" number="8.0.11.1">
+<h4>
+<span class="header-section-number">8.0.11.1</span> <strong>Strengths of MaxEnt</strong><a class="anchor" aria-label="anchor" href="#strengths-of-maxent"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>Handles presence-only data effectively.</li>
+<li>Robust to small sample sizes.</li>
+<li>Provides intuitive outputs like habitat suitability maps.</li>
+</ul>
+</div>
+<div id="limitations-of-maxent" class="section level4" number="8.0.11.2">
+<h4>
+<span class="header-section-number">8.0.11.2</span> <strong>Limitations of MaxEnt</strong><a class="anchor" aria-label="anchor" href="#limitations-of-maxent"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>Sensitive to background point selection and sampling bias.</li>
+<li>Requires careful tuning of regularization and feature selection.</li>
+</ul>
+</div>
+<div id="key-guidance-for-applying-maxent" class="section level4" number="8.0.11.3">
+<h4>
+<span class="header-section-number">8.0.11.3</span> <strong>Key Guidance for Applying MaxEnt</strong><a class="anchor" aria-label="anchor" href="#key-guidance-for-applying-maxent"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Start Simple</strong>:
+<ul>
+<li>Begin with a small set of predictors and refine as needed.</li>
+</ul>
+</li>
+<li>
+<strong>Validate Ecologically</strong>:
+<ul>
+<li>Ensure predictions align with species’ known ecology.</li>
+</ul>
+</li>
+<li>
+<strong>Iterate and Improve</strong>:
+<ul>
+<li>Regularly test and update your model for the best results.</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+<div id="by-understanding-its-strengths-limitations-and-best-practices-you-can-confidently-use-maxent-for-ecological-research-and-conservation-planning." class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> By understanding its strengths, limitations, and best practices, you can confidently use MaxEnt for ecological research and conservation planning.<a class="anchor" aria-label="anchor" href="#by-understanding-its-strengths-limitations-and-best-practices-you-can-confidently-use-maxent-for-ecological-research-and-conservation-planning."><i class="fas fa-link"></i></a>
+</h2>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="sdm-techniques.html"><span class="header-section-number">7</span> SDM Techniques</a></div>
+<div class="next"><a href="exercise.html"><span class="header-section-number">9</span> Exercise</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#maxent-algorithm"><span class="header-section-number">8</span> Maxent Algorithm</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-maxent"><span class="header-section-number">8.0.1</span> 1. Introduction to MaxEnt</a></li>
+<li><a class="nav-link" href="#core-concepts-in-maxent"><span class="header-section-number">8.0.2</span> 2. Core Concepts in MaxEnt</a></li>
+<li><a class="nav-link" href="#key-features-of-maxent"><span class="header-section-number">8.0.3</span> 3. Key Features of MaxEnt</a></li>
+<li><a class="nav-link" href="#decisions-in-maxent-modeling"><span class="header-section-number">8.0.4</span> 4. Decisions in MaxEnt Modeling</a></li>
+<li><a class="nav-link" href="#visualization-example"><span class="header-section-number">8.0.5</span> Visualization Example:</a></li>
+<li><a class="nav-link" href="#model-output-and-interpretation"><span class="header-section-number">8.0.6</span> 5. Model Output and Interpretation</a></li>
+<li><a class="nav-link" href="#evaluating-maxent-models"><span class="header-section-number">8.0.7</span> 6. Evaluating MaxEnt Models</a></li>
+<li><a class="nav-link" href="#key-takeaways-for-model-evaluation"><span class="header-section-number">8.0.8</span> Key Takeaways for Model Evaluation</a></li>
+<li><a class="nav-link" href="#practical-application"><span class="header-section-number">8.0.9</span> 7. Practical Application</a></li>
+<li><a class="nav-link" href="#common-pitfalls-and-best-practices"><span class="header-section-number">8.0.10</span> 8. Common Pitfalls and Best Practices</a></li>
+<li><a class="nav-link" href="#summary-and-key-takeaways-3"><span class="header-section-number">8.0.11</span> 9. Summary and Key Takeaways</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#by-understanding-its-strengths-limitations-and-best-practices-you-can-confidently-use-maxent-for-ecological-research-and-conservation-planning."><span class="header-section-number">8.1</span> By understanding its strengths, limitations, and best practices, you can confidently use MaxEnt for ecological research and conservation planning.</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/07-sdm-algorithms-maxent.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/07-sdm-algorithms-maxent.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>A Minimal Book Example</strong>" was written by Basim Alsaedi. It was last built on 2025-02-05.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,2 +1,40 @@
 h1:maxent-bias-correction Maxent Bias Correction
+h3:introduction-to-bias-in-maxent-models 
+h4:what-is-bias 
+h4:impact-of-bias 
+h4:why-is-bias-correction-important 
+h3:callout-blocks-to-clarify-key-points 
+h4:real-life-example 
+h4:simple-visualization 
+h4:summary 
+h3:types-of-bias 
+h4:sampling-bias 
+h4:spatial-bias 
+h4:data-bias 
+h4:summary-1 
+h4:spatial-thinning 
+h4:target-group-background-sampling 
+h4:bias-files 
+h4:environmental-filters 
+h3:practical-application-bias-correction-in-r 
+h4:step-1-spatial-thinning 
+h4:step-2-generate-a-bias-file 
+h4:step-3-apply-target-group-background-sampling 
+h4:step-4-filter-environmental-predictors 
+h4:code-workflow-example :
+h4:comparison-of-metrics 
+h5:code-example-compare-auc-before-and-after-bias-correction 
+h4:visual-inspection 
+h5:code-example-compare-suitability-maps-before-and-after-bias-correction 
+h4:ecological-plausibility 
+h3:common-pitfalls-in-bias-correction 
+h4:over-thinning-leading-to-loss-of-valuable-data 
+h5:code-example-adjust-thinning-distance 
+h4:inappropriate-use-of-bias-layers 
+h5:code-example-normalize-bias-raster-properly 
+h4:neglecting-ecological-relevance-during-correction 
+h3:summary-and-best-practices 
+h4:key-takeaways-for-bias-correction 
+h4:checklist-for-implementing-bias-correction-in-maxent 
+h2:by-following-these-best-practices-you-can-ensure-your-maxent-model-provides-realistic-unbiased-predictions-that-contribute-meaningfully-to-ecological-research-and-conservation. By following these best practices, you can ensure  that contribute meaningfully to ecological research and conservation. 🚀
 

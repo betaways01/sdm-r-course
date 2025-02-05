@@ -1,2 +1,54 @@
-h1:model-evaluation Model Evaluation
+h1:model-evaluation-in-sdm Model Evaluation in SDM
+h2:introduction-to-model-evaluation 
+h3:why-model-evaluation-is-important-in-sdm 
+h3:key-objectives-of-model-evaluation 
+h3:common-pitfalls-in-model-evaluation 
+h2:performance-metrics-for-model-evaluation 
+h3:classification-metrics-for-presenceabsence-models 
+h4:accuracy-overall-correctness-of-predictions  – Overall correctness of predictions
+h4:sensitivity-recall-ability-to-correctly-predict-species-presence  – Ability to correctly predict species presence
+h4:specificity-ability-to-correctly-predict-absence  – Ability to correctly predict absence
+h4:kappa-statistic-agreement-beyond-random-chance  – Agreement Beyond Random Chance
+h3:area-under-the-curve-auc-roc-auc-pr 
+h4:roc-curve-receiver-operating-characteristic-curve 
+h4:precision-recall-pr-curve-best-for-rare-species 
+h3:true-skill-statistic-tss 
+h3:root-mean-square-error-rmse-for-continuous-models 
+h2:comparison-of-model-evaluation-metrics 
+h3:next-steps 
+h3:train-test-split 
+h4:code-example-train-test-split 
+h3:cross-validation 
+h4:k-fold-cross-validation 
+h4:code-example-k-fold-cross-validation 
+h4:leave-one-out-cross-validation-loocv 
+h4:code-example-loocv 
+h3:spatially-explicit-validation 
+h4:approach-block-cross-validation 
+h4:code-example-spatial-cross-validation 
+h2:visualizing-model-performance 
+h3:roc-and-precision-recall-curves 
+h4:roc-curve-receiver-operating-characteristic-curve-1 
+h4:code-example-plot-roc-curve 
+h4:precision-recall-curve 
+h4:code-example-precision-recall-curve 
+h3:suitability-maps-and-threshold-selection 
+h4:thresholding-approaches 
+h4:code-example-suitability-map-with-thresholding 
+h3:response-curves 
+h4:code-example-plot-response-curves 
+h3:summary-key-model-validation-visualization-techniques 
+h3:next-steps-1 
+h2:comparing-models-cart-rf-gbm-and-maxent 
+h3:best-evaluation-metrics-for-tree-based-vs.-presence-background-models 
+h3:when-to-use-different-sdm-models 
+h3:performance-trade-offs-interpretability-vs.-accuracy-vs.-computational-cost 
+h2:common-pitfalls-in-model-evaluation-1 
+h3:overfitting-when-a-model-is-too-complex-and-fails-to-generalize 
+h3:ignoring-spatial-bias-why-presence-points-should-be-spatially-independent 
+h3:improper-thresholding-setting-unrealistic-suitability-cutoffs 
+h2:summary-best-practices 
+h3:key-takeaways-from-model-evaluation 
+h3:recommended-workflow-for-assessing-sdm-performance 
+h3:iterative-improvements-how-to-refine-models-based-on-evaluation-results 
 
